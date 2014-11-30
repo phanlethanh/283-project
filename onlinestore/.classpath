@@ -28,9 +28,105 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Excirse/Spring mvc/commons-beanutils-1.8.0.jar">
 		<attributes>
-			<attribute name="owner.project.facets" value="java"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Excirse/Spring mvc/commons-digester-2.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/jcl-over-slf4j-1.5.8.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/slf4j-api-1.5.8.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/slf4j-jdk14-1.5.8.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-api-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-compat-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-core-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-el-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-extras-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-freemarker-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-jsp-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-mvel-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-ognl-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-portlet-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-portlet-wildcard-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-servlet-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-servlet-wildcard-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-template-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Data/CDIO 2014-2015/Java phân tán/Tool &amp; Library/tiles-2.2.2/tiles-velocity-2.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
