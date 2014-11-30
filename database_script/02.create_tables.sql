@@ -92,7 +92,7 @@ CREATE TABLE category
 (
   id serial NOT NULL,
   name character varying(32),
-  "position" integer,
+  priority integer,
   create_date timestamp without time zone,
   write_date timestamp without time zone,
   active boolean,
