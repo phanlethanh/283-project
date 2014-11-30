@@ -17,6 +17,7 @@ INSERT INTO status(name) VALUES ('out of stock'); -- 5
 
 -- Statuses of order
 INSERT INTO status(name) VALUES ('create'); -- 6
+INSERT INTO status(name) VALUES ('confirm'); -- 7
 INSERT INTO status(name) VALUES ('shipping'); -- 7
 INSERT INTO status(name) VALUES ('done'); -- 8
 INSERT INTO status(name) VALUES ('cancel'); -- 9

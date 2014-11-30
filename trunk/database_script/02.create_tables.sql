@@ -30,6 +30,7 @@ CREATE TABLE os_user
   full_name character varying(32),
   address character varying(256),
   phone character varying(16),
+  email character varying(64),
   create_date timestamp without time zone,
   write_date timestamp without time zone,
   active boolean,
