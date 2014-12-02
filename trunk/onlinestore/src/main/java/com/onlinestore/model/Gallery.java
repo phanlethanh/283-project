@@ -26,6 +26,7 @@ import javax.persistence.TemporalType;
 public class Gallery implements java.io.Serializable {
 
 	private int id;
+	private String name;
 	private Date createDate;
 	private Date writeDate;
 	private Boolean active;
@@ -58,6 +59,15 @@ public class Gallery implements java.io.Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	@Column(name = "name", length = 32)
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
