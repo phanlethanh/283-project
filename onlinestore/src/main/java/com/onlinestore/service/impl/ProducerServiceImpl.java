@@ -14,7 +14,7 @@ import com.onlinestore.service.ProducerService;
 @Transactional
 public class ProducerServiceImpl implements ProducerService {
 
-	@Autowired
+	
 	private ProducerDao producerDao;
 	
 	public void createProducer(Producer producer) {

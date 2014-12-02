@@ -14,7 +14,7 @@ import com.onlinestore.service.CategoryProductService;
 @Transactional
 public class CategoryProductServiceImpl implements CategoryProductService{
 
-	@Autowired
+	
 	private CategoryProductDao cpDao;
 	
 	public void createCategoryProduct(CategoryProduct categoryProduct) {

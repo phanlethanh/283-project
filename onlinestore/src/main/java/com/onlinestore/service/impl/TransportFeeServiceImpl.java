@@ -14,7 +14,7 @@ import com.onlinestore.service.TransportFeeService;
 @Transactional
 public class TransportFeeServiceImpl implements TransportFeeService {
 
-	@Autowired
+	
 	private TransportFeeDao tfDao;
 	
 	public void createTransportFee(TransportFee transportFee) {

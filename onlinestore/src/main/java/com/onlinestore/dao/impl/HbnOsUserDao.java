@@ -9,4 +9,9 @@ import com.onlinestore.model.OsUser;
 @Repository
 public class HbnOsUserDao extends AbstractHbnDao<OsUser> implements OsUserDao {
 
+	public OsUser getOsUser(String userName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

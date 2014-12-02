@@ -14,7 +14,7 @@ import com.onlinestore.service.ConfigService;
 @Transactional
 public class ConfigServiceImpl implements ConfigService{
 
-	@Autowired
+	
 	private ConfigDao configDao;
 	
 	public void createConfig(Config config) {

@@ -14,7 +14,7 @@ import com.onlinestore.service.ProductService;
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
-	@Autowired
+	
 	private ProductDao productDao;
 	
 	public void createProduct(Product product) {

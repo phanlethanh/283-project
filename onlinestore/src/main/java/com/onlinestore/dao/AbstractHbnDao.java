@@ -41,8 +41,10 @@ public abstract class AbstractHbnDao<T extends Object> implements Dao<T> {
 				method.invoke(t, new Date());
 			} catch (Exception e) { /* Ignore */
 			}
-			getSession().save(t);
+			
+			System.out.print("session");
 		}
+		getSession().save(t);
 	}
 
 	public T get(Serializable id) {

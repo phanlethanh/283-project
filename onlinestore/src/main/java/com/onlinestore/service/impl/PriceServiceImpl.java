@@ -14,7 +14,7 @@ import com.onlinestore.service.PriceService;
 @Transactional
 public class PriceServiceImpl implements PriceService {
 
-	@Autowired
+	
 	private PriceDao priceDao;
 
 	public void createPrice(Price price) {

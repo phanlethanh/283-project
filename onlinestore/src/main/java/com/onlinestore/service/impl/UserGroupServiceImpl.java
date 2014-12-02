@@ -14,7 +14,7 @@ import com.onlinestore.service.UserGroupService;
 @Transactional
 public class UserGroupServiceImpl implements UserGroupService {
 
-	@Autowired
+	
 	private UserGroupDao userGroupDao;
 	
 	public void createUserGroup(UserGroup userGroup) {

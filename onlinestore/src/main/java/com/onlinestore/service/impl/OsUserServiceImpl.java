@@ -33,7 +33,7 @@ public class OsUserServiceImpl implements OsUserService {
 		userDao.update(osUser);
 	}
 
-	public void deleteOsUser(Long id) {
+	public void deleteOsUser(Integer id) {
 		userDao.deleteById(id);
 	}
 

@@ -14,7 +14,7 @@ import com.onlinestore.service.StatusService;
 @Transactional
 public class StatusServiceImpl implements StatusService {
 
-	@Autowired
+	
 	private StatusDao statusDao;
 
 	public void createStatus(Status status) {

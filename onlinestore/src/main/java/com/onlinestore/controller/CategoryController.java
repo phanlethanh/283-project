@@ -10,7 +10,6 @@ public class CategoryController {
 	@RequestMapping (value="/homes")
 	public ModelAndView index()
 	{
-		System.out.print("abc");
 		String message = "Home-Page";
 		return new ModelAndView("home","message",message);
 	}
