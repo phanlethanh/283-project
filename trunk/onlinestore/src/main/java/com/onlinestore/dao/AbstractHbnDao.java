@@ -34,16 +34,6 @@ public abstract class AbstractHbnDao<T extends Object> implements Dao<T> {
 	}
 
 	public void create(T t) {
-		Method method = ReflectionUtils.findMethod(getDomainClass(),
-				"setDateCreated", new Class[] { Date.class });
-		if (method != null) {
-			try {
-				method.invoke(t, new Date());
-			} catch (Exception e) { /* Ignore */
-			}
-			
-			System.out.print("session");
-		}
 		getSession().save(t);
 	}
 

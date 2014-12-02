@@ -2,7 +2,6 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,7 @@ public class TaxServiceImpl implements TaxService{
 		return taxDao.getAll();
 	}
 
-	public Tax getTax(Long id) {
+	public Tax getTax(Integer id) {
 		return taxDao.get(id);
 	}
 
@@ -33,7 +32,7 @@ public class TaxServiceImpl implements TaxService{
 		taxDao.update(tax);
 	}
 
-	public void deleteTax(Long id) {
+	public void deleteTax(Integer id) {
 		taxDao.deleteById(id);
 	}
 

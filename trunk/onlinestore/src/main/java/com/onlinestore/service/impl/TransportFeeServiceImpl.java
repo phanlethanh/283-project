@@ -2,7 +2,6 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,7 @@ public class TransportFeeServiceImpl implements TransportFeeService {
 		return tfDao.getAll();
 	}
 
-	public TransportFee getTransportFee(Long id) {
+	public TransportFee getTransportFee(Integer id) {
 		return tfDao.get(id);
 	}
 
@@ -33,7 +32,7 @@ public class TransportFeeServiceImpl implements TransportFeeService {
 		tfDao.update(transportFee);
 	}
 
-	public void deleteTransportFee(Long id) {
+	public void deleteTransportFee(Integer id) {
 		tfDao.deleteById(id);
 	}
 

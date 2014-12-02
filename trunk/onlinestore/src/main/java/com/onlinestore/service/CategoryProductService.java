@@ -9,9 +9,9 @@ public interface CategoryProductService {
 	
 	List<CategoryProduct> getCategoryProducts();
 	
-	CategoryProduct getCategoryProduct(Long id);
+	CategoryProduct getCategoryProduct(Integer id);
 	
 	void updateCategoryProduct(CategoryProduct categoryProduct);
 	
-	void deleteCategoryProduct(Long id);
+	void deleteCategoryProduct(Integer id);
 }

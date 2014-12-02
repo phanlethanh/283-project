@@ -9,9 +9,9 @@ public interface StatusService {
 
 	List<Status> getStatuses();
 
-	Status getStatus(Long id);
+	Status getStatus(Integer id);
 
 	void updateStatus(Status status);
 
-	void deleteStatus(Long id);
+	void deleteStatus(Integer id);
 }

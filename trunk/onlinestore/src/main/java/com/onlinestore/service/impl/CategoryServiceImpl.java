@@ -2,7 +2,6 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDao.getAll();
 	}
 
-	public Category getCategory(Long id) {
+	public Category getCategory(Integer id) {
 		return categoryDao.get(id);
 	}
 
@@ -33,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
 		categoryDao.update(category);
 	}
 
-	public void deleteCategory(Long id) {
+	public void deleteCategory(Integer id) {
 		categoryDao.deleteById(id);		
 	}
 	

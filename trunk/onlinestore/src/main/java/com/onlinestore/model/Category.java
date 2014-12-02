@@ -1,13 +1,17 @@
 package com.onlinestore.model;
 
-// Generated Nov 29, 2014 12:31:44 PM by Hibernate Tools 3.4.0.CR1
+// Generated Dec 2, 2014 6:41:20 PM by Hibernate Tools 3.4.0.CR1
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,7 +27,7 @@ public class Category implements java.io.Serializable {
 
 	private int id;
 	private String name;
-	private Integer position;
+	private Integer priority;
 	private Date createDate;
 	private Date writeDate;
 	private Boolean active;
@@ -37,12 +41,12 @@ public class Category implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Category(int id, String name, Integer position, Date createDate,
+	public Category(int id, String name, Integer priority, Date createDate,
 			Date writeDate, Boolean active,
 			Set<CategoryProduct> categoryProducts) {
 		this.id = id;
 		this.name = name;
-		this.position = position;
+		this.priority = priority;
 		this.createDate = createDate;
 		this.writeDate = writeDate;
 		this.active = active;
@@ -51,6 +55,7 @@ public class Category implements java.io.Serializable {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue(strategy=IDENTITY)
 	public int getId() {
 		return this.id;
 	}
@@ -68,13 +73,13 @@ public class Category implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "position")
-	public Integer getPosition() {
-		return this.position;
+	@Column(name = "priority")
+	public Integer getPriority() {
+		return this.priority;
 	}
 
-	public void setPosition(Integer position) {
-		this.position = position;
+	public void setPriority(Integer priority) {
+		this.priority = priority;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

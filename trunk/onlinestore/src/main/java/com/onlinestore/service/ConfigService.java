@@ -9,9 +9,9 @@ public interface ConfigService {
 	
 	List<Config> getConfigs();
 	
-	Config getConfig(Long id);
+	Config getConfig(Integer id);
 	
 	void updateConfig(Config config);
 	
-	void deleteConfig(Long id);
+	void deleteConfig(Integer id);
 }

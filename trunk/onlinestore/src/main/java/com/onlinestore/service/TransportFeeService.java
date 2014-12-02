@@ -9,9 +9,9 @@ public interface TransportFeeService {
 	
 	List<TransportFee> getTransportFees();
 	
-	TransportFee getTransportFee(Long id);
+	TransportFee getTransportFee(Integer id);
 	
 	void updateTransportFee(TransportFee transportFee);
 	
-	void deleteTransportFee(Long id);
+	void deleteTransportFee(Integer id);
 }

@@ -25,7 +25,7 @@ public class OsUserServiceImpl implements OsUserService {
 		return userDao.getAll();
 	}
 
-	public OsUser getOsUser(Long id) {
+	public OsUser getOsUser(Integer id) {
 		return userDao.get(id);
 	}
 
