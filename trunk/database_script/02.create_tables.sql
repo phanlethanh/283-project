@@ -384,6 +384,8 @@ CREATE TABLE os_order_detail
   order_id integer,
   quantity integer,
   price double precision,
+  create_date timestamp without time zone,
+  write_date timestamp without time zone,
   active boolean,
   CONSTRAINT os_order_detail_pkey PRIMARY KEY (id),
   CONSTRAINT os_order_detail_order_id_fkey FOREIGN KEY (order_id)
