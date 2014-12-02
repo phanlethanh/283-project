@@ -1,3 +1,21 @@
+-- Table: cart
+
+-- DROP TABLE cart;
+
+CREATE TABLE cart
+(
+  id serial NOT NULL,
+  create_date timestamp without time zone,
+  write_date timestamp without time zone,
+  active boolean,
+  CONSTRAINT cart_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE cart
+  OWNER TO postgres;
+
 -- Table: user_group
 
 -- DROP TABLE user_group;
@@ -25,6 +43,7 @@ CREATE TABLE os_user
 (
   id serial NOT NULL,
   group_id integer,
+  cart_id integer,
   username character varying(16),
   password character varying(16),
   full_name character varying(32),
@@ -35,6 +54,9 @@ CREATE TABLE os_user
   write_date timestamp without time zone,
   active boolean,
   CONSTRAINT os_user_pkey PRIMARY KEY (id),
+  CONSTRAINT os_user_cart_id_fkey FOREIGN KEY (cart_id)
+      REFERENCES cart (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE RESTRICT,
   CONSTRAINT os_user_group_id_fkey FOREIGN KEY (group_id)
       REFERENCES user_group (id) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -147,6 +169,47 @@ WITH (
 ALTER TABLE promotion
   OWNER TO postgres;
   
+-- Table: gallery
+
+-- DROP TABLE gallery;
+
+CREATE TABLE gallery
+(
+  id serial NOT NULL,
+  create_date timestamp without time zone,
+  write_date timestamp without time zone,
+  active boolean,
+  CONSTRAINT gallery_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE gallery
+  OWNER TO postgres;
+
+-- Table: image
+
+-- DROP TABLE image;
+
+CREATE TABLE image
+(
+  id serial NOT NULL,
+  gallery_id integer,
+  name character varying(32),
+  create_date timestamp without time zone,
+  write_date timestamp without time zone,
+  active boolean,
+  CONSTRAINT image_pkey PRIMARY KEY (id),
+  CONSTRAINT image_gallery_id_fkey FOREIGN KEY (gallery_id)
+      REFERENCES gallery (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE RESTRICT
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE image
+  OWNER TO postgres;
+  
 -- Table: product
 
 -- DROP TABLE product;
@@ -158,13 +221,16 @@ CREATE TABLE product
   status_id integer,
   promotion_id integer,
   price_id integer,
+  gallery_id integer,
   name character varying(32),
   description character varying(256),
-  gallery character varying(32),
   create_date timestamp without time zone,
   write_date timestamp without time zone,
   active boolean,
   CONSTRAINT product_pkey PRIMARY KEY (id),
+  CONSTRAINT product_gallery_id_fkey FOREIGN KEY (gallery_id)
+      REFERENCES gallery (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE RESTRICT,
   CONSTRAINT product_price_id_fkey FOREIGN KEY (price_id)
       REFERENCES price (id) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -206,6 +272,29 @@ WITH (
 );
 ALTER TABLE category_product
   OWNER TO postgres;
+
+-- Table: cart_product
+
+-- DROP TABLE cart_product;
+
+CREATE TABLE cart_product
+(
+  id serial NOT NULL,
+  cart_id integer,
+  product_id integer,
+  CONSTRAINT cart_product_pkey PRIMARY KEY (id),
+  CONSTRAINT cart_product_cart_id_fkey FOREIGN KEY (cart_id)
+      REFERENCES cart (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT cart_product_product_id_fkey FOREIGN KEY (product_id)
+      REFERENCES product (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE RESTRICT
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE cart_product
+  OWNER TO postgres;  
 
 -- Table: transport_fee
 

@@ -3,10 +3,10 @@ INSERT INTO user_group(name) VALUES ('Admin'); -- 1
 INSERT INTO user_group(name) VALUES ('Member'); -- 2
 
 -- Default user
-INSERT INTO os_user(group_id, username, password, full_name, address, phone)
-    VALUES (1, 'admin', 'admin', 'Adminstrator', 'None', 'None'); -- 1
-INSERT INTO os_user(group_id, username, password, full_name, address, phone)
-    VALUES (2, 'member', 'member', 'Member', 'None', 'None'); -- 1
+INSERT INTO os_user(group_id, username, password, full_name, address, phone, email)
+    VALUES (1, 'admin', 'admin', 'Adminstrator', 'None', 'None', 'None'); -- 1
+INSERT INTO os_user(group_id, username, password, full_name, address, phone, email)
+    VALUES (2, 'member', 'member', 'Member', 'None', 'None', 'None'); -- 1
 
 -- Statuses of product
 INSERT INTO status(name) VALUES ('new'); -- 1 
