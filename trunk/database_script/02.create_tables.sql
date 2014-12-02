@@ -176,6 +176,7 @@ ALTER TABLE promotion
 CREATE TABLE gallery
 (
   id serial NOT NULL,
+  name character varying(32),
   create_date timestamp without time zone,
   write_date timestamp without time zone,
   active boolean,
