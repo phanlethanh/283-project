@@ -2,7 +2,6 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,7 @@ public class StatusServiceImpl implements StatusService {
 		return statusDao.getAll();
 	}
 
-	public Status getStatus(Long id) {
+	public Status getStatus(Integer id) {
 		return statusDao.get(id);
 	}
 
@@ -33,7 +32,7 @@ public class StatusServiceImpl implements StatusService {
 		statusDao.update(status);
 	}
 
-	public void deleteStatus(Long id) {
+	public void deleteStatus(Integer id) {
 		statusDao.deleteById(id);
 	}
 }

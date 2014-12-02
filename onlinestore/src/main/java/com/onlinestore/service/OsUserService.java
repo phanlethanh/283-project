@@ -9,7 +9,7 @@ public interface OsUserService {
 	
 	List<OsUser> getOsUsers();
 	
-	OsUser getOsUser(Long id);
+	OsUser getOsUser(Integer id);
 	
 	
 	void updateOsUser(OsUser osUser);

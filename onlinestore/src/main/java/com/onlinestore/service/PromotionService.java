@@ -9,9 +9,9 @@ public interface PromotionService {
 	
 	List<Promotion> getPromotions();
 	
-	Promotion getPromotion(Long id);
+	Promotion getPromotion(Integer id);
 	
 	void updatePromotion(Promotion promotion);
 	
-	void deletePromotion(Long id);
+	void deletePromotion(Integer id);
 }

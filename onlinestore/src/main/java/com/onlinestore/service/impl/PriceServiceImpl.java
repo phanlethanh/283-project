@@ -2,7 +2,6 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,7 @@ public class PriceServiceImpl implements PriceService {
 		return priceDao.getAll();
 	}
 
-	public Price getPrice(Long id) {
+	public Price getPrice(Integer id) {
 		return priceDao.get(id);
 	}
 
@@ -33,7 +32,7 @@ public class PriceServiceImpl implements PriceService {
 		priceDao.update(price);
 	}
 
-	public void deletePrice(Long id) {
+	public void deletePrice(Integer id) {
 		priceDao.deleteById(id);
 	}
 

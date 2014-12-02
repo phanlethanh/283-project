@@ -1,6 +1,8 @@
 package com.onlinestore.model;
 
-// Generated Nov 29, 2014 12:31:44 PM by Hibernate Tools 3.4.0.CR1
+// Generated Dec 2, 2014 6:41:20 PM by Hibernate Tools 3.4.0.CR1
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,7 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,11 +30,13 @@ public class OsUser implements java.io.Serializable {
 
 	private int id;
 	private UserGroup userGroup;
+	private Cart cart;
 	private String username;
 	private String password;
 	private String fullName;
 	private String address;
 	private String phone;
+	private String email;
 	private Date createDate;
 	private Date writeDate;
 	private Boolean active;
@@ -46,17 +49,19 @@ public class OsUser implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public OsUser(int id, UserGroup userGroup, String username,
+	public OsUser(int id, UserGroup userGroup, Cart cart, String username,
 			String password, String fullName, String address, String phone,
-			Date createDate, Date writeDate, Boolean active,
+			String email, Date createDate, Date writeDate, Boolean active,
 			Set<OsOrder> osOrders) {
 		this.id = id;
 		this.userGroup = userGroup;
+		this.cart = cart;
 		this.username = username;
 		this.password = password;
 		this.fullName = fullName;
 		this.address = address;
 		this.phone = phone;
+		this.email = email;
 		this.createDate = createDate;
 		this.writeDate = writeDate;
 		this.active = active;
@@ -65,7 +70,7 @@ public class OsUser implements java.io.Serializable {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=IDENTITY)
 	public int getId() {
 		return this.id;
 	}
@@ -82,6 +87,16 @@ public class OsUser implements java.io.Serializable {
 
 	public void setUserGroup(UserGroup userGroup) {
 		this.userGroup = userGroup;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cart_id")
+	public Cart getCart() {
+		return this.cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
 
 	@Column(name = "username", unique = true, length = 16)
@@ -127,6 +142,15 @@ public class OsUser implements java.io.Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	@Column(name = "email", length = 64)
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

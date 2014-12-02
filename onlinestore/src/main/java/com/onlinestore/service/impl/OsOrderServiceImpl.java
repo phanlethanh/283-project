@@ -2,7 +2,6 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,7 @@ public class OsOrderServiceImpl implements OsOrderService {
 		return orderDao.getAll();
 	}
 
-	public OsOrder getOsOrder(Long id) {
+	public OsOrder getOsOrder(Integer id) {
 		return orderDao.get(id);
 	}
 
@@ -33,7 +32,7 @@ public class OsOrderServiceImpl implements OsOrderService {
 		orderDao.update(osOrder);
 	}
 
-	public void deleteOsOrder(Long id) {
+	public void deleteOsOrder(Integer id) {
 		orderDao.deleteById(id);
 	}
 

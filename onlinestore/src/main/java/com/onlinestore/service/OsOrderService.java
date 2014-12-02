@@ -6,12 +6,12 @@ import com.onlinestore.model.OsOrder;
 
 public interface OsOrderService {
 	void createOsOrder(OsOrder osOrder);
-	
+
 	List<OsOrder> getOsOrders();
-	
-	OsOrder getOsOrder(Long id);
-	
+
+	OsOrder getOsOrder(Integer id);
+
 	void updateOsOrder(OsOrder osOrder);
-	
-	void deleteOsOrder(Long id);
+
+	void deleteOsOrder(Integer id);
 }

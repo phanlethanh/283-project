@@ -9,9 +9,9 @@ public interface ProducerService {
 	
 	List<Producer> getProducers();
 	
-	Producer getProducer(Long id);
+	Producer getProducer(Integer id);
 	
 	void updateProducer(Producer producer);
 	
-	void deleteProducer(Long id);
+	void deleteProducer(Integer id);
 }

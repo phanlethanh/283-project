@@ -1,13 +1,17 @@
 package com.onlinestore.model;
 
-// Generated Nov 29, 2014 12:31:44 PM by Hibernate Tools 3.4.0.CR1
+// Generated Dec 2, 2014 6:41:20 PM by Hibernate Tools 3.4.0.CR1
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,16 +29,17 @@ public class Product implements java.io.Serializable {
 
 	private int id;
 	private Price price;
+	private Gallery gallery;
 	private Promotion promotion;
 	private Status status;
 	private Producer producer;
 	private String name;
 	private String description;
-	private String gallery;
 	private Date createDate;
 	private Date writeDate;
 	private Boolean active;
 	private Set<OsOrderDetail> osOrderDetails = new HashSet<OsOrderDetail>(0);
+	private Set<CartProduct> cartProducts = new HashSet<CartProduct>(0);
 	private Set<CategoryProduct> categoryProducts = new HashSet<CategoryProduct>(
 			0);
 
@@ -45,28 +50,30 @@ public class Product implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Product(int id, Price price, Promotion promotion, Status status,
-			Producer producer, String name, String description, String gallery,
+	public Product(int id, Price price, Gallery gallery, Promotion promotion,
+			Status status, Producer producer, String name, String description,
 			Date createDate, Date writeDate, Boolean active,
-			Set<OsOrderDetail> osOrderDetails,
+			Set<OsOrderDetail> osOrderDetails, Set<CartProduct> cartProducts,
 			Set<CategoryProduct> categoryProducts) {
 		this.id = id;
 		this.price = price;
+		this.gallery = gallery;
 		this.promotion = promotion;
 		this.status = status;
 		this.producer = producer;
 		this.name = name;
 		this.description = description;
-		this.gallery = gallery;
 		this.createDate = createDate;
 		this.writeDate = writeDate;
 		this.active = active;
 		this.osOrderDetails = osOrderDetails;
+		this.cartProducts = cartProducts;
 		this.categoryProducts = categoryProducts;
 	}
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue(strategy=IDENTITY)
 	public int getId() {
 		return this.id;
 	}
@@ -83,6 +90,16 @@ public class Product implements java.io.Serializable {
 
 	public void setPrice(Price price) {
 		this.price = price;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "gallery_id")
+	public Gallery getGallery() {
+		return this.gallery;
+	}
+
+	public void setGallery(Gallery gallery) {
+		this.gallery = gallery;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -133,15 +150,6 @@ public class Product implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@Column(name = "gallery", length = 32)
-	public String getGallery() {
-		return this.gallery;
-	}
-
-	public void setGallery(String gallery) {
-		this.gallery = gallery;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date", length = 29)
 	public Date getCreateDate() {
@@ -178,6 +186,15 @@ public class Product implements java.io.Serializable {
 
 	public void setOsOrderDetails(Set<OsOrderDetail> osOrderDetails) {
 		this.osOrderDetails = osOrderDetails;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	public Set<CartProduct> getCartProducts() {
+		return this.cartProducts;
+	}
+
+	public void setCartProducts(Set<CartProduct> cartProducts) {
+		this.cartProducts = cartProducts;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")

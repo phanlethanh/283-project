@@ -2,7 +2,6 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +13,6 @@ import com.onlinestore.service.ProducerService;
 @Transactional
 public class ProducerServiceImpl implements ProducerService {
 
-	
 	private ProducerDao producerDao;
 	
 	public void createProducer(Producer producer) {
@@ -25,7 +23,7 @@ public class ProducerServiceImpl implements ProducerService {
 		return producerDao.getAll();
 	}
 
-	public Producer getProducer(Long id) {
+	public Producer getProducer(Integer id) {
 		return producerDao.get(id);
 	}
 
@@ -33,7 +31,7 @@ public class ProducerServiceImpl implements ProducerService {
 		producerDao.update(producer);		
 	}
 
-	public void deleteProducer(Long id) {
+	public void deleteProducer(Integer id) {
 		producerDao.deleteById(id);
 	}
 

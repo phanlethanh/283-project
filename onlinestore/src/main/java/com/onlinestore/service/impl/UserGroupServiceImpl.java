@@ -2,7 +2,6 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,7 @@ public class UserGroupServiceImpl implements UserGroupService {
 		return userGroupDao.getAll();
 	}
 
-	public UserGroup getUserGroup(Long id) {
+	public UserGroup getUserGroup(Integer id) {
 		return userGroupDao.get(id);
 	}
 
@@ -33,7 +32,7 @@ public class UserGroupServiceImpl implements UserGroupService {
 		userGroupDao.update(userGroup);
 	}
 
-	public void deleteUserGroup(Long id) {
+	public void deleteUserGroup(Integer id) {
 		userGroupDao.deleteById(id);
 	}
 

@@ -2,7 +2,6 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getAll();
 	}
 
-	public Product getProduct(Long id) {
+	public Product getProduct(Integer id) {
 		return productDao.get(id);
 	}
 
@@ -33,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 		productDao.update(product);
 	}
 
-	public void deleteProduct(Long id) {
+	public void deleteProduct(Integer id) {
 		productDao.deleteById(id);
 	}
 

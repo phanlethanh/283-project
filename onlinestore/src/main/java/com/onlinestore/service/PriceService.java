@@ -9,9 +9,9 @@ public interface PriceService {
 	
 	List<Price> getPrices();
 	
-	Price getPrice(Long id);
+	Price getPrice(Integer id);
 	
 	void updatePrice(Price price);
 	
-	void deletePrice(Long id);
+	void deletePrice(Integer id);
 }

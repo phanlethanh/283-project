@@ -9,9 +9,9 @@ public interface UserGroupService {
 	
 	List<UserGroup> getUserGroups();
 	
-	UserGroup getUserGroup(Long id);
+	UserGroup getUserGroup(Integer id);
 	
 	void updateUserGroup(UserGroup userGroup);
 	
-	void deleteUserGroup(Long id);
+	void deleteUserGroup(Integer id);
 }

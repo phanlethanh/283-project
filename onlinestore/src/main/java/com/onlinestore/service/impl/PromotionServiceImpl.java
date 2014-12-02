@@ -2,7 +2,6 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,7 @@ public class PromotionServiceImpl implements PromotionService {
 		return promotionDao.getAll();
 	}
 
-	public Promotion getPromotion(Long id) {
+	public Promotion getPromotion(Integer id) {
 		return promotionDao.get(id);
 	}
 
@@ -33,7 +32,7 @@ public class PromotionServiceImpl implements PromotionService {
 		promotionDao.update(promotion);
 	}
 
-	public void deletePromotion(Long id) {
+	public void deletePromotion(Integer id) {
 		promotionDao.deleteById(id);
 	}
 

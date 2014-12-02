@@ -9,9 +9,9 @@ public interface TaxService {
 	
 	List<Tax> getTaxes();
 	
-	Tax getTax(Long id);
+	Tax getTax(Integer id);
 	
 	void updateTax(Tax tax);
 	
-	void deleteTax(Long id);
+	void deleteTax(Integer id);
 }

@@ -9,9 +9,9 @@ public interface OsOrderDetailService {
 	
 	List<OsOrderDetail> getOsOrderDetails();
 	
-	OsOrderDetail getOsOrderDetail(Long id);
+	OsOrderDetail getOsOrderDetail(Integer id);
 	
 	void updateOsOrderDetail(OsOrderDetail osOrderDetail);
 	
-	void deleteOsOrderDetail(Long id);
+	void deleteOsOrderDetail(Integer id);
 }

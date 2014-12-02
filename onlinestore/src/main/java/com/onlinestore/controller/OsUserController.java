@@ -47,7 +47,7 @@ public class OsUserController {
 		{
 			HttpSession session = request.getSession();
 			session.setAttribute("os_user_name", ck_user);
-			Long id = Long.valueOf(getItemCookies(cookie,"os_user_id")).longValue();
+			Integer id = Integer.valueOf(getItemCookies(cookie,"os_user_id")).intValue();
 			if(checkUserIsAdmin(id))
 			{
 				meta.put("code", 1);
@@ -74,7 +74,6 @@ public class OsUserController {
 		List<String> list = new ArrayList<String>();
 		list.add(user.getUsername());
 		
-		
 	    OsUserServiceImpl userService = getUserService();
 		
 		userService.createOsUser(user);
@@ -90,7 +89,7 @@ public class OsUserController {
 		}
 	}
 	
-	private boolean checkUserIsAdmin(Long id)
+	private boolean checkUserIsAdmin(Integer id)
 	{
 		
 	    OsUserServiceImpl userService = getUserService(); 
