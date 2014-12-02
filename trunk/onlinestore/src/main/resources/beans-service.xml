@@ -61,30 +61,6 @@
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
 		p:sessionFactory-ref="sessionFactory" />
-	
-	<bean id="tilesConfigurer"
-          class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
-          p:definitions="/WEB-INF/tiles.xml" />
-
-    <bean id="viewResolver"
-          class="org.springframework.web.servlet.view.UrlBasedViewResolver"
-          p:viewClass="org.springframework.web.servlet.view.tiles2.TilesView"
-           />
-	
-	<bean id="urlMapping"
-          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="alwaysUseFullPath" value="true" />
-
-        <property name="mappings">
-            <props>
-                <prop key="/homes.html">categoryController</prop>
-                <prop key="/register.html">osUserController</prop>
-            </props>
-        </property>
-    </bean>
-    <!-- Define the controllers -->
-    <bean id="categoryController" class="com.onlinestore.controller.CategoryController" />
-    <bean id="osUserController" class="com.onlinestore.controller.OsUserController" />
     
     <context:annotation-config/>   
     <tx:annotation-driven proxy-target-class="true"/>

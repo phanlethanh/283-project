@@ -11,7 +11,8 @@ public interface OsUserService {
 	
 	OsUser getOsUser(Long id);
 	
+	
 	void updateOsUser(OsUser osUser);
 	
-	void deleteOsUser(Long id);
+	void deleteOsUser(Integer id);
 }

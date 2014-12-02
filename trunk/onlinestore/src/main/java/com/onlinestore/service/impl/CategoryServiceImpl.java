@@ -14,7 +14,7 @@ import com.onlinestore.service.CategoryService;
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
 
-	@Autowired
+	
 	private CategoryDao categoryDao;
 
 	public void createCategory(Category category) {

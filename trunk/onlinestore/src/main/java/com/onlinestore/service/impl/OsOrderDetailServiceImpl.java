@@ -14,7 +14,7 @@ import com.onlinestore.service.OsOrderDetailService;
 @Transactional
 public class OsOrderDetailServiceImpl implements OsOrderDetailService {
 
-	@Autowired
+	
 	private OsOrderDetailDao orderDetailDao;
 	
 	public void createOsOrderDetail(OsOrderDetail osOrderDetail) {

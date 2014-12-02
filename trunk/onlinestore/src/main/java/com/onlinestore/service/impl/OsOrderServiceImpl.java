@@ -14,7 +14,7 @@ import com.onlinestore.service.OsOrderService;
 @Transactional
 public class OsOrderServiceImpl implements OsOrderService {
 
-	@Autowired
+	
 	private OsOrderDao orderDao;
 	
 	public void createOsOrder(OsOrder osOrder) {

@@ -14,7 +14,7 @@ import com.onlinestore.service.PromotionService;
 @Transactional
 public class PromotionServiceImpl implements PromotionService {
 
-	@Autowired
+	
 	private PromotionDao promotionDao;
 	
 	public void createPromotion(Promotion promotion) {
