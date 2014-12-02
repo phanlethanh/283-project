@@ -16,7 +16,15 @@ CREATE OR REPLACE FUNCTION func_update() RETURNS TRIGGER AS $$
     END;
 $$ LANGUAGE plpgsql;
 
+-- #############################################################
 -- create date triggers 
+
+CREATE TRIGGER trig_create_date BEFORE INSERT ON cart
+FOR EACH ROW EXECUTE PROCEDURE func_insert();
+
+-- CREATE TRIGGER trig_create_date BEFORE INSERT ON cart_product
+-- FOR EACH ROW EXECUTE PROCEDURE func_insert();
+
 CREATE TRIGGER trig_create_date BEFORE INSERT ON category
 FOR EACH ROW EXECUTE PROCEDURE func_insert();
 
@@ -24,6 +32,12 @@ FOR EACH ROW EXECUTE PROCEDURE func_insert();
 -- FOR EACH ROW EXECUTE PROCEDURE func_insert();
 
 CREATE TRIGGER trig_create_date BEFORE INSERT ON config
+FOR EACH ROW EXECUTE PROCEDURE func_insert();
+
+CREATE TRIGGER trig_create_date BEFORE INSERT ON gallery
+FOR EACH ROW EXECUTE PROCEDURE func_insert();
+
+CREATE TRIGGER trig_create_date BEFORE INSERT ON image
 FOR EACH ROW EXECUTE PROCEDURE func_insert();
 
 CREATE TRIGGER trig_create_date BEFORE INSERT ON os_order
@@ -59,8 +73,14 @@ FOR EACH ROW EXECUTE PROCEDURE func_insert();
 CREATE TRIGGER trig_create_date BEFORE INSERT ON user_group
 FOR EACH ROW EXECUTE PROCEDURE func_insert();
 
-
+-- #############################################################
 -- write date triggers
+CREATE TRIGGER trig_write_date BEFORE UPDATE ON cart
+FOR EACH ROW EXECUTE PROCEDURE func_update();
+
+-- CREATE TRIGGER trig_write_date BEFORE UPDATE ON cart_product
+-- FOR EACH ROW EXECUTE PROCEDURE func_update();
+
 CREATE TRIGGER trig_write_date BEFORE UPDATE ON category
 FOR EACH ROW EXECUTE PROCEDURE func_update();
 
@@ -68,6 +88,12 @@ FOR EACH ROW EXECUTE PROCEDURE func_update();
 -- FOR EACH ROW EXECUTE PROCEDURE func_update();
 
 CREATE TRIGGER trig_write_date BEFORE UPDATE ON config
+FOR EACH ROW EXECUTE PROCEDURE func_update();
+
+CREATE TRIGGER trig_write_date BEFORE UPDATE ON gallery
+FOR EACH ROW EXECUTE PROCEDURE func_update();
+
+CREATE TRIGGER trig_write_date BEFORE UPDATE ON image
 FOR EACH ROW EXECUTE PROCEDURE func_update();
 
 CREATE TRIGGER trig_write_date BEFORE UPDATE ON os_order 
