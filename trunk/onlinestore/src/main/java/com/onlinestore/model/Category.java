@@ -1,6 +1,6 @@
 package com.onlinestore.model;
 
-// Generated Dec 2, 2014 6:41:20 PM by Hibernate Tools 3.4.0.CR1
+// Generated Dec 4, 2014 2:12:23 AM by Hibernate Tools 3.4.0.CR1
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -26,6 +26,7 @@ import javax.persistence.TemporalType;
 public class Category implements java.io.Serializable {
 
 	private int id;
+	private Integer parentId;
 	private String name;
 	private Integer priority;
 	private Date createDate;
@@ -41,10 +42,11 @@ public class Category implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Category(int id, String name, Integer priority, Date createDate,
-			Date writeDate, Boolean active,
+	public Category(int id, Integer parentId, String name, Integer priority,
+			Date createDate, Date writeDate, Boolean active,
 			Set<CategoryProduct> categoryProducts) {
 		this.id = id;
+		this.parentId = parentId;
 		this.name = name;
 		this.priority = priority;
 		this.createDate = createDate;
@@ -62,6 +64,15 @@ public class Category implements java.io.Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Column(name = "parent_id")
+	public Integer getParentId() {
+		return this.parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
 	@Column(name = "name", length = 32)
