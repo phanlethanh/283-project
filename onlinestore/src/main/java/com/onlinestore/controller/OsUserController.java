@@ -49,13 +49,14 @@ public class OsUserController {
 		list_user = userService.getOsUsers();
 		for(int i = 0; i < list_user.size(); i++)
 		{
-			if(list_user.get(i).getUsername().equals(user.getUsername()))
+			if(list_user.get(i).getUsername().equals(user.getUsername())&& list_user.get(i).getPassword().equals(user.getPassword()))
 			{
-				if(checkUserIsAdmin(list_user.get(i).getId()))
+				code = 2;
+				if(user.getUsername().equals("admin") && user.getPassword().equals("admin"))
 				{
 					code = 1;
+					System.out.print("1");
 				}
-				
 				
 				if(request.getParameter("login_save") != null &&request.getParameter("login_save").equals("on"))
 				{
@@ -67,7 +68,7 @@ public class OsUserController {
 					cookie_pass.setPath("/");
 					respose.addCookie(cookie_user);
 					respose.addCookie(cookie_pass);
-					code = 2;
+					
 				}
 				HttpSession session = request.getSession();
 				synchronized(session){

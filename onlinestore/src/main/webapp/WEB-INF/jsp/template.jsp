@@ -7,12 +7,14 @@
 <title><tiles:insertAttribute name="title"/></title>
 <link rel="stylesheet" type="text/css" href="/onlinestore/css/style.css">
 <link rel="stylesheet" type="text/css" href="/onlinestore/css/reveal.css">
-<script type="text/javascript" src="/onlinestore/script/jquery.js" ></script>
+<script type="text/javascript" src="/onlinestore/script/jquery-1.7.js" ></script>
 <script type="text/javascript" src="/onlinestore/script/jquery.reveal.js" ></script>
+<script type="text/javascript" src="/onlinestore/script/jquery-ui-1.11.0.min.js" ></script>
+<script type="text/javascript" src="/onlinestore/script/jquery.ui-contextmenu.js" ></script>
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(".login").die('click');
+		
 		$(".login").live('click',function(){
 			document.getElementById("form_login_content").reset();
 			<% if(session.getAttribute("os_username") != null){
@@ -24,7 +26,7 @@
 				<%}%>
 		});
 		
-		$(".register").die('click');
+		//$(".register").die('click');
 		$(".register").live("click", function(){
 			
 			$("#form_register").reveal();
@@ -56,10 +58,15 @@
 					data:data_form,
 					success: function(data){
 						var data = data["code"]; 
-						if(data == "1")
+						if(data == "2")
 						{
 							$('#form_login').trigger('reveal:close');
 							window.location="homes.html";
+						}
+						else if(data == "1")
+						{
+							$('#form_login').trigger('reveal:close');
+							window.location="admin.html";	
 						}
 						else
 						{
@@ -83,7 +90,15 @@
     	<tiles:insertAttribute name="header"/>
     </div>
     <div class="content">
-    	<tiles:insertAttribute name="content"/>
+    	<div class="content_left">
+    		<tiles:insertAttribute name="left_content" />
+    	</div>
+    	<div class="main_content">
+    		
+    		<tiles:insertAttribute name="content"/>
+    	</div>
+    	
+    	
     </div>
     <div class="footer">
     	<tiles:insertAttribute name="footer"/>

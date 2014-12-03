@@ -8,13 +8,18 @@
     <!-- Default Main Template -->
     <definition name=".mainTemplate" template="/WEB-INF/jsp/template.jsp">
         <put-attribute name="title" value="Page" type="string" />
-        <put-attribute name="header" value="/WEB-INF/jsp/header.jsp" />
-        <put-attribute name="footer" value="/WEB-INF/jsp/footer.jsp" />
+        <put-attribute name="header" value="/WEB-INF/jsp/template/header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
         
     </definition>
  
     <definition name="home" extends=".mainTemplate">
-        <put-attribute name="content" value="/WEB-INF/jsp/content-home.jsp" />
+    	<put-attribute name="left_content" value="/WEB-INF/jsp/home/left_content_home.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/home/content-home.jsp" />
+    </definition>
+    <definition name="admin" extends=".mainTemplate">
+    	<put-attribute name="left_content" value="/WEB-INF/jsp/admin/left_content_admin.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/content_admin.jsp" />
     </definition>
 
     

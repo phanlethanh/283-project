@@ -1,5 +1,6 @@
 package com.onlinestore.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -34,6 +35,13 @@ public class CategoryServiceImpl implements CategoryService {
 
 	public void deleteCategory(Integer id) {
 		categoryDao.deleteById(id);		
+	}
+
+	@Override
+	public List<Category> getSubCategory(Integer parent_id) {
+		// TODO Auto-generated method stub
+		
+		return categoryDao.getAll();
 	}
 	
 }

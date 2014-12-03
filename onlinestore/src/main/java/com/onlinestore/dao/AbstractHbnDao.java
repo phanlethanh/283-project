@@ -29,7 +29,7 @@ public abstract class AbstractHbnDao<T extends Object> implements Dao<T> {
 		return domainClass;
 	}
 
-	private String getDomainClassName() {
+	protected String getDomainClassName() {
 		return getDomainClass().getName();
 	}
 
@@ -48,7 +48,8 @@ public abstract class AbstractHbnDao<T extends Object> implements Dao<T> {
 	public List<T> getAll() {
 		return getSession().createQuery("from " + getDomainClassName()).list();
 	}
-
+	
+	
 	public void update(T t) {
 		getSession().update(t);
 	}
