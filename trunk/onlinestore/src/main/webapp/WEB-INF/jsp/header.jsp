@@ -19,10 +19,18 @@
               </div>
               <div class="info_user">
               	<%
+              		//chưa sử dụng synchronized ở đây
+              		/*String os_username = null;
+              		synchronized(session){
+              			os_username=session.getAttribute("os_username").toString();
+              		}*/
               		if(session.getAttribute("os_username") != null)
               		{%>
               			<div class="os_username">
               				<span><%=session.getAttribute("os_username") %></span>
+              			</div>
+              			<div class="logout">
+              				<a href="logout.html">Đăng xuất</a>
               			</div>
               		<%}else
               		{%>
@@ -75,14 +83,22 @@
       </div>
 <div id="form_login" class="reveal-modallogin">
 	<h4>Đăng Nhập</h4>
-	<span>Tên đăng nhập</span>
-	<input name="User Name" type="text" id="login_user_name" title="Name" >
-	<span>Mật khẩu</span>
-	<input name="Pass Word" type="password" id="login_user_password" title="Password">
-	<input type="button" id="login_submit" value="Đăng nhập">
+	<form action="" class="form_login" method="post" modelAttribute="OsUser" id="form_login_content">
+		<div>
+			<span id="login_message"></span>
+		</div>
+		<span>Tên đăng nhập</span>
+		<input name="username" type="text" id="login_user_name" title="Name" >
+		<span>Mật khẩu</span>
+		<input name="password" type="password" id="login_user_password" title="Password">
+		<input type="checkbox" id="login_save" name="login_save">
+		<span>Ghi nhớ mật khẩu</span>
+		<input type="button" id="login_submit" value="Đăng nhập">
+	</form>
+	
 	<a class="close-reveal-modal close-reveal-all"></a>
 </div>
-<div id="form_register_abc" class="reveal-modallogin">
+<div id="form_register" class="reveal-modallogin">
 	<h4>Register</h4>
 	<form action="" id="register" method="post" class="form_register" modelAttribute="OsUser">
 		
@@ -100,7 +116,10 @@
 			<span>Full name</span>
 			<input name="fullName" type="text" id="register_full_name" title="Full name">
 		</div>
-		
+		<div class="register_info">
+			<span>Email Address</span>
+			<input name="email" type="text" id="register_email" title="Email">
+		</div>
 		<div class="register_info">
 			<span>Address</span>
 			<input name="address" type="text" id="register_address" title="Address">
