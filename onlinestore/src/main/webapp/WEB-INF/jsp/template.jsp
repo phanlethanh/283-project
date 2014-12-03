@@ -14,19 +14,24 @@
 	$(document).ready(function(){
 		$(".login").die('click');
 		$(".login").live('click',function(){
-			$("#form_login").reveal();
+			document.getElementById("form_login_content").reset();
+			<% if(session.getAttribute("os_username") != null){
+				%>
+					window.location="homes.html";
+				<%
+				}else{ %>
+					$("#form_login").reveal();
+				<%}%>
 		});
-		$("#login_submit").live("click", function(){
-			$("#form_login").hideModal();
-		});
+		
 		$(".register").die('click');
 		$(".register").live("click", function(){
-			$("#form_register_abc").reveal();
+			
+			$("#form_register").reveal();
 		});
 		
 		$("#register_submit").live('click', function(){
 			var data_form = $("form.form_register").serialize();
-			alert(data_form);
 			$.ajax({
 				url:"register.html",
 				type:"POST",
@@ -34,12 +39,41 @@
 				success: function(data){
 					var data1 = data[0]; 
 					//alert(data1);
-					$('#form_register_abc').trigger('reveal:close');
+					$('#form_register').trigger('reveal:close');
 				},
 				error : function(jqXHR, status, errorThrown){ 
 					alert("Not success");
 				}
 			});
+		});
+		
+		$("#login_submit").live("click", function(){
+			var data_form = $("form.form_login").serialize();
+			
+				$.ajax({
+					url:"login.html",
+					type:"POST",
+					data:data_form,
+					success: function(data){
+						var data = data["code"]; 
+						if(data == "1")
+						{
+							$('#form_login').trigger('reveal:close');
+							window.location="homes.html";
+						}
+						else
+						{
+							
+							$("#login_message").text("Sai tên đăng nhập hoặc mật khẩu")
+						}
+					},
+					error : function(jqXHR, status, errorThrown){ 
+						alert("Not success");
+					}
+				});
+			
+			
+			
 		});
 	});
 </script>

@@ -5,8 +5,19 @@
 
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
-	
-	
+	<servlet>
+		<servlet-name>Log4jTestServlet</servlet-name>
+		<servlet-class>com.onlinestore.log.Log4jTestServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Log4JInitServlet</servlet-name>
+		<servlet-class>com.onlinestore.log.Log4JInitServlet</servlet-class>
+		<init-param>
+			<param-name>log4j-properties-location</param-name>
+			<param-value>WEB-INF/log4j.properties</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 	<servlet>
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

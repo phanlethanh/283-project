@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,8 @@ import com.onlinestore.service.impl.OsUserServiceImpl;
 @Controller
 public class OsUserController {
 	
-	
+	private static final long serialVersionUID = 1L;
+	static Logger log = Logger.getLogger(com.onlinestore.controller.OsUserController.class); 
 	private OsUserServiceImpl getUserService()
 	{
 		ApplicationContext appCtx = 
@@ -36,32 +38,56 @@ public class OsUserController {
 	    		(OsUserServiceImpl)appCtx.getBean("osUserService");
 	    return userService;
 	}
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public void login(HttpServletRequest request)
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public void login(@ModelAttribute OsUser user,HttpServletRequest request, HttpServletResponse respose)
 	{
-		Cookie[] cookie = request.getCookies();
-		String ck_user = null;
-		ck_user = getItemCookies(cookie,"os_user_name");
+		
 		HashMap<String, Integer> meta = new HashMap<String, Integer>();
-		if(ck_user != null)
+		int code = 0;
+		OsUserServiceImpl userService = getUserService();
+		List<OsUser> list_user = new ArrayList<OsUser>();
+		list_user = userService.getOsUsers();
+		for(int i = 0; i < list_user.size(); i++)
 		{
-			HttpSession session = request.getSession();
-			session.setAttribute("os_user_name", ck_user);
-			Integer id = Integer.valueOf(getItemCookies(cookie,"os_user_id")).intValue();
-			if(checkUserIsAdmin(id))
+			if(list_user.get(i).getUsername().equals(user.getUsername()))
 			{
-				meta.put("code", 1);
+				if(checkUserIsAdmin(list_user.get(i).getId()))
+				{
+					code = 1;
+				}
+				
+				
+				if(request.getParameter("login_save") != null &&request.getParameter("login_save").equals("on"))
+				{
+					Cookie cookie_user = new Cookie("os_username",list_user.get(i).getUsername());
+					Cookie cookie_pass = new Cookie("os_password",list_user.get(i).getPassword());
+					cookie_user.setMaxAge(60*60*60);
+					cookie_pass.setMaxAge(60*60*60);
+					cookie_user.setPath("/");
+					cookie_pass.setPath("/");
+					respose.addCookie(cookie_user);
+					respose.addCookie(cookie_pass);
+					code = 2;
+				}
+				HttpSession session = request.getSession();
+				synchronized(session){
+					session.setAttribute("os_username", list_user.get(i).getUsername());
+					
+				}
+				log.info("User "+list_user.get(i).getUsername()+" loging");
 			}
-			else
-			{
-				meta.put("code", 2);
-			}
+			
 			
 		}
-		else
-		{
-			OsUserServiceImpl userService = getUserService();
-			
+		meta.put("code", code);
+		String json = new Gson().toJson(meta);
+		respose.setContentType("application/json");
+		respose.setCharacterEncoding("UTF-8");
+		try {
+			respose.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		
@@ -73,6 +99,7 @@ public class OsUserController {
 		
 		List<String> list = new ArrayList<String>();
 		list.add(user.getUsername());
+		
 		
 	    OsUserServiceImpl userService = getUserService();
 		
@@ -88,10 +115,27 @@ public class OsUserController {
 			e.printStackTrace();
 		}
 	}
-	
+	@RequestMapping(value="/logout.html", method = RequestMethod.GET)
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response)
+	{
+		HttpSession session = request.getSession();
+		session.removeAttribute("os_username");
+		Cookie[] cookie = request.getCookies();
+		for(int i = 0; i < cookie.length; i++)
+		{
+			if(cookie[i].getName().equals("os_username") || cookie[i].getName().equals("os_password"))
+			{
+				cookie[i].setMaxAge(0);
+				cookie[i].setPath("/");
+				response.addCookie(cookie[i]);
+			}
+		}
+		
+		return new ModelAndView("home");
+		
+	}
 	private boolean checkUserIsAdmin(Integer id)
 	{
-		
 	    OsUserServiceImpl userService = getUserService(); 
 	    		
         OsUser user = userService.getOsUser(id);
@@ -99,14 +143,6 @@ public class OsUserController {
         	return true;
 		return false;
 	}
-	private String getItemCookies(Cookie[] list,String key)
-	{
-		for(int i = 0;i < list.length; i++)
-		{
-			if(list[i].getName() == key)
-				return list[i].getValue();
-		}
-		return null;
-	}
+	
 	
 }
