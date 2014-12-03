@@ -53,9 +53,8 @@
     position: relative;
     text-align: center;
     text-transform: uppercase;
-    width: 200px;
 	}
-.vertical_menu {float:left; width:200px}
+.vertical_menu {float:left; width:20%}
 .vt_item { list-style:none; margin-bottom:20px; border-bottom:1px solid #CCC;}
 .vt_item p{ margin:0px; margin-bottom:20px}
 .vt_item span { width:170px; display:inline-block; }
@@ -70,3 +69,15 @@
 	
 	display:inline-block;
 }
+/*header*/
+.menu_top { float: left;
+    height: 30px;
+    margin-bottom: 1px;
+    margin-top: 0;
+    width: 70%;}
+.os_username {width:100px; float:left}
+.logout {width:100px; float:left}
+/*content left*/
+.content_left {width:20%; height:500px; background-color:#BDD8DA; float:left}
+.main_content {width:80%; height:500px; background-color:#CC99CC; float:left}
+/*content right*/

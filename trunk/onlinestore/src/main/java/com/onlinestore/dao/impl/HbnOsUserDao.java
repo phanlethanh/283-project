@@ -1,5 +1,8 @@
 package com.onlinestore.dao.impl;
 
+import java.io.Serializable;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.onlinestore.dao.AbstractHbnDao;
@@ -13,5 +16,7 @@ public class HbnOsUserDao extends AbstractHbnDao<OsUser> implements OsUserDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }
