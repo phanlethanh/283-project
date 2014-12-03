@@ -1,14 +1,13 @@
 package com.onlinestore.model;
 
-// Generated Dec 2, 2014 6:41:20 PM by Hibernate Tools 3.4.0.CR1
-
-import static javax.persistence.GenerationType.IDENTITY;
+// Generated Dec 4, 2014 2:47:04 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -49,7 +48,7 @@ public class Config implements java.io.Serializable {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	@GeneratedValue(strategy=IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId() {
 		return this.id;
 	}
