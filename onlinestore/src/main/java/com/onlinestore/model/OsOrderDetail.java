@@ -1,8 +1,6 @@
 package com.onlinestore.model;
 
-// Generated Dec 2, 2014 6:41:20 PM by Hibernate Tools 3.4.0.CR1
-
-import static javax.persistence.GenerationType.IDENTITY;
+// Generated Dec 4, 2014 2:47:04 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -10,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,18 +40,21 @@ public class OsOrderDetail implements java.io.Serializable {
 	}
 
 	public OsOrderDetail(int id, OsOrder osOrder, Product product,
-			Integer quantity, Double price, Boolean active) {
+			Integer quantity, Double price, Date createDate, Date writeDate,
+			Boolean active) {
 		this.id = id;
 		this.osOrder = osOrder;
 		this.product = product;
 		this.quantity = quantity;
 		this.price = price;
+		this.createDate = createDate;
+		this.writeDate = writeDate;
 		this.active = active;
 	}
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	@GeneratedValue(strategy=IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId() {
 		return this.id;
 	}
@@ -98,7 +100,7 @@ public class OsOrderDetail implements java.io.Serializable {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date", length = 29)
 	public Date getCreateDate() {
