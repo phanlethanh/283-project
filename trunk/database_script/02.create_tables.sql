@@ -114,6 +114,7 @@ ALTER TABLE producer
 CREATE TABLE category
 (
   id serial NOT NULL,
+  parent_id integer,
   name character varying(32),
   priority integer,
   create_date timestamp without time zone,

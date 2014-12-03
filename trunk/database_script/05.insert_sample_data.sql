@@ -29,13 +29,13 @@ INSERT INTO producer(name, description) VALUES ('Google Nexus', 'http://www.goog
 INSERT INTO producer(name, description) VALUES ('Huawei', 'http://huawei.com.vn/'); -- 20
 
 -- Categories
-INSERT INTO category(name, priority) VALUES ('Điện thoại', 1); -- 1
-INSERT INTO category(name, priority) VALUES ('Laptop', 2); -- 2
-INSERT INTO category(name, priority) VALUES ('Máy tính bảng', 3); -- 3
-INSERT INTO category(name, priority) VALUES ('Máy tính', 4); -- 4
-INSERT INTO category(name, priority) VALUES ('Máy nghe nhạc', 5); -- 5
-INSERT INTO category(name, priority) VALUES ('Headphone', 6); -- 6
-INSERT INTO category(name, priority) VALUES ('Phụ kiện', 7); -- 7
+INSERT INTO category(parent_id, name, priority) VALUES (0, 'Điện thoại', 1); -- 1
+INSERT INTO category(parent_id, name, priority) VALUES (0, 'Laptop', 2); -- 2
+INSERT INTO category(parent_id, name, priority) VALUES (0, 'Máy tính bảng', 3); -- 3
+INSERT INTO category(parent_id, name, priority) VALUES (0, 'Máy tính', 4); -- 4
+INSERT INTO category(parent_id, name, priority) VALUES (0, 'Máy nghe nhạc', 5); -- 5
+INSERT INTO category(parent_id, name, priority) VALUES (0, 'Headphone', 6); -- 6
+INSERT INTO category(parent_id, name, priority) VALUES (0, 'Phụ kiện', 7); -- 7
 
 -- Taxes
 INSERT INTO tax(name, value) VALUES ('VAT', 10); -- 1
