@@ -20,51 +20,22 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.onlinestore.model.Category;
 import com.onlinestore.model.OsUser;
+import com.onlinestore.service.CategoryService;
 import com.onlinestore.service.impl.CategoryServiceImpl;
 import com.onlinestore.service.impl.OsUserServiceImpl;
 
 @Controller
 public class CategoryController {
 	
-	private CategoryServiceImpl getCategoryService()
+	private CategoryService getCategoryService()
 	{
 		ApplicationContext appCtx = 
 	    		new ClassPathXmlApplicationContext("beans-service.xml");
-		CategoryServiceImpl categoryService = 
-	    		(CategoryServiceImpl)appCtx.getBean("categoryService");
+		CategoryService categoryService = 
+	    		(CategoryService)appCtx.getBean("categoryService");
 	    return categoryService;
 	}
-	@RequestMapping (value="/homes")
-	public ModelAndView index(HttpServletRequest request)
-	{
-		ModelAndView view = new ModelAndView();
-		view.setViewName("admin");
-		Cookie[] cookie = request.getCookies();
-		String ck_user = null;
-		ck_user = getItemCookies(cookie,"os_username");
-		if(ck_user != null)
-		{
-			if(ck_user.equals("admin"))
-				view.setViewName("admin");
-			HttpSession session = request.getSession();
-			synchronized(session){
-				session.setAttribute("os_username", ck_user);
-			}
-			
-		}
-		request.setAttribute("message", "message");
-		HashMap<String, Object> meta = new HashMap<String, Object>();
-		meta.put("message", "home");
-		view.addObject("message", meta);
-		return view;
-	}
-	@RequestMapping(value="/admin")
-	public ModelAndView admin()
-	{
-		HashMap<String, Object> meta = new HashMap<String, Object>();
-		meta.put("message", "admin");
-		return new ModelAndView("admin","message",meta);
-	}
+	
 	
 	@RequestMapping(value="/category", method = RequestMethod.GET)
 	public void category(HttpServletRequest request,HttpServletResponse response )
@@ -73,18 +44,29 @@ public class CategoryController {
 		String[] type = request.getParameterValues("type");
 		String parent = request.getParameter("parent");
 		String[] types = type[0].split(" ");
-		parent = parent.substring(1);
+		if(parent.length() > 1)
+			parent = "0";
 		System.out.print(parent);
 		List<HashMap> list = new ArrayList<HashMap>();
-		List<Category> list1 = new ArrayList<Category>();
-		list1 = getCategoryService().getCategories();
-		System.out.print(list1.size());
+		
 		for(int i=0; i <types.length; i++)
 		{
 			if(types[i].equals("categorys") || types[i].equals("category"))
 			{
-				
-				
+				List<Category> list_category = new ArrayList<Category>();
+				list_category = getCategoryService().getSubCategory(Integer.parseInt(parent));
+				if(list_category != null)
+				{
+					for(int j = 0; j < list_category.size(); j++)
+					{
+						HashMap<String, Object> meta = new HashMap<String, Object>();
+						meta.put("title", list_category.get(j).getName());
+						meta.put("key", list_category.get(j).getId());
+						meta.put("extraClasses", "category hasmenu ");
+						meta.put("lazy", true);
+						list.add(meta);
+					}
+				}
 			}
 		}
 		String json = new Gson().toJson(list);
@@ -97,18 +79,6 @@ public class CategoryController {
 			e.printStackTrace();
 		}
 	}
-	private String getItemCookies(Cookie[] list,String key)
-	{
-		if(list != null)
-		{
-			for(int i = 0;i < list.length; i++)
-			{
-				if(list[i].getName().equals(key))
-					return list[i].getValue();
-			}
-		}
-		
-		return null;
-	}
+	
 	
 }

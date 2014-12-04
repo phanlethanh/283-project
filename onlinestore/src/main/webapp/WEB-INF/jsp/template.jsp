@@ -11,6 +11,9 @@
 <script type="text/javascript" src="/onlinestore/script/jquery.reveal.js" ></script>
 <script type="text/javascript" src="/onlinestore/script/jquery-ui-1.11.0.min.js" ></script>
 <script type="text/javascript" src="/onlinestore/script/jquery.ui-contextmenu.js" ></script>
+<script type="text/javascript" src="/onlinestore/script/jquery.fancytree.js" ></script>
+<link rel="stylesheet" type="text/css" href="/onlinestore/css/ui.fancytree.css">
+<link rel="stylesheet" type="text/css" href="/onlinestore/css/jquery-ui.min.css">
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){

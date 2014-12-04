@@ -437,7 +437,7 @@
 	text-shadow: 0 -1px 1px rbga(0,0,0,.6);
 	font-weight: bold;
 	cursor: pointer;
-	background: url("../img/close_icon.png") no-repeat;
+	background: url("../image/close_icon.png") no-repeat;
 	width: 48px;
 	height: 20px;
 	display: block;

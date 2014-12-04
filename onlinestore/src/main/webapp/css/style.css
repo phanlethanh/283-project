@@ -81,3 +81,7 @@
 .content_left {width:20%; height:500px; background-color:#BDD8DA; float:left}
 .main_content {width:80%; height:500px; background-color:#CC99CC; float:left}
 /*content right*/
+
+/*Admin*/
+.ui-menu-item a{text-decoration:none}
+

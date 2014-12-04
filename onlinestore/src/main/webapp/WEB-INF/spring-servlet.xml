@@ -82,19 +82,20 @@
 
         <property name="mappings">
             <props>
-                <prop key="/homes.html">categoryController</prop>
+                <prop key="/homes.html">homeController</prop>
                 <prop key="/register.html">osUserController</prop>
                 <prop key="/login.html">osUserController</prop>
                 <prop key="/logout.html">osUserController</prop>
-                <prop key="/admin.html">categoryController</prop>
+                <prop key="/admin.html">homeController</prop>
                 <prop key="/category.html*">categoryController</prop>
+                 <prop key="/addSubCategory.html">categoryController</prop>
             </props>
         </property>
     </bean>
     <!-- Define the controllers -->
     <bean id="categoryController" class="com.onlinestore.controller.CategoryController" />
     <bean id="osUserController" class="com.onlinestore.controller.OsUserController" />
-    
+    <bean id="homeController" class="com.onlinestore.controller.HomeController" />
     <context:annotation-config/>   
     <tx:annotation-driven proxy-target-class="true"/>
 	<context:component-scan base-package="com.onlinestore.dao"/>
