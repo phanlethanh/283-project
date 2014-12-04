@@ -1,6 +1,6 @@
 package com.onlinestore.model;
 
-// Generated Dec 4, 2014 2:47:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated Dec 5, 2014 12:05:32 AM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
