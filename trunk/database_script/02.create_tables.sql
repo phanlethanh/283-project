@@ -197,7 +197,8 @@ CREATE TABLE image
 (
   id serial NOT NULL,
   gallery_id integer,
-  name character varying(32),
+  name character varying(256),
+  description character varying(512),
   create_date timestamp without time zone,
   write_date timestamp without time zone,
   active boolean,
@@ -225,6 +226,7 @@ CREATE TABLE product
   price_id integer,
   gallery_id integer,
   name character varying(32),
+  icon character varying(256),
   description character varying(256),
   create_date timestamp without time zone,
   write_date timestamp without time zone,
