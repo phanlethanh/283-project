@@ -1,6 +1,6 @@
 package com.onlinestore.model;
 
-// Generated Dec 4, 2014 2:47:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated Dec 5, 2014 12:05:32 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -26,6 +26,7 @@ public class Image implements java.io.Serializable {
 	private int id;
 	private Gallery gallery;
 	private String name;
+	private String description;
 	private Date createDate;
 	private Date writeDate;
 	private Boolean active;
@@ -58,7 +59,7 @@ public class Image implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "gallery_id")
 	public Gallery getGallery() {
 		return this.gallery;
@@ -68,13 +69,22 @@ public class Image implements java.io.Serializable {
 		this.gallery = gallery;
 	}
 
-	@Column(name = "name", length = 32)
+	@Column(name = "name", length = 256)
 	public String getName() {
 		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Column(name = "description", length = 512)
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

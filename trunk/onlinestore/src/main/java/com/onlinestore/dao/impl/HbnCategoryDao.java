@@ -17,9 +17,7 @@ import com.onlinestore.model.Category;
 @Repository
 public class HbnCategoryDao extends AbstractHbnDao<Category> implements
 		CategoryDao {
-
 	
-
 	@Override
 	public List<Category> getSubCategory(Integer parent) {
 		// TODO Auto-generated method stub

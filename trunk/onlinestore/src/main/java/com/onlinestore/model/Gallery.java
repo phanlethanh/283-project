@@ -1,6 +1,6 @@
 package com.onlinestore.model;
 
-// Generated Dec 4, 2014 2:47:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated Dec 5, 2014 12:05:32 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -99,7 +99,7 @@ public class Gallery implements java.io.Serializable {
 		this.active = active;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "gallery")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "gallery")
 	public Set<Product> getProducts() {
 		return this.products;
 	}
@@ -108,7 +108,7 @@ public class Gallery implements java.io.Serializable {
 		this.products = products;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "gallery")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "gallery")
 	public Set<Image> getImages() {
 		return this.images;
 	}

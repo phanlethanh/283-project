@@ -1,6 +1,6 @@
 package com.onlinestore.model;
 
-// Generated Dec 4, 2014 2:47:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated Dec 5, 2014 12:05:32 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -33,6 +33,7 @@ public class Product implements java.io.Serializable {
 	private Status status;
 	private Producer producer;
 	private String name;
+	private String icon;
 	private String description;
 	private Date createDate;
 	private Date writeDate;
@@ -50,10 +51,10 @@ public class Product implements java.io.Serializable {
 	}
 
 	public Product(int id, Price price, Gallery gallery, Promotion promotion,
-			Status status, Producer producer, String name, String description,
-			Date createDate, Date writeDate, Boolean active,
-			Set<OsOrderDetail> osOrderDetails, Set<CartProduct> cartProducts,
-			Set<CategoryProduct> categoryProducts) {
+			Status status, Producer producer, String name, String icon,
+			String description, Date createDate, Date writeDate,
+			Boolean active, Set<OsOrderDetail> osOrderDetails,
+			Set<CartProduct> cartProducts, Set<CategoryProduct> categoryProducts) {
 		this.id = id;
 		this.price = price;
 		this.gallery = gallery;
@@ -61,6 +62,7 @@ public class Product implements java.io.Serializable {
 		this.status = status;
 		this.producer = producer;
 		this.name = name;
+		this.icon = icon;
 		this.description = description;
 		this.createDate = createDate;
 		this.writeDate = writeDate;
@@ -81,7 +83,7 @@ public class Product implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "price_id")
 	public Price getPrice() {
 		return this.price;
@@ -91,7 +93,7 @@ public class Product implements java.io.Serializable {
 		this.price = price;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "gallery_id")
 	public Gallery getGallery() {
 		return this.gallery;
@@ -101,7 +103,7 @@ public class Product implements java.io.Serializable {
 		this.gallery = gallery;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "promotion_id")
 	public Promotion getPromotion() {
 		return this.promotion;
@@ -111,7 +113,7 @@ public class Product implements java.io.Serializable {
 		this.promotion = promotion;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "status_id")
 	public Status getStatus() {
 		return this.status;
@@ -121,7 +123,7 @@ public class Product implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "producer_id")
 	public Producer getProducer() {
 		return this.producer;
@@ -138,6 +140,15 @@ public class Product implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Column(name = "icon", length = 64)
+	public String getIcon() {
+		return this.icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 	@Column(name = "description", length = 256)
