@@ -286,6 +286,10 @@ CREATE TABLE cart_product
   id serial NOT NULL,
   cart_id integer,
   product_id integer,
+  quantity integer,
+  create_date timestamp without time zone,
+  write_date timestamp without time zone,
+  active boolean,
   CONSTRAINT cart_product_pkey PRIMARY KEY (id),
   CONSTRAINT cart_product_cart_id_fkey FOREIGN KEY (cart_id)
       REFERENCES cart (id) MATCH SIMPLE

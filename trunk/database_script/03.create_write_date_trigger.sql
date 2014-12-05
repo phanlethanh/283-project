@@ -22,8 +22,8 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trig_create_date BEFORE INSERT ON cart
 FOR EACH ROW EXECUTE PROCEDURE func_insert();
 
--- CREATE TRIGGER trig_create_date BEFORE INSERT ON cart_product
--- FOR EACH ROW EXECUTE PROCEDURE func_insert();
+CREATE TRIGGER trig_create_date BEFORE INSERT ON cart_product
+FOR EACH ROW EXECUTE PROCEDURE func_insert();
 
 CREATE TRIGGER trig_create_date BEFORE INSERT ON category
 FOR EACH ROW EXECUTE PROCEDURE func_insert();
@@ -78,8 +78,8 @@ FOR EACH ROW EXECUTE PROCEDURE func_insert();
 CREATE TRIGGER trig_write_date BEFORE UPDATE ON cart
 FOR EACH ROW EXECUTE PROCEDURE func_update();
 
--- CREATE TRIGGER trig_write_date BEFORE UPDATE ON cart_product
--- FOR EACH ROW EXECUTE PROCEDURE func_update();
+CREATE TRIGGER trig_write_date BEFORE UPDATE ON cart_product
+FOR EACH ROW EXECUTE PROCEDURE func_update();
 
 CREATE TRIGGER trig_write_date BEFORE UPDATE ON category
 FOR EACH ROW EXECUTE PROCEDURE func_update();
