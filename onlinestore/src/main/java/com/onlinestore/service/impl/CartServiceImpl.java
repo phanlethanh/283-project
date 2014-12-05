@@ -29,7 +29,7 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public Cart Cart(Integer id) {
+	public Cart getCart(Integer id) {
 		return cartDao.get(id);
 	}
 
