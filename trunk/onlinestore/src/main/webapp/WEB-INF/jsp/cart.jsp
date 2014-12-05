@@ -4,6 +4,8 @@
 <style type="text/css">
 .cart {
 	background-color: white;
+	padding:  20px;
+	border: 1px solid;
 }
 
 .cart_product_list {
@@ -22,6 +24,13 @@
 }
 </style>
 
+<script>
+	 $(document).ready(function(){
+		 $("#delete_cart_product").live('click',function(){
+			 var id = 
+		 });
+	 });
+</script>
 <div class="cart">
 	<div class="cart_product_list">
 		<table class="cart_product_table">
@@ -39,7 +48,7 @@
 						value="${cp['quantity']}"></td>
 					<td>${cp['price']}</td>
 					<td><input type="button" value="Xoá"
-						name="delete_cart_product"></td>
+						name="${cp['id']}" id="delete_cart_product${cp['id']}" ></td>
 				</tr>
 			</c:forEach>
 		</table>

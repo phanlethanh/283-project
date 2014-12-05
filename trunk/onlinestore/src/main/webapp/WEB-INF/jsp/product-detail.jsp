@@ -7,9 +7,19 @@
 	padding-left: 50px;
 	padding-bottom: 100px;
 	padding-right: 50px;
-	border: 2px solid;
+	border: 1px solid;
 }
 </style>
+<script type="text/javascript">
+	function addToCartOnClick() {
+		if (confirm("Do you want to add this product?") == true) {
+			var productId = document.getElementById("product_id").value;
+			var userId = document.getElementById("user_id").value;
+			window.location.href = 'addToCart.html?user_id=' + userId
+					+ '&product_id=' + productId;
+		}
+	}
+</script>
 
 <div class="product_detail">
 	<form action="" method="get">
@@ -20,7 +30,8 @@
 			<tr>
 				<td><img src="${product['icon']}" width="150" height="150"></td>
 				<td><input type="button" name="" value="Mua ngay"><input
-					type="button" name="" value="Thêm vào giỏ hàng"></td>
+					type="button" name="add_to_cart" value="Thêm vào giỏ hàng"
+					onclick="addToCartOnClick()"></td>
 			</tr>
 			<tr>
 				<th align="left">Trạng thái:</th>
@@ -35,7 +46,9 @@
 				<td>${product['promotion']}</td>
 			</tr>
 		</table>
-		<input type="hidden" name="product_id" value="${product['id']}">
+		<input type="hidden" id="product_id" value="${product['id']}">
+		<input type="hidden" id="user_id"
+			value="<%=session.getAttribute("os_userid")%>">
 	</form>
 	<br />
 	<h3>Thông tin chi tiết</h3>
