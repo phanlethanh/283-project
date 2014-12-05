@@ -14,6 +14,7 @@
 <script type="text/javascript" src="/onlinestore/script/jquery.fancytree.js" ></script>
 <link rel="stylesheet" type="text/css" href="/onlinestore/css/ui.fancytree.css">
 <link rel="stylesheet" type="text/css" href="/onlinestore/css/jquery-ui.min.css">
+<script type="text/javascript" src="/onlinestore/script/ebanhang.min.js" ></script>
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){

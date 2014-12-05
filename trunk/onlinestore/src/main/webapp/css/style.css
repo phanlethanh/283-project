@@ -84,3 +84,17 @@
 
 /*Admin*/
 .ui-menu-item a{text-decoration:none}
+.main_scroll {
+    background: url("../image/bg.png") no-repeat scroll right bottom rgba(0, 0, 0, 0);
+}
+.groupFormButton {
+    clear: left;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.bntsubmit {
+    border: 1px solid #3C7FB1;
+    box-shadow: 0 0 3px #48D8FB inset;
+    cursor: pointer;
+}
+

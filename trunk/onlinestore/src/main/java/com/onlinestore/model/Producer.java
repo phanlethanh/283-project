@@ -108,7 +108,7 @@ public class Producer implements java.io.Serializable {
 		this.active = active;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "producer")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "producer")
 	public Set<Product> getProducts() {
 		return this.products;
 	}

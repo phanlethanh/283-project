@@ -20,4 +20,6 @@ public class HbnProductDao extends AbstractHbnDao<Product> implements
 		Query query = getSession().createQuery(sql);
 		return query.list();
 	}
+	
+
 }

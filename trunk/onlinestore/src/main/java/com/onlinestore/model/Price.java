@@ -97,7 +97,7 @@ public class Price implements java.io.Serializable {
 		this.active = active;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "price")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "price")
 	public Set<Product> getProducts() {
 		return this.products;
 	}

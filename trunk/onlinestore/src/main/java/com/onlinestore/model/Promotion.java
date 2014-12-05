@@ -144,7 +144,7 @@ public class Promotion implements java.io.Serializable {
 		this.active = active;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "promotion")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "promotion")
 	public Set<Product> getProducts() {
 		return this.products;
 	}
