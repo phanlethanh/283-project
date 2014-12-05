@@ -142,7 +142,6 @@ public class CategoryController {
 	public void loadCategory(HttpServletRequest request, HttpServletResponse response)
 	{
 		String id = request.getParameter("id");
-		
 		List<Product> list = new ArrayList<Product>();
 		List<HashMap> listProduct = new ArrayList<HashMap>();
 		list = getCategoryService().getProductOfCategory(Integer.parseInt(id));
@@ -155,8 +154,7 @@ public class CategoryController {
 			product.put("price", list.get(i).getPrice().getPrice());
 			listProduct.add(product);
 		}
-		Product test = new Product();
-		test.setName("test");
+		
 		String json = new Gson().toJson(listProduct);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
