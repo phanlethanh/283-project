@@ -99,7 +99,7 @@ public class Status implements java.io.Serializable {
 		this.active = active;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "status")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "status")
 	public Set<Product> getProducts() {
 		return this.products;
 	}

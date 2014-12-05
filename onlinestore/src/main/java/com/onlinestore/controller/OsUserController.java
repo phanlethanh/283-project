@@ -116,8 +116,8 @@ public class OsUserController {
 			e.printStackTrace();
 		}
 	}
-	@RequestMapping(value="/logout.html", method = RequestMethod.GET)
-	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response)
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		HttpSession session = request.getSession();
 		session.removeAttribute("os_username");
@@ -132,7 +132,7 @@ public class OsUserController {
 			}
 		}
 		
-		return new ModelAndView("home");
+		response.sendRedirect("homes.html");
 		
 	}
 	private boolean checkUserIsAdmin(Integer id)

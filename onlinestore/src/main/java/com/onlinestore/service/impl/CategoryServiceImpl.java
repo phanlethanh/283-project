@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.onlinestore.dao.CategoryDao;
 import com.onlinestore.model.Category;
+import com.onlinestore.model.Product;
 import com.onlinestore.service.CategoryService;
 
 @Service("categoryService")
@@ -44,5 +45,16 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		return categoryDao.getSubCategory(parent_id);
 	}
-	
+
+	@Override
+	public boolean findCategoryWithName(String name) {
+		// TODO Auto-generated method stub
+		return categoryDao.findCategoryWithName(name);
+	}
+	@Override
+	public List<Product> getProductOfCategory(Integer idCategory) {
+		// TODO Auto-generated method stub
+		return categoryDao.getProductOfCategory(idCategory);
+	}
+
 }

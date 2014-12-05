@@ -60,7 +60,7 @@ public class HomeController {
 			meta.put("description", product.getDescription());
 			mapList.add(meta);
 		}
-
+		System.out.print(homeProducts.size());
 		view.addObject("productMapList", mapList);
 		view.setViewName(viewName);
 		return view;

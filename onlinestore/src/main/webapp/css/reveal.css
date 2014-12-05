@@ -231,7 +231,7 @@
 	display: none;
 }
 .modalMess p{
-	background: url("../img/waring_icon.png") 0 no-repeat;
+	background: url("../image/waring_icon.png") 0 no-repeat;
 	padding-left: 20px;
 	font-size: 12px;
 	text-align: left;
@@ -327,7 +327,7 @@
 	text-shadow: 0 -1px 1px rbga(0,0,0,.6);
 	font-weight: bold;
 	cursor: pointer;
-	background: url("../img/close_icon.png") no-repeat;
+	background: url("../image/close_icon.png") no-repeat;
 	width: 48px;
 	height: 20px;
 	display: block;
@@ -361,7 +361,7 @@
 	text-shadow: 0 -1px 1px rbga(0,0,0,.6);
 	font-weight: bold;
 	cursor: pointer;
-	background: url("../img/close_icon.png") no-repeat;
+	background: url("../image/close_icon.png") no-repeat;
 	width: 48px;
 	height: 20px;
 	display: block;
@@ -376,7 +376,7 @@
 	text-shadow: 0 -1px 1px rbga(0,0,0,.6);
 	font-weight: bold;
 	cursor: pointer;
-	background: url("../img/close_icon.png") no-repeat;
+	background: url("../image/close_icon.png") no-repeat;
 	width: 48px;
 	height: 20px;
 	display: block;
@@ -391,7 +391,7 @@
 	text-shadow: 0 -1px 1px rbga(0,0,0,.6);
 	font-weight: bold;
 	cursor: pointer;
-	background: url("../img/close_icon.png") no-repeat;
+	background: url("../image/close_icon.png") no-repeat;
 	width: 48px;
 	height: 20px;
 	display: block;
@@ -406,7 +406,7 @@
 	text-shadow: 0 -1px 1px rbga(0,0,0,.6);
 	font-weight: bold;
 	cursor: pointer;
-	background: url("../img/close_icon.png") no-repeat;
+	background: url("../image/close_icon.png") no-repeat;
 	width: 48px;
 	height: 20px;
 	display: block;
@@ -474,7 +474,7 @@
 	margin: 10px;
 }
 .iconwaring{
-	background: url('../img/warning.png') no-repeat;
+	background: url('../image/warning.png') no-repeat;
 	width: 32px; height:32px;
 	float: left; margin-right: 10px;
 }

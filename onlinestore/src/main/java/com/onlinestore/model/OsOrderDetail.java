@@ -73,7 +73,7 @@ public class OsOrderDetail implements java.io.Serializable {
 		this.osOrder = osOrder;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id")
 	public Product getProduct() {
 		return this.product;

@@ -47,7 +47,7 @@ public class CategoryProduct implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id")
 	public Product getProduct() {
 		return this.product;
@@ -57,7 +57,7 @@ public class CategoryProduct implements java.io.Serializable {
 		this.product = product;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	public Category getCategory() {
 		return this.category;

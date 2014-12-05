@@ -189,7 +189,7 @@ public class Product implements java.io.Serializable {
 		this.active = active;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
 	public Set<OsOrderDetail> getOsOrderDetails() {
 		return this.osOrderDetails;
 	}
@@ -198,7 +198,7 @@ public class Product implements java.io.Serializable {
 		this.osOrderDetails = osOrderDetails;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
 	public Set<CartProduct> getCartProducts() {
 		return this.cartProducts;
 	}
@@ -207,7 +207,7 @@ public class Product implements java.io.Serializable {
 		this.cartProducts = cartProducts;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
 	public Set<CategoryProduct> getCategoryProducts() {
 		return this.categoryProducts;
 	}

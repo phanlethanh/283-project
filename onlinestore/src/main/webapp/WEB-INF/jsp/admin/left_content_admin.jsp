@@ -3,6 +3,30 @@
 <script>
 	$(document).ready(function()
 	{
+		function loadCategoryCentreList(id)
+		{
+			$.ajax({
+				url: "loadProductOfCategory.html",
+				type: "POST",
+				data:{id:id},
+				success: function(data){
+					//var data1=JSON.parse(data);
+					
+					alert("success");
+					for(var i = 0; i <data.length;i++)
+					{
+						$(".right_max_width table").append('<tr id="itemid"'+data[i]["id"]+'><td align="left"></td><td align="left">'+data[i]["name"]+'</td><td align="center">'+data[i]["description"]+'</td><td align="left">'+data[i]["price"]+'</td><td align="center"><a href="editProduct?id="'+data[i]["id"]+'>Edit</a><a href="deleteProduct?id="'+data[i]["id"]+'>Delete</a></td></tr>');
+					}
+					/*if(mess){
+						showMess(mess);
+					}*/
+				}, 
+				error : function(jqXHR, status, errorThrown){ 
+					
+				}
+			});
+		}
+
 		$("#tree").fancytree({
 			autoActivate: false, // we use scheduleAction()
 			autoCollapse: true,
@@ -34,9 +58,9 @@
 				var node = data.node,
 				orgEvent = data.originalEvent;
 				currentNode = node;
-				/*if(node.extraClasses.indexOf("category") != -1){
-					//loadCostCentreList();
-				}*/
+				if(node.key != "_1"){
+					loadCategoryCentreList(currentNode.key);
+				}
 				if(node.isActive() && node.data.href){
 					data.tree.reactivate();
 					window.open(node.data.href, (orgEvent.ctrlKey || orgEvent.metaKey) ? "_blank" : node.data.target);
@@ -91,7 +115,8 @@
 						$("#addCategoryCentreModal #categoryDescription").val("");
 						event.preventDefault();
 						$("#addCategoryCentreModal").reveal();
-						  
+						$("#addCategoryCentreModal #parent_name").val(currentNode.title);
+						$("#addCategoryCentreModal #parent_id").val(currentNode.key);
 						
 						break;
 					case 'edit-category':
@@ -104,15 +129,16 @@
 					case 'delete-category':
 						event.preventDefault();
 						event.stopPropagation();
-						createConfirm(".main_scroll", "Delete Category", "Are you sure delete?", 'deleteCategoryCentre');	
+						//alert("Are you sure delete"+currentNode.key);
+						createConfirm(".main_content", "Delete Category "+currentNode.title, "Are you sure delete?", 'delete_category');	
 						var id = currentNode.key;
 						currentNode = node.getParent();
-						if($('#confirmModaldeleteCategoryCentre span').length <= 0)
+						if($('#confirmModaldelete_category span').length <= 0)
 						{
-							$('#confirmModaldeleteCategoryCentre').append('<span style="display: none">'+id+'</span>');
+							$('#confirmModaldelete_category').append('<span style="display: none">'+id+'</span>');
 						} else 
 						{
-							$('#confirmModaldeleteCategoryCentre span').empty().text(id);
+							$('#confirmModaldelete_category span').empty().text(id);
 						}	
 						break;
 				}
@@ -136,8 +162,9 @@
 							 //loadCostCentreList(data.mess);
 							 currentNode.resetLazy();//load node tree left
 							 currentNode.toggleExpanded();
+							 alert(data.mess);
 						} else {
-							$( ".rowform span" ).remove();
+							/*$( ".rowform span" ).remove();
 							$("#addCostCentreModal .modalMess").show().html("<p>" + data.mess + "</p>");
 							if(data.error.code){
 								$("#addCostCentreModal #CcliCode").addClass('texterror');
@@ -148,7 +175,8 @@
 								$("#addCostCentreModal #CcliName").addClass('texterror');
 								if($("#addCostCentreModal #CcliName span").length <= 0)
 									$("#addCostCentreModal #CcliName").after('<span>' + data.error.name + '</span>');
-							}
+							}*/
+							alert(data.mess);
 						}
 					},
 					error : function(jqXHR, status, errorThrown){ 
@@ -156,6 +184,28 @@
 					}
 				});
 			});
+		$("#confirmModaldelete_category .bntsubmit").live('click',function(){
+			var id= parseInt($('#confirmModaldelete_category span').text());
+			$.ajax({
+				url:"deleteCategory.html",
+				data:{id:id},
+				type:"POST",
+				success:function(data){
+					if(data.code == 1)
+					{
+						
+						$('#confirmModaldelete_category').trigger('reveal:close');
+						 //loadCostCentreList(data.mess);
+						 currentNode.resetLazy();//load node tree left
+						 currentNode.toggleExpanded();
+						 alert("Successful delete category");
+					}
+				},
+				error : function(jqXHR, status, errorThrown){ 
+					
+				}
+			});
+		});
 	});
 	function hideCm(name, all, is_show){
 		if(all instanceof Array){
@@ -186,14 +236,17 @@
 		<form action="" id="form_add_subcategory" class="addSubCategory" method="post" modelAttribute="Category">
 			<div class="in-progress"></div>
 			<div class="modalContent">
+				
+				<div class="info_add_category">
+					<span>Parent Category</span>
+					<input id="parent_name" type="text">
+					<input id="parent_id" type="hidden" name="parentId">
+				</div>
 				<div class="info_add_category">
 					<span>Name Category</span>
-					<input id="categoryName" type="text">
+					<input id="name" type="text" name="name">
 				</div>
-				<div class="info_add_category">
-					<span>Description</span>
-					<input id="categoryDescription" type="text">
-				</div>
+				
 				
 			</div>
 			<div class="groupFormButton">
