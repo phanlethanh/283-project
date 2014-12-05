@@ -80,6 +80,7 @@
 				<prop key="/category.html*">categoryController</prop>
 				<prop key="/addSubCategory.html">categoryController</prop>
 				<prop key="/productDetail.html">productController</prop>
+				<prop key="/viewCart.html">cartController</prop>
 			</props>
 		</property>
 	</bean>

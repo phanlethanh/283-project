@@ -15,7 +15,7 @@
        </div>
           <div class="extend_block">
           	<div id="mycart" class="cart_box">
-              	<a href="#">Giỏ hàng (<span class="order_cart">0</span>)</a>
+              	<a href="viewCart.html?user_id=3">Giỏ hàng (<span class="order_cart">0</span>)</a>
               </div>
               <div class="info_user">
               	<%

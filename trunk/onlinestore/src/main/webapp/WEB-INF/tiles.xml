@@ -25,6 +25,10 @@
     	<put-attribute name="left_content" value="/WEB-INF/jsp/home/left_content_home.jsp"/>
         <put-attribute name="content" value="/WEB-INF/jsp/product-detail.jsp" />
     </definition>
+    <definition name="cart" extends=".mainTemplate">
+    	<put-attribute name="left_content" value="/WEB-INF/jsp/home/left_content_home.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/cart.jsp" />
+    </definition>
 
     
 </tiles-definitions>

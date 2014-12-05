@@ -32,7 +32,12 @@ public class ProductController {
 		ModelAndView view = new ModelAndView();
 		String viewName = "product";
 		Product product = null;
-		Integer id = Integer.valueOf(request.getParameter("product_id"));
+		Integer id = null;
+		try {
+			id = Integer.valueOf(request.getParameter("product_id"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		product = getProductService().getProduct(id);
 		HashMap<String, Object> productMap = new HashMap<String, Object>();
 		productMap.put("id", product.getId());
