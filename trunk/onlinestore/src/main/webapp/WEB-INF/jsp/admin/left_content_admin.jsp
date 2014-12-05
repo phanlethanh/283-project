@@ -11,11 +11,12 @@
 				data:{id:id},
 				success: function(data){
 					//var data1=JSON.parse(data);
+					var Table = document.getElementById("product_of_category");
+					Table.innerHTML = "";
 					
-					alert("success");
 					for(var i = 0; i <data.length;i++)
 					{
-						$(".right_max_width table").append('<tr id="itemid"'+data[i]["id"]+'><td align="left"></td><td align="left">'+data[i]["name"]+'</td><td align="center">'+data[i]["description"]+'</td><td align="left">'+data[i]["price"]+'</td><td align="center"><a href="editProduct?id="'+data[i]["id"]+'>Edit</a><a href="deleteProduct?id="'+data[i]["id"]+'>Delete</a></td></tr>');
+						$(".right_max_width table").append('<tr id="itemid'+data[i]["id"]+'"><td align="left"></td><td align="left">'+data[i]["name"]+'</td><td align="center">'+data[i]["description"]+'</td><td align="left">'+data[i]["price"]+'</td><td align="center"><a href="detailProduct?id='+data[i]["id"]+'">Detail</a><a href="editProduct?id='+data[i]["id"]+'">Edit</a><a href="deleteProduct?id='+data[i]["id"]+'">Delete</a></td></tr>');
 					}
 					/*if(mess){
 						showMess(mess);

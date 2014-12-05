@@ -29,9 +29,9 @@
               		}*/
               		if(session.getAttribute("os_username") != null)
               		{%>
-              			<div id="os_username">
+              			<div class="os_username">
               				<span><%=session.getAttribute("os_username") %></span>
-              				<input type="hidden" id="user_id_login" value=<%=session.getAttribute("os_userid") %>>
+           
               			</div>
               			<div class="logout">
               				<a href="logout.html">Đăng xuất</a>

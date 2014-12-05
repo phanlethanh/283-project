@@ -97,4 +97,12 @@
     box-shadow: 0 0 3px #48D8FB inset;
     cursor: pointer;
 }
-
+.product_name_properties {
+	width:20%; float:left
+}
+.product_content_properties{
+	width:40%; float:left
+}
+.hidden {
+	display:none
+}
