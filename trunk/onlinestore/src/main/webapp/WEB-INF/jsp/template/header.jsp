@@ -1,4 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<script>
+	
+</script>
 <div class="header_content">
       	<div class="search_box">
           	<div class="search_select">
@@ -15,7 +18,7 @@
        </div>
           <div class="extend_block">
           	<div id="mycart" class="cart_box">
-              	<a href="viewCart.html?user_id=3">Giỏ hàng (<span class="order_cart">0</span>)</a>
+              	<a href="viewCart.html?user_id=<%= session.getAttribute("os_userid")%>" id=cart_detail>Giỏ hàng (<span class="order_cart">0</span>)</a>
               </div>
               <div class="info_user">
               	<%
@@ -26,8 +29,9 @@
               		}*/
               		if(session.getAttribute("os_username") != null)
               		{%>
-              			<div class="os_username">
+              			<div id="os_username">
               				<span><%=session.getAttribute("os_username") %></span>
+              				<input type="hidden" id="user_id_login" value=<%=session.getAttribute("os_userid") %>>
               			</div>
               			<div class="logout">
               				<a href="logout.html">Đăng xuất</a>

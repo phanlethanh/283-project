@@ -73,7 +73,7 @@ public class OsUserController {
 				HttpSession session = request.getSession();
 				synchronized(session){
 					session.setAttribute("os_username", list_user.get(i).getUsername());
-					
+					session.setAttribute("os_userid", list_user.get(i).getId());
 				}
 				log.info("User "+list_user.get(i).getUsername()+" loging");
 			}
@@ -121,6 +121,7 @@ public class OsUserController {
 	{
 		HttpSession session = request.getSession();
 		session.removeAttribute("os_username");
+		session.removeAttribute("os_userid");
 		Cookie[] cookie = request.getCookies();
 		for(int i = 0; i < cookie.length; i++)
 		{
