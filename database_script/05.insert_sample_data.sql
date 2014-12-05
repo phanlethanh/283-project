@@ -1,10 +1,5 @@
 -- UserGroups
 -- Statuses
--- Users
-INSERT INTO os_user(group_id, username, password, full_name, address, phone, email)
-    VALUES (2, 'thanh', 'thanh', 'Phan Lê Thanh', 'Nguyen Duy, P.9, Q.8', '01657776661', 'phanlethanh93@gmail.com'); -- 3
-INSERT INTO os_user(group_id, username, password, full_name, address, phone, email)
-    VALUES (2, 'thang', 'thang', 'Trần Việt Thắng', 'Nguyen Duy, P.9, Q.8', '01658884442', 'thangviet1206@gmail.com'); -- 4
 
 -- Producers
 INSERT INTO producer(name, description) VALUES ('Apple', 'https://www.apple.com/'); -- 1
@@ -114,6 +109,28 @@ INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, 
     VALUES (1, 1, 1, 3, 3, 'Iphone 5s 32GB', 'image/product_icon/iphone-5s.jpg', 'Điện thoại thông minh cao cấp. HĐH: iOS'); -- 3
 INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
     VALUES (1, 1, 1, 4, 4, 'Iphone 4s 8GB', 'image/product_icon/iphone-4.jpg', 'Điện thoại thông minh cao cấp. HĐH: iOS'); -- 4
+	
+-- Category products
+INSERT INTO category_product(category_id, product_id) VALUES (1, 1);
+INSERT INTO category_product(category_id, product_id) VALUES (1, 2);
+INSERT INTO category_product(category_id, product_id) VALUES (1, 3);
+INSERT INTO category_product(category_id, product_id) VALUES (1, 4);
+
+-- Carts
+INSERT INTO cart(id) VALUES (1); -- 1
+INSERT INTO cart(id) VALUES (2); -- 2
+
+-- Cart products
+INSERT INTO cart_product(cart_id, product_id, quantity) VALUES (1, 1, 1);
+INSERT INTO cart_product(cart_id, product_id, quantity) VALUES (1, 2, 1);
+INSERT INTO cart_product(cart_id, product_id, quantity) VALUES (2, 3, 1);
+INSERT INTO cart_product(cart_id, product_id, quantity) VALUES (2, 4, 1);
+
+-- Users
+INSERT INTO os_user(group_id, cart_id, username, password, full_name, address, phone, email)
+    VALUES (2, 1, 'thanh', 'thanh', 'Phan Lê Thanh', 'Nguyen Duy, P.9, Q.8', '01657776661', 'phanlethanh93@gmail.com'); -- 3
+INSERT INTO os_user(group_id, cart_id, username, password, full_name, address, phone, email)
+    VALUES (2, 2, 'thang', 'thang', 'Trần Việt Thắng', 'Nguyen Duy, P.9, Q.8', '01658884442', 'thangviet1206@gmail.com'); -- 4
 
 -- Orders
 INSERT INTO os_order(user_id, status_id, transport_fee_id, tax_id, address, phone)
@@ -130,19 +147,3 @@ INSERT INTO os_order_detail( product_id, order_id, quantity, price)
     VALUES (3, 2, 1, 15990000); -- 3
 INSERT INTO os_order_detail( product_id, order_id, quantity, price)
     VALUES (4, 2, 1, 8390000); -- 4
-	
--- Category products
-INSERT INTO category_product(category_id, product_id) VALUES (1, 1);
-INSERT INTO category_product(category_id, product_id) VALUES (1, 2);
-INSERT INTO category_product(category_id, product_id) VALUES (1, 3);
-INSERT INTO category_product(category_id, product_id) VALUES (1, 4);
-
--- Carts
-INSERT INTO cart(id) VALUES (1); -- 1
-INSERT INTO cart(id) VALUES (2); -- 2
-
--- Cart products
-INSERT INTO cart_product(cart_id, product_id) VALUES (1, 1);
-INSERT INTO cart_product(cart_id, product_id) VALUES (1, 2);
-INSERT INTO cart_product(cart_id, product_id) VALUES (2, 3);
-INSERT INTO cart_product(cart_id, product_id) VALUES (2, 4);
