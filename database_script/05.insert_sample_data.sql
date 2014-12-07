@@ -170,6 +170,18 @@ INSERT INTO price(price) VALUES (1990000); -- 32: Nokia Lumia 530
 
 INSERT INTO price(price) VALUES (3490000); -- 33: Microsoft Lumia 535
 
+INSERT INTO price(price) VALUES (5490000); -- 34: Asus Zenfone 6
+INSERT INTO price(price) VALUES (3990000); -- 35: Asus Zenfone 5
+INSERT INTO price(price) VALUES (2790000); -- 36: Asus Zenfone 4 A450
+INSERT INTO price(price) VALUES (2190000); -- 37: Asus Zenfone 4
+
+INSERT INTO price(price) VALUES (7990000); -- 38: Philips i928
+INSERT INTO price(price) VALUES (6490000); -- 39: Philips i908
+INSERT INTO price(price) VALUES (4990000); -- 40: Philips Xenium W6610
+INSERT INTO price(price) VALUES (2190000); -- 41: Philips S388
+INSERT INTO price(price) VALUES (1590000); -- 42: Philips S308
+INSERT INTO price(price) VALUES (5490000); -- 43: Pantech Vega Iron
+INSERT INTO price(price) VALUES (10200000); -- 44: Pantech Vega Iron 2
 
 -- ###############################################################################################################
 -- Galleries
@@ -209,6 +221,19 @@ INSERT INTO gallery(name) VALUES ('Nokia Lumia 1320'); -- 30
 INSERT INTO gallery(name) VALUES ('Nokia Lumia 630'); -- 31
 INSERT INTO gallery(name) VALUES ('Nokia Lumia 530'); -- 32
 INSERT INTO gallery(name) VALUES ('Microsoft Lumia 535'); -- 33
+
+INSERT INTO gallery(name) VALUES ('Asus Zenfone 6'); -- 34
+INSERT INTO gallery(name) VALUES ('Asus Zenfone 5'); -- 35
+INSERT INTO gallery(name) VALUES ('Asus Zenfone 4 A450'); -- 36
+INSERT INTO gallery(name) VALUES ('Asus Zenfone 4'); -- 37
+
+INSERT INTO gallery(name) VALUES ('Philips i928'); -- 38
+INSERT INTO gallery(name) VALUES ('Philips i908'); -- 39
+INSERT INTO gallery(name) VALUES ('Philips Xenium W6610'); -- 40
+INSERT INTO gallery(name) VALUES ('Philips S388'); -- 41
+INSERT INTO gallery(name) VALUES ('Philips S308'); -- 42
+INSERT INTO gallery(name) VALUES ('Pantech Vega Iron'); -- 43
+INSERT INTO gallery(name) VALUES ('Pantech Vega Iron 2'); -- 44
 
 -- ###############################################################################################################
 -- Images
@@ -554,6 +579,127 @@ INSERT INTO image(gallery_id, name, description)
 INSERT INTO image(gallery_id, name, description) 
 	VALUES (33, 'image/product_image/microsoft-lumia-535-3.jpg', 'Thiết kế nổi bật, màu sắc rực rỡ gây ấn tượng bởi sự trẻ trung và năng động');
 	
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (34, 'image/product_image/asus-zenfone-6-a601-1.jpg', 'Phablet cao cấp nhất của Asus hiện nay, thiết kế lịch lãm, cạnh dưới giả kim loại với vân tròn đồng tâm giúp máy bắt mắt và sang trọng');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (34, 'image/product_image/asus-zenfone-6-a601-2.jpg', 'Màn hình 6 inch HD sắc nét, kính cường lực Gorilla Glass 3 hạn chế trầy xước, hỗ trợ hiển thị sắc nét, trong và sáng hơn');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (34, 'image/product_image/asus-zenfone-6-a601-3.jpg', 'Chụp ảnh người thân, bạn bè đẹp hơn với camera 13 MP, kết hợp công nghệ PixelMaster chụp tốt hơn trong điều kiện thiếu sáng');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (34, 'image/product_image/asus-zenfone-6-a601-4.jpg', 'Trang bị lõi kép, chip Intel, RAM 2 GB mạnh mẽ, Zenfone 6 không gặp trở ngại nào khi chạy những ứng dụng, game nặng hiện nay');
+	
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (35, 'image/product_image/asus-zenfone-5-1.jpg', 'Chất liệu khá tốt, mịn màng mang đến cảm giác máy cao cấp so với tầm giá. Mặt lưng bo tròn, phím vật lý có vân tròn giả kim loại sang trọng và bắt mắt');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (35, 'image/product_image/asus-zenfone-5-2.jpg', 'Màn hình 5 inch, tấm nền IPS góc nhìn rộng và chống lóa cùng độ phân giải cao giúp bạn lướt web, chơi game hấp dẫn hơn.');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (35, 'image/product_image/asus-zenfone-5-3.jpg', 'Máy vận hành mượt mà, mạnh mẽ các ứng dụng phổ biến nhất hiện nay nhờ cấu hình 2 nhân, chip Intel hiệu suất cao');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (35, 'image/product_image/asus-zenfone-5-4.jpg', 'Camera 8 MP, công nghệ Pixel Master tăng cường sáng đến 400% giúp chụp ảnh tốt hơn, rõ nét hơn, màu sắc trung thực trong nhiều điều kiện ánh sáng');
+
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (36, 'image/product_image/asus-zenfone-4-45-1.jpg', '');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (36, 'image/product_image/asus-zenfone-4-45-2.jpg', '');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (36, 'image/product_image/asus-zenfone-4-45-3.jpg', '');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (36, 'image/product_image/asus-zenfone-4-45-4.jpg', '');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (36, 'image/product_image/asus-zenfone-4-45-5.jpg', '');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (36, 'image/product_image/asus-zenfone-4-45-6.jpg', '');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (36, 'image/product_image/asus-zenfone-4-45-7.jpg', '');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (36, 'image/product_image/asus-zenfone-4-45-8.jpg', '');
+	
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (37, 'image/product_image/asus-zenfone-4-1.jpg', 'Thiết kế nhỏ nhắn, các góc bo tròn, mặt lưng cong ôm sát lòng bàn tay giúp dễ dàng cầm nắm, thao tác');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (37, 'image/product_image/asus-zenfone-4-2.jpg', 'Màn hình 4 inch có hiển thị màu sắc tươi tắn, nhiều tùy chỉnh tông màu theo sở thích  nhờ tính năng Splendid  giúp bạn đọc báo, chơi game hấp dẫn hơn ');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (37, 'image/product_image/asus-zenfone-4-3.jpg', 'Camera 5 MP chụp ảnh nhanh, sắc nét và có chất lượng vượt trội so với tầm giá');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (37, 'image/product_image/asus-zenfone-4-4.jpg', 'Hệ điều hành Android 4.4 tùy biến với giao diện với Zen IU đặc trưng của Asus, thân thiện, dễ sử dụng và hỗ trợ bạn sắp xếp công việc tốt hơn ');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (37, 'image/product_image/asus-zenfone-4-5.jpg', '2 SIM 2 sóng giúp bạn liên lạc tiện lợi và tiết kiệm');
+	
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (38, 'image/product_image/philips-i928-1.jpg', 'Màn hình Full HD 6 inch, tấm nền IPS chống chói, hiển thị sắc nét');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (38, 'image/product_image/philips-i928-2.jpg', 'Thiết kế giả da sang trọng, mỏng và nhẹ dễ dàng bỏ túi');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (38, 'image/product_image/philips-i928-3.jpg', 'Cấu hình lõi 8 ấn tượng ở phân khúc tầm trung. Máy lướt web, chạy đa nhiệm mạnh mẽ, “chiến” mượt mà mọi game và ứng dụng nặng.');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (38, 'image/product_image/philips-i928-4.jpg', 'Camera chính 13 MP giúp chụp ảnh nhanh, rõ nét. Camera trước 5 MP chụp ảnh tự sướng đẹp hơn.');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (38, 'image/product_image/philips-i928-5.jpg', 'Pin khủng 3.000 mAh với công nghệ xenium của Philips tương xứng với màn hình cỡ lớn và cấu hình khỏe, giúp máy hoạt động bền bỉ hơn.');
+
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (39, 'image/product_image/philips-i908-1.jpg', 'Vẻ ngoài lịch lãm do chất liệu giả da khá sang trọng. Máy chắc tay, độ hoàn thiện cao như dòng điện thoại cao cấp');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (39, 'image/product_image/philips-i908-2.jpg', 'Màn hình 5 inch có độ phân giải Full HD, hiển thị hình ảnh sắc nét, trung thực, chất lượng vượt trội so với đối thủ cùng phân khúc');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (39, 'image/product_image/philips-i908-3.jpg', 'Bộ xử lý 8 nhân1.7 Ghz, RAM 2 GB giúp máy không “ngại” bất cứ ứng dụng nặng nào. Chạy đa nhiệm, chơi game đồ hoạ cao mượt mà.');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (39, 'image/product_image/philips-i908-4.jpg', 'Sở hữu chiếc camera lên đến 13MP, chụp ảnh sắc nét, giàu chi tiết, góc chụp rộng giúp bạn chụp ảnh đẹp hơn, kể cả khi ánh sáng yếu');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (39, 'image/product_image/philips-i908-5.jpg', 'Dung lượng pin cao, cho máy thời lượng hoạt động ấn tượng, sẵn sàng đồng hành cùng bạn đi khắp nơi');
+	
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (40, 'image/product_image/philips-xenium-w6610-1.jpg', 'Thiết kế mạnh mẽ, đậm đà cùng mặt sau được phủ một lớp sơn chống bám dính, dễ chịu, giúp máy luôn được sạch sẽ');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (40, 'image/product_image/philips-xenium-w6610-2.jpg', 'Màn hình 5 inch thì tấm nền IPS giúp màn hình có được góc nhìn rộng hơn, màu ảnh trong và sáng hơn, thuận tiện cho việc giải trí, nhất là chơi game và xem phim');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (40, 'image/product_image/philips-xenium-w6610-3.jpg', 'Chiếc pin Xenium với dung lượng khổng lồ 5300mAh có thể lướt web, đàm thoại bền bỉ  cả ngày');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (40, 'image/product_image/philips-xenium-w6610-4.jpg', 'Kết nối 2 SIM cho phép nghe gọi, nhắn tin riêng biệt trên hai sim khác nhau.');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (40, 'image/product_image/philips-xenium-w6610-5.jpg', 'Camera 8MP, hỗ trợ đèn Flash trợ sáng, phía trước là camera 2MP chụp khá tốt kể cả với điều kiện thiếu và ngược sáng, chi tiết, màu sắc được tái tạo tốt');
+	
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (41, 'image/product_image/philips-s388-1.jpg', 'Thiết kế theo phong cách đặc trưng riêng, màu sắc rất thời trang, có tính di động cao với trọng lượng 136.5g và mỏng chỉ 9.1mm');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (41, 'image/product_image/philips-s388-2.jpg', 'Màn hình 4.5 inch các chi tiết hình ảnh có thể được quan sát rõ ràng, màu sắc nổi bật, bắt mắt. Tấm nền IPS cho góc nhìn rộng, chống chói hiệu quả');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (41, 'image/product_image/philips-s388-3.jpg', 'Camera 5 MP, hỗ trợ đèn Flash để chụp ảnh rõ nét, đầy đủ sáng trong điều kiện ánh sáng yếu');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (41, 'image/product_image/philips-s388-4.jpg', 'Trang bị 2 SIM 2 sóng tiện lợi, liên lạc tiết kiệm');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (41, 'image/product_image/philips-s388-5.jpg', 'Cấu hình lõi tứ chạy mượt những ứng dụng hàng ngày, game thông dụng, khá mạnh mẽ trong tầm giá');
+	
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (42, 'image/product_image/philips-s308-1.jpg', 'Thiết kế độc đáo với cạnh trên vuông vức nhưng bo cong mềm mại ở cạnh dưới. Thân máy chắc chắn, sang trọng mang đến cảm giác cầm nắm chắc tay');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (42, 'image/product_image/philips-s308-2.jpg', 'Màn hình 4 inch hiển thị sắc nét và có mặt kính nằm hơi sâu so với viền máy giúp hạn chế trầy xước, nhất là khi đặt úp điện thoại');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (42, 'image/product_image/philips-s308-3.jpg', 'Camera 5 MP, hỗ trợ đèn Flash để chụp ảnh rõ nét, kể cả trong điều kiện ánh sáng yếu');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (42, 'image/product_image/philips-s308-4.jpg', 'Trang bị 2 SIM 2 sóng tiện lợi, liên lạc tiết kiệm');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (42, 'image/product_image/philips-s308-5.jpg', 'Cấu hình lõi kép chạy mượt những ứng dụng hàng ngày, game thôngdụng, khá mạnh mẽ trong tầm giá');
+	
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (43, 'image/product_image/pantech-vega-iron-a870s-1.jpg', 'Thiết kế đẹp và ấn tượng do được gia công tỉ mỉ, khung kim loại nguyên khối, chắc chắn. Một góc máy được vát và tích hợp đèn tín hiệu đầy phá cách');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (43, 'image/product_image/pantech-vega-iron-a870s-2.jpg', 'Màn hình 5 inch, tấm nền IPS cùng viền màn hình siêu mỏng cho góc nhìn rộng tối đa, hiển thị sắc nét, độ sáng và tương phản cao giúp sử dụng tốt ngoài trời');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (43, 'image/product_image/pantech-vega-iron-a870s-3.jpg', 'Chơi game, lướt web, chạy đa nhiệm không chút trở ngại với bộ xử lý 4 nhân RAM 2 GB');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (43, 'image/product_image/pantech-vega-iron-a870s-4.jpg', 'Luôn luôn kết nối với hai viên pin cùng dung lượng 2150mAh');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (43, 'image/product_image/pantech-vega-iron-a870s-5.jpg', 'Chụp ảnh và chia sẻ dễ dàng với camera 13 MP hỗ trợ đèn Flash giúp bạn bắt chụp mọi khoảnh khắc nhanh chóng cùng nhiều hiệu ứng chỉnh sửa nhanh, thú vị');
+	
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (44, 'image/product_image/pantech-vega-iron-2-a910s-1.jpg', 'Màn hình 5.3 inch Full HD công nghệ Super AMOLED Plus cho màu nịnh mắt, rực rỡ, góc nhìn rộng, thoải mái');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (44, 'image/product_image/pantech-vega-iron-2-a910s-2.jpg', 'Mạnh mẽ với chip xử lý 4 nhân, RAM khủng 3 GB mang đến những trải nghiệm tuyệt vời trên hệ điều hành Android 4.4 Kitkat');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (44, 'image/product_image/pantech-vega-iron-2-a910s-3.jpg', 'Camera 13 MP hỗ trợ đèn Flash LED cho khả năng chụp ảnh giàu chi tiết, sắc nét và khả năng chụp thiếu sáng tốt');
+INSERT INTO image(gallery_id, name, description) 
+	VALUES (44, 'image/product_image/pantech-vega-iron-2-a910s-4.jpg', 'Dung lượng pin khủng 3200 mAh và được tặng kèm thêm 1 viên pin cho phép người dùng chơi game, lướt web cường độ cao cả ngày');
+	
 -- // INSERT INTO image(gallery_id, name, description) VALUES (3, 'image/product_image/', '');
 	
 -- ###############################################################################################################
@@ -627,7 +773,32 @@ INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, 
     VALUES (4, 2, 6, 32, 32, 'Nokia Lumia 530', 'image/product_icon/nokia-lumia-530-icon.jpg', 'Điện thoại thông minh giá rẻ của Nokia.'); -- 32
 	
 INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
-    VALUES (5, 1, 6, 33, 33, 'Microsoft Lumia 535', 'image/product_icon/microsoft-lumia-535-icon.jpg', 'Điện thoại thông minh giá rẻ của Microsoft.'); -- 32
+    VALUES (5, 1, 6, 33, 33, 'Microsoft Lumia 535', 'image/product_icon/microsoft-lumia-535-icon.jpg', 'Điện thoại thông minh giá rẻ của Microsoft.'); -- 33
+	
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
+    VALUES (17, 1, 6, 34, 34, 'Asus Zenfone 6', 'image/product_icon/asus-zenfone-6-a601-icon.jpg', 'Điện thoại thông minh giá rẻ của Asus.'); -- 34
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
+    VALUES (17, 1, 6, 35, 35, 'Asus Zenfone 5', 'image/product_icon/asus-zenfone-5-icon.jpg', 'Điện thoại thông minh giá rẻ của Asus.'); -- 35
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
+    VALUES (17, 1, 6, 36, 36, 'Asus Zenfone 4 A450', 'image/product_icon/asus-zenfone-4-45-icon.jpg', 'Điện thoại thông minh giá rẻ của Asus.'); -- 36
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
+    VALUES (17, 1, 6, 37, 37, 'Asus Zenfone 4', 'image/product_icon/asus-zenfone-4-icon.jpg', 'Điện thoại thông minh giá rẻ của Asus.'); -- 37
+	
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
+    VALUES (8, 4, 6, 38, 38, 'Philips i928', 'image/product_icon/philips-i928-icon.jpg', 'Điện thoại thông minh cao cấp của Philips.'); -- 38
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
+    VALUES (8, 4, 6, 39, 39, 'Philips i908', 'image/product_icon/philips-i908-icon.jpg', 'Điện thoại thông minh cao cấp của Philips.'); -- 39
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
+    VALUES (8, 4, 6, 40, 40, 'Philips Xenium W6610', 'image/product_icon/philips-xenium-w6610-icon.jpg', 'Điện thoại thông minh cao cấp của Philips.'); -- 40	
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
+    VALUES (8, 2, 6, 41, 41, 'Philips S388', 'image/product_icon/philips-s388-icon.jpg', 'Điện thoại thông minh giá rẻ của Philips.'); -- 41
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
+    VALUES (8, 4, 6, 42, 42, 'Philips S308', 'image/product_icon/philips-s308-icon.jpg', 'Điện thoại thông minh giá rẻ của Philips.'); -- 42
+	
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
+    VALUES (14, 4, 6, 43, 43, 'Pantech Vega Iron', 'image/product_icon/pantech-vega-iron-a870s-icon.jpg', 'Điện thoại thông minh cao cấp của Pantech.'); -- 43
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, description)
+    VALUES (14, 4, 6, 44, 44, 'Pantech Vega Iron 2', 'image/product_icon/pantech-vega-iron-2-a910s-icon.jpg', 'Điện thoại thông minh cao cấp của Pantech.'); -- 44
 	
 -- ###############################################################################################################
 -- Category products
@@ -701,6 +872,31 @@ INSERT INTO category_product(category_id, product_id) VALUES (10, 32);
 
 INSERT INTO category_product(category_id, product_id) VALUES (1, 33);
 INSERT INTO category_product(category_id, product_id) VALUES (21, 33); -- Microsoft
+
+INSERT INTO category_product(category_id, product_id) VALUES (1, 34);
+INSERT INTO category_product(category_id, product_id) VALUES (1, 35);
+INSERT INTO category_product(category_id, product_id) VALUES (1, 36);
+INSERT INTO category_product(category_id, product_id) VALUES (1, 37);
+INSERT INTO category_product(category_id, product_id) VALUES (13, 34); -- Asus (Zenfone)
+INSERT INTO category_product(category_id, product_id) VALUES (13, 35);
+INSERT INTO category_product(category_id, product_id) VALUES (13, 36);
+INSERT INTO category_product(category_id, product_id) VALUES (13, 37);
+
+INSERT INTO category_product(category_id, product_id) VALUES (1, 38);
+INSERT INTO category_product(category_id, product_id) VALUES (1, 39);
+INSERT INTO category_product(category_id, product_id) VALUES (1, 40);
+INSERT INTO category_product(category_id, product_id) VALUES (1, 41);
+INSERT INTO category_product(category_id, product_id) VALUES (1, 42);
+INSERT INTO category_product(category_id, product_id) VALUES (15, 38); -- Philips
+INSERT INTO category_product(category_id, product_id) VALUES (15, 39);
+INSERT INTO category_product(category_id, product_id) VALUES (15, 40);
+INSERT INTO category_product(category_id, product_id) VALUES (15, 41);
+INSERT INTO category_product(category_id, product_id) VALUES (15, 42);
+
+INSERT INTO category_product(category_id, product_id) VALUES (1, 43);
+INSERT INTO category_product(category_id, product_id) VALUES (1, 44);
+INSERT INTO category_product(category_id, product_id) VALUES (20, 43); -- Pantech
+INSERT INTO category_product(category_id, product_id) VALUES (20, 44);
 
 -- ###############################################################################################################
 -- Carts
