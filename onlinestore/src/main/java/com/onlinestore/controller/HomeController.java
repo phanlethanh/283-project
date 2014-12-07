@@ -47,7 +47,8 @@ public class HomeController {
 		}
 
 		// Select 'hot' and 'new' product to display in home page
-		List<Product> homeProducts = getProductService().getHomeProducts();
+		// List<Product> homeProducts = getProductService().getHomeProducts();
+		List<Product> homeProducts = getProductService().getProducts();
 		List<HashMap<String, Object>> mapList = new ArrayList<HashMap<String, Object>>();
 
 		request.setAttribute("message", "message");

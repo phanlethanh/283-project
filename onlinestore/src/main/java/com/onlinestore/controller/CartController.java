@@ -85,6 +85,7 @@ public class CartController {
 				map.put("id", cp.getId());
 				map.put("productId", cp.getProduct().getId());
 				map.put("productName", cp.getProduct().getName());
+				map.put("productIcon", cp.getProduct().getIcon());
 				map.put("quantity", cp.getQuantity());
 				map.put("price", cp.getProduct().getPrice().getPrice());
 				cpMapList.add(map);
@@ -117,6 +118,7 @@ public class CartController {
 			map.put("id", cpMapList.size());
 			map.put("productId", p.getId());
 			map.put("productName", p.getName());
+			map.put("productIcon", p.getIcon());
 			map.put("quantity", 1);
 			map.put("price", p.getPrice().getPrice());
 			cpMapList.add(map);

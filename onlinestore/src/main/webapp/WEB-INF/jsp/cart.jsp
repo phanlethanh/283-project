@@ -15,7 +15,7 @@
 }
 
 .cart_product_table {
-	width: 900px;
+	
 }
 
 .cart_summary {
@@ -29,10 +29,14 @@
 		if (confirm("Xóa sản phẩm này khỏi giỏ hàng?") == true) {
 		}
 	}
+	function nextStepOnClick() {
+		if (confirm("Bạn có muốn lập hóa đơn?") == true) {
+		}
+	}
 </script>
 <div class="cart">
 	<div class="cart_product_list">
-		<table class="cart_product_table">
+		<table class="cart_product_table" border="1">
 			<tr>
 				<td></td>
 				<td>Sản phẩm</td>
@@ -41,7 +45,7 @@
 			</tr>
 			<c:forEach var="cp" items="${cpMapList}">
 				<tr>
-					<td><input type="text" value="${cp['id']}"></td>
+					<td><img src="${cp['productIcon']}" width="70" height="70"></td>
 					<td><a href="productDetail.html?product_id=${cp['productId']}">${cp['productName']}</a></td>
 					<td><input type="text" name="quantity"
 						value="${cp['quantity']}"></td>
@@ -49,6 +53,7 @@
 					<td><input type="button" value="Xoá" name="${cp['id']}"
 						id="delete_cart_product${cp['id']}"
 						onClick="removeProductOnClick()"></td>
+					<td><input type="text" value="${cp['id']}"></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -63,6 +68,6 @@
 		<p>
 			Thanh toán: <span>0</span> đ
 		</p>
-		<input type="button" value="Bước kế tiếp">
+		<input type="button" value="Bước kế tiếp" onclick="nextStepOnClick()">
 	</div>
 </div>

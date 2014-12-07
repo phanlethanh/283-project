@@ -4,7 +4,8 @@
 <style>
 .product_box {
 	background-color: white;
-	width: 150px;
+	height: 230px;
+	width: 230px;
 	padding: 10px;
 	border: 1px solid gray;
 	float: left;
