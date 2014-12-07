@@ -51,6 +51,7 @@ public class OsOrderDetailController {
 				//map.put("orderId", orderDetail.getOsOrder().getId());
 				map.put("productId", orderDetail.getProduct().getId());
 				map.put("productName", orderDetail.getProduct().getName());
+				map.put("productIcon", orderDetail.getProduct().getIcon());
 				map.put("quantity", orderDetail.getQuantity());
 				map.put("price", orderDetail.getPrice());
 				orderDetailMapList.add(map);

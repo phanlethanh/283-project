@@ -5,7 +5,7 @@
 .product_detail {
 	background-color: white;
 	padding-left: 50px;
-	padding-bottom: 100px;
+	padding-bottom: 50px;
 	padding-right: 50px;
 	border: 1px solid;
 }
