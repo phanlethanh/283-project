@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.onlinestore.model.Product;
 import com.onlinestore.service.ProductService;
+import com.onlinestore.util.Variable;
 
 @Controller
 public class HomeController {
@@ -32,6 +33,7 @@ public class HomeController {
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		String viewName = "home";
+		
 		Cookie[] cookie = request.getCookies();
 		String ck_user = null;
 		ck_user = getItemCookies(cookie, "os_username");
@@ -60,8 +62,38 @@ public class HomeController {
 			meta.put("description", product.getDescription());
 			mapList.add(meta);
 		}
-		System.out.print(homeProducts.size());
 		view.addObject("productMapList", mapList);
+		view.setViewName(viewName);
+		return view;
+	}
+	
+	@RequestMapping(value = "/searchProduct")
+	public ModelAndView searchProduct(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		String viewName = "home";
+		List<Product> resultProductList = new ArrayList<Product>();
+		List<HashMap<String, Object>> productMapList = new ArrayList<HashMap<String, Object>>();
+		String keyword = request.getParameter(Variable.REQUEST_KEYWORD);
+		if (keyword.equals("")) {
+			// Get hot & new product
+			resultProductList = getProductService().getHomeProducts();
+		} else {
+			// Get product following keyword
+			resultProductList = getProductService().search(keyword);
+		}
+		for (int i = 0; i < resultProductList.size(); i++) {
+			HashMap<String, Object> meta = new HashMap<String, Object>();
+			Product product = (Product) resultProductList.get(i);
+			meta.put("id", product.getId());
+			meta.put("name", product.getName());
+			meta.put("icon", product.getIcon());
+			meta.put("status", product.getStatus().getName());
+			meta.put("price", product.getPrice().getPrice());
+			meta.put("description", product.getDescription());
+			productMapList.add(meta);
+		}
+		view.addObject("productMapList", productMapList);
+		view.addObject("keyword", keyword);
 		view.setViewName(viewName);
 		return view;
 	}
@@ -80,7 +112,6 @@ public class HomeController {
 					return list[i].getValue();
 			}
 		}
-
 		return null;
 	}
 

@@ -12,11 +12,9 @@
 </style>
 <script type="text/javascript">
 	function addToCartOnClick() {
-		if (confirm("Do you want to add this product?") == true) {
+		if (confirm("Thêm sản phẩm này vào giỏ hàng?") == true) {
 			var productId = document.getElementById("product_id").value;
-			var userId = document.getElementById("user_id").value;
-			window.location.href = 'addToCart.html?user_id=' + userId
-					+ '&product_id=' + productId;
+			window.location.href = 'addToCart.html?product_id=' + productId;
 		}
 	}
 </script>
@@ -47,8 +45,6 @@
 			</tr>
 		</table>
 		<input type="hidden" id="product_id" value="${product['id']}">
-		<input type="hidden" id="user_id"
-			value="<%=session.getAttribute("os_userid")%>">
 	</form>
 	<br />
 	<h3>Thông tin chi tiết</h3>

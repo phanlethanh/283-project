@@ -4,7 +4,7 @@
 <style type="text/css">
 .cart {
 	background-color: white;
-	padding:  20px;
+	padding: 20px;
 	border: 1px solid;
 }
 
@@ -25,11 +25,10 @@
 </style>
 
 <script>
-	 $(document).ready(function(){
-		 $("#delete_cart_product").live('click',function(){
-			 var id = 
-		 });
-	 });
+	function removeProductOnClick() {
+		if (confirm("Xóa sản phẩm này khỏi giỏ hàng?") == true) {
+		}
+	}
 </script>
 <div class="cart">
 	<div class="cart_product_list">
@@ -42,13 +41,14 @@
 			</tr>
 			<c:forEach var="cp" items="${cpMapList}">
 				<tr>
-					<td><input type="hidden" name="check_box" value="${cp['id']}"></td>
+					<td><input type="text" value="${cp['id']}"></td>
 					<td><a href="productDetail.html?product_id=${cp['productId']}">${cp['productName']}</a></td>
 					<td><input type="text" name="quantity"
 						value="${cp['quantity']}"></td>
 					<td>${cp['price']}</td>
-					<td><input type="button" value="Xoá"
-						name="${cp['id']}" id="delete_cart_product${cp['id']}" ></td>
+					<td><input type="button" value="Xoá" name="${cp['id']}"
+						id="delete_cart_product${cp['id']}"
+						onClick="removeProductOnClick()"></td>
 				</tr>
 			</c:forEach>
 		</table>

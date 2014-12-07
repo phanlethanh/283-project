@@ -73,7 +73,7 @@ public class OsOrder implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	public OsUser getOsUser() {
 		return this.osUser;
@@ -83,7 +83,7 @@ public class OsOrder implements java.io.Serializable {
 		this.osUser = osUser;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "transport_fee_id")
 	public TransportFee getTransportFee() {
 		return this.transportFee;
@@ -93,7 +93,7 @@ public class OsOrder implements java.io.Serializable {
 		this.transportFee = transportFee;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "status_id")
 	public Status getStatus() {
 		return this.status;
@@ -103,7 +103,7 @@ public class OsOrder implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tax_id")
 	public Tax getTax() {
 		return this.tax;
