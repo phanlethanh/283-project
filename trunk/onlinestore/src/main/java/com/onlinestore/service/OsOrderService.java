@@ -14,4 +14,6 @@ public interface OsOrderService {
 	void updateOsOrder(OsOrder osOrder);
 
 	void deleteOsOrder(Integer id);
+	
+	List<OsOrder> getOrderListByUserId(Integer userId);
 }

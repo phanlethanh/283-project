@@ -20,6 +20,7 @@ import com.onlinestore.service.CartProductService;
 import com.onlinestore.service.CartService;
 import com.onlinestore.service.OsUserService;
 import com.onlinestore.service.ProductService;
+import com.onlinestore.util.Variable;
 
 @Controller
 public class CartController {
@@ -59,32 +60,35 @@ public class CartController {
 	public ModelAndView viewCart(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		String viewName = "cart";
-		String userIdStr = request.getParameter("user_id");
-		List<HashMap<String, Object>> cpMapList = new ArrayList<HashMap<String, Object>>();
+		HttpSession session = request.getSession();
+		List<HashMap<String, Object>> cpMapList = null;
 		List<CartProduct> cartProducts = null;
-		if (userIdStr.equals("null")) {
+		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
 			// Not login
-			HttpSession session = request.getSession();
-			Object obj = session.getAttribute("cartProducts");
+			Object obj = session
+					.getAttribute(Variable.SESSION_CART_PRODUCT_MAP_LIST);
 			if (obj == null) {
-				cartProducts = new ArrayList<CartProduct>();
+				// Ignore because cpMapList defined
 			} else {
-				cartProducts = (List<CartProduct>) obj;
+				// Get cpMapList object from session
+				cpMapList = (List<HashMap<String, Object>>) obj;
 			}
 		} else {
 			// Logged in
-			Integer userId = Integer.valueOf(request.getParameter("user_id"));
+			cpMapList = new ArrayList<HashMap<String, Object>>();
+			Integer userId = Integer.valueOf(session.getAttribute(
+					Variable.SESSION_USER_ID).toString());
 			cartProducts = getCartService().getProductList(userId);
-		}
-		for (int i = 0; i < cartProducts.size(); i++) {
-			CartProduct cp = cartProducts.get(i);
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("id", cp.getId());
-			map.put("productId", cp.getProduct().getId());
-			map.put("productName", cp.getProduct().getName());
-			map.put("quantity", cp.getQuantity());
-			map.put("price", cp.getProduct().getPrice().getPrice());
-			cpMapList.add(map);
+			for (int i = 0; i < cartProducts.size(); i++) {
+				CartProduct cp = cartProducts.get(i);
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("id", cp.getId());
+				map.put("productId", cp.getProduct().getId());
+				map.put("productName", cp.getProduct().getName());
+				map.put("quantity", cp.getQuantity());
+				map.put("price", cp.getProduct().getPrice().getPrice());
+				cpMapList.add(map);
+			}
 		}
 		view.addObject("cpMapList", cpMapList);
 		view.setViewName(viewName);
@@ -93,21 +97,38 @@ public class CartController {
 
 	@RequestMapping(value = "/addToCart")
 	public ModelAndView addToCart(HttpServletRequest request) {
-		ModelAndView view = new ModelAndView();
-		String viewName = "cart";
-		String userIdStr = request.getParameter("user_id");
+		HttpSession session = request.getSession();
 		Integer userId = null;
 		Integer productId = Integer.valueOf(request.getParameter("product_id"));
-		if (userIdStr.equals("null")) {
+		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
 			// Not login
-			userId = null;
-			System.out.println("user not log in");
+			Object obj = session
+					.getAttribute(Variable.SESSION_CART_PRODUCT_MAP_LIST);
+			List<HashMap<String, Object>> cpMapList = null;
+			if (obj == null) {
+				cpMapList = new ArrayList<HashMap<String, Object>>();
+			} else {
+				// Get cpMapList object from session
+				cpMapList = (List<HashMap<String, Object>>) obj;
+			}
+			// add product to map list
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			Product p = getProductService().getProduct(productId);
+			map.put("id", cpMapList.size());
+			map.put("productId", p.getId());
+			map.put("productName", p.getName());
+			map.put("quantity", 1);
+			map.put("price", p.getPrice().getPrice());
+			cpMapList.add(map);
+			// Set cpMapList object to session
+			session.setAttribute(Variable.SESSION_CART_PRODUCT_MAP_LIST,
+					cpMapList);
 		} else {
 			// Logged in
-			userId = Integer.valueOf(userIdStr);
+			userId = Integer.valueOf(session.getAttribute(
+					Variable.SESSION_USER_ID).toString());
 			// Get Cart from user_id, Product from product_id
 			Cart cart = getUserService().getOsUser(userId).getCart();
-			// cart.set
 			Product product = new Product();
 			product.setId(productId);
 			// Add CartProduct
@@ -117,23 +138,7 @@ public class CartController {
 			cartProduct.setQuantity(1);
 			getCartProductService().createCartProduct(cartProduct);
 		}
-		// Get product list of cart
-		List<CartProduct> cartProducts = getCartService()
-				.getProductList(userId);
-		List<HashMap<String, Object>> cpMapList = new ArrayList<HashMap<String, Object>>();
-		for (int i = 0; i < cartProducts.size(); i++) {
-			CartProduct cp = cartProducts.get(i);
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("id", cp.getId());
-			map.put("productId", cp.getProduct().getId());
-			map.put("productName", cp.getProduct().getName());
-			map.put("quantity", cp.getQuantity());
-			map.put("price", cp.getProduct().getPrice().getPrice());
-			cpMapList.add(map);
-		}
-		view.addObject("cpMapList", cpMapList);
-		view.setViewName(viewName);
-		return view;
+		return viewCart(request);
 	}
 
 	@RequestMapping(value = "/removeProductFromCart")

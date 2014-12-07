@@ -77,6 +77,7 @@
 				<prop key="/login.html">osUserController</prop>
 				<prop key="/logout.html">osUserController</prop>
 				<prop key="/admin.html">homeController</prop>
+				<prop key="/searchProduct.html">homeController</prop>
 				<prop key="/category.html*">categoryController</prop>
 				<prop key="/addSubCategory.html">categoryController</prop>
 				<prop key="/deleteCategory.html">categoryController</prop>
@@ -84,6 +85,9 @@
 				<prop key="/productDetail.html">productController</prop>
 				<prop key="/viewCart.html">cartController</prop>
 				<prop key="/addToCart.html">cartController</prop>
+				<prop key="/removeProductFromCart.html">cartController</prop>
+				<prop key="/viewOrderList.html">osOrderController</prop>
+				<prop key="/viewOrderDetail.html">osOrderDetailController</prop>
 			</props>
 		</property>
 	</bean>
@@ -93,6 +97,8 @@
 	<bean id="homeController" class="com.onlinestore.controller.HomeController" />
 	<bean id="productController" class="com.onlinestore.controller.ProductController" />
 	<bean id="cartController" class="com.onlinestore.controller.CartController" />
+	<bean id="osOrderController" class="com.onlinestore.controller.OsOrderController" />
+	<bean id="osOrderDetailController" class="com.onlinestore.controller.OsOrderDetailController" />
 	<context:annotation-config />
 	<tx:annotation-driven proxy-target-class="true" />
 	<context:component-scan base-package="com.onlinestore.dao" />

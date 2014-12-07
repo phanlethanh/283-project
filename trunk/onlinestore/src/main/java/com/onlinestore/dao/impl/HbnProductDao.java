@@ -20,6 +20,14 @@ public class HbnProductDao extends AbstractHbnDao<Product> implements
 		Query query = getSession().createQuery(sql);
 		return query.list();
 	}
+
+	@Override
+	public List<Product> search(String keyword) {
+		String sql = "from Product where lower(name) like lower(:keyword)";
+		Query query = getSession().createQuery(sql);
+		query.setParameter("keyword", "%" + keyword + "%");
+		return query.list();
+	}
 	
 
 }
