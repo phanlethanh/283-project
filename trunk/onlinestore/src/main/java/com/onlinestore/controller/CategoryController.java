@@ -38,16 +38,20 @@ public class CategoryController {
 	    return categoryService;
 	}
 	
-	
+	//load danh sach category
 	@RequestMapping(value="/category", method = RequestMethod.GET)
 	public void category(HttpServletRequest request,HttpServletResponse response )
 	{
 		
 		String[] type = request.getParameterValues("type");
 		String parent = request.getParameter("parent");
+		int iParent = 0;
 		String[] types = type[0].split(" ");
+		
 		if(parent.substring(0,1).equals("_"))
-			parent = "0";
+			iParent = Integer.parseInt(parent.substring(1,2)) - 1;
+		else
+			iParent = Integer.parseInt(parent);
 		System.out.print(parent);
 		List<HashMap> list = new ArrayList<HashMap>();
 		
@@ -56,7 +60,7 @@ public class CategoryController {
 			if(types[i].equals("categorys") || types[i].equals("category"))
 			{
 				List<Category> list_category = new ArrayList<Category>();
-				list_category = getCategoryService().getSubCategory(Integer.parseInt(parent));
+				list_category = getCategoryService().getSubCategory(iParent);
 				if(list_category != null)
 				{
 					for(int j = 0; j < list_category.size(); j++)
@@ -81,7 +85,7 @@ public class CategoryController {
 			e.printStackTrace();
 		}
 	}
-	
+	//add new category vao cay thu muc
 	@RequestMapping(value="/addSubCategory", method=RequestMethod.POST)
 	public void addSubCategory(HttpServletRequest request, HttpServletResponse response,@ModelAttribute Category category)
 	{
@@ -112,7 +116,7 @@ public class CategoryController {
 			e.printStackTrace();
 		}
 	}
-	
+	//delete category
 	@RequestMapping(value = "/deleteCategory", method = RequestMethod.POST)
 	public void deleteCategory(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -138,6 +142,7 @@ public class CategoryController {
 		}
 	}
 	
+	//load danh sach product cua danh muc
 	@RequestMapping(value="/loadProductOfCategory",method=RequestMethod.POST)
 	public void loadCategory(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -166,6 +171,70 @@ public class CategoryController {
 		}
 		
 	}
+	//kiem tra thu muc co chua thu muc con hay ko
+	@RequestMapping(value="/homeProductOfCategory",method=RequestMethod.POST)
+	public void homeProductOfCategory(HttpServletRequest request, HttpServletResponse response)
+	{
+		String parent = request.getParameter("id");
+		int iParent = 0;
+		if(parent.substring(0,1).equals("_"))
+			iParent = Integer.parseInt(parent.substring(1,2)) - 1;
+		else
+			iParent = Integer.parseInt(parent);
+		List<Category> list = new ArrayList<Category>();
+		HashMap meta = new HashMap();
+		list = getCategoryService().getSubCategory(iParent);
+		if(list.size() > 0)
+			meta.put("code", 1);
+		else
+		{
+			meta.put("code", 0);
+			meta.put("id", iParent);
+		}
+		String json = new Gson().toJson(meta);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@RequestMapping(value="/loadHomeProductOfCategory",method=RequestMethod.POST)
+	public void loadHomeProductOfCategory(HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView view = new ModelAndView();
+		String idCategory = request.getParameter("idCategory");
+		List<Product> homeProducts = getCategoryService().getProductOfCategory(Integer.parseInt(idCategory));
+		List<HashMap<String, Object>> mapList = new ArrayList<HashMap<String, Object>>();
+
+		request.setAttribute("message", "message");
+		for (int i = 0; i < homeProducts.size(); i++) {
+			HashMap<String, Object> meta = new HashMap<String, Object>();
+			Product product = (Product) homeProducts.get(i);
+			meta.put("id", product.getId());
+			meta.put("name", product.getName());
+			meta.put("icon", product.getIcon());
+			meta.put("status", product.getStatus().getName());
+			meta.put("price", product.getPrice().getPrice());
+			meta.put("description", product.getDescription());
+			mapList.add(meta);
+		}
+		String json = new Gson().toJson(mapList);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	private boolean validateInput(Category category)
 	{
 		

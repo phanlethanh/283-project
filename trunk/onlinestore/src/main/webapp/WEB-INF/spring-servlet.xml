@@ -88,6 +88,8 @@
 				<prop key="/removeProductFromCart.html">cartController</prop>
 				<prop key="/viewOrderList.html">osOrderController</prop>
 				<prop key="/viewOrderDetail.html">osOrderDetailController</prop>
+				<prop key="/homeProductOfCategory.html">categoryController</prop>
+				<prop key="/loadHomeProductOfCategory.html">categoryController</prop>
 			</props>
 		</property>
 	</bean>

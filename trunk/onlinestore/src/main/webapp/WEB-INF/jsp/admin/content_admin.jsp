@@ -1,6 +1,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %>
-
+<script>
+	$(document).ready(function(){
+		$('.admin_detail_product').live('click',function (e) {
+			//alert("ancmada");
+			var id =$(this).attr("idproduct");
+			$.ajax({
+				url:"adminDetailProduct.html",
+				data:{id:id},
+			});
+		});P
+	});
+</script>
 <div class="right_max_width">
 <div class="form-message"></div>
 	<h2 class="group_title">List Product</h2>
@@ -17,6 +28,9 @@
 	</table>
 </div>
 <div id="product_detail_content" class="hidden">
+	<c:forEach var="item" items="${data}">
+	               	<p id="danhmuc_p"><span class="name_danhmuc"><c:out value="${item['name']}" /></span></p>
+    </c:forEach>
 	<table id="product_properties">
 		<tr>
 			<th align="left">Tên</th>
@@ -51,9 +65,7 @@
 			<th align="left" class="product_images"></th>
 		</tr>
 	</table>
-	<div class="product_name_properties">
-		
-	</div>
+	<div class="product_name_properties"></div>
 		
 	<div class="product_content_properties"></div>
 </div>

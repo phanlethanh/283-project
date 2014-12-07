@@ -12,7 +12,7 @@
 }
 </style>
 
-<div>
+<div class="content_home">
 	<c:forEach var="product" items="${productMapList}">
 		<div class="product_box">
 			<img src="${product['icon']}" width="150" height="150"> <input
