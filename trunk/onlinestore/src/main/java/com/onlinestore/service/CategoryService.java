@@ -10,10 +10,11 @@ public interface CategoryService {
 
 	List<Category> getCategories();
 	List<Category> getSubCategory(Integer parent_id);
-	List<Product> getProductOfCategory(Integer idCategory);
+	List<Product> getProductOfCategory(Integer idCategory,Integer pageNumber);
 	Category getCategory(Integer id);
 	void updateCategory(Category category);
 
 	void deleteCategory(Integer id);
 	boolean findCategoryWithName(String name);
+	Integer getTotalRow(Integer idCategory);
 }

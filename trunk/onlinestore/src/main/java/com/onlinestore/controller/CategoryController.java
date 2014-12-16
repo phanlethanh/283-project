@@ -25,6 +25,7 @@ import com.onlinestore.model.Product;
 import com.onlinestore.service.CategoryService;
 import com.onlinestore.service.impl.CategoryServiceImpl;
 import com.onlinestore.service.impl.OsUserServiceImpl;
+import com.onlinestore.util.Variable;
 
 @Controller
 public class CategoryController {
@@ -147,9 +148,11 @@ public class CategoryController {
 	public void loadCategory(HttpServletRequest request, HttpServletResponse response)
 	{
 		String id = request.getParameter("id");
+		String page_number = request.getParameter("page_number");
 		List<Product> list = new ArrayList<Product>();
 		List<HashMap> listProduct = new ArrayList<HashMap>();
-		list = getCategoryService().getProductOfCategory(Integer.parseInt(id));
+		list = getCategoryService().getProductOfCategory(Integer.parseInt(id),Integer.parseInt(page_number));
+		int total_rows = getCategoryService().getTotalRow(Integer.parseInt(id));
 		for(int i = 0; i < list.size(); i++)
 		{
 			HashMap<String,Object> product = new HashMap<String, Object>();
@@ -159,7 +162,10 @@ public class CategoryController {
 			product.put("price", list.get(i).getPrice().getPrice());
 			listProduct.add(product);
 		}
-		
+		HashMap<String,Object> total_row = new HashMap<String, Object>();
+		total_row.put("total_rows", total_rows);
+		total_row.put("page_size",Variable.pageSize);
+		listProduct.add(total_row);
 		String json = new Gson().toJson(listProduct);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
@@ -185,7 +191,10 @@ public class CategoryController {
 		HashMap meta = new HashMap();
 		list = getCategoryService().getSubCategory(iParent);
 		if(list.size() > 0)
+		{
 			meta.put("code", 1);
+			meta.put("id", iParent);
+		}
 		else
 		{
 			meta.put("code", 0);
@@ -208,7 +217,9 @@ public class CategoryController {
 	{
 		ModelAndView view = new ModelAndView();
 		String idCategory = request.getParameter("idCategory");
-		List<Product> homeProducts = getCategoryService().getProductOfCategory(Integer.parseInt(idCategory));
+		String page_number = request.getParameter("page_number");
+		List<Product> homeProducts = getCategoryService().getProductOfCategory(Integer.parseInt(idCategory),Integer.parseInt(page_number));
+		int total_rows = getCategoryService().getTotalRow(Integer.parseInt(idCategory));
 		List<HashMap<String, Object>> mapList = new ArrayList<HashMap<String, Object>>();
 
 		request.setAttribute("message", "message");
@@ -223,6 +234,10 @@ public class CategoryController {
 			meta.put("description", product.getDescription());
 			mapList.add(meta);
 		}
+		HashMap<String, Object> paging = new HashMap<String, Object>();
+		paging.put("total_rows", total_rows);
+		paging.put("page_size", Variable.pageSize);
+		mapList.add(paging);
 		String json = new Gson().toJson(mapList);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
