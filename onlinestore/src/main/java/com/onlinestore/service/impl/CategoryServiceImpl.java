@@ -52,9 +52,15 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDao.findCategoryWithName(name);
 	}
 	@Override
-	public List<Product> getProductOfCategory(Integer idCategory) {
+	public List<Product> getProductOfCategory(Integer idCategory, Integer pageNumber) {
 		// TODO Auto-generated method stub
-		return categoryDao.getProductOfCategory(idCategory);
+		return categoryDao.getProductOfCategory(idCategory, pageNumber);
+	}
+
+	@Override
+	public Integer getTotalRow(Integer idCategory) {
+		// TODO Auto-generated method stub
+		return categoryDao.getTotalRow(idCategory);
 	}
 
 }

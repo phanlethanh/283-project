@@ -3,23 +3,129 @@
 <script>
 	$(document).ready(function()
 	{
+		function paging(pageSize)
+		{
+			$(".paging").empty();
+			var total_row = $('#total_rows').val();
+			var page_count = 1;
+			page_count = ((parseInt(total_row) / pageSize).toFixed(0) );
+			if(page_count < (parseInt(total_row) / pageSize))
+				page_count = parseInt(page_count) +1;
+			var id = $("#page_number_active").val();
+			var page_last = parseInt($("#page_number_last").val());
+			var page_active = 0;
+			if(page_last >= 10)
+				page_active = page_last;
+			else
+			{
+				if(id != 0)
+					page_active = parseInt(id.substr(4,id.length));
+			}
+			if(page_active != 0)
+			{
+				if(parseInt(page_active) > 10)
+				{
+					if(parseInt(page_active) == parseInt(page_count))
+					{
+						$('.paging').append('<span><a class="page_number" page='+(1)+' id="page'+(1)+'" page_last='+(10)+'>First</a></span>');
+						$('.paging').append('<span><a class="page_number" page='+(page_active - 10)+' id="page'+(page_active - 10)+'" page_last='+(page_active - 1)+'><</a></span>');
+						for(i = page_active -10; i < page_active; i++)
+						{
+							$('.paging').append('<span><a class="page_number" page='+(i+1)+' id="page'+(i+1)+'" page_last='+(page_active - 1)+'>'+(i + 1)+'</a></span>');
+						}
+					}
+					else
+					{	
+						$('.paging').append('<span><a class="page_number" page='+(1)+' id="page'+(1)+'" page_last='+(10)+'>First</a></span>');
+						$('.paging').append('<span><a class="page_number" page='+(page_active - 10)+' id="page'+(page_active - 10)+'" page_last='+(page_active - 1)+'><</a></span>');
+						for(i = page_active -10; i < page_active; i++)
+						{
+							$('.paging').append('<span><a class="page_number" page='+(i+1)+' id="page'+(i+1)+'" page_last='+(page_active - 1)+'>'+(i + 1)+'</a></span>');
+						}
+						//var temp = page_active + 1;
+						$('.paging').append('<span><a class="page_number" page='+(page_active+ 1)+' id="page'+(page_active+1)+'" page_last='+(0)+'>></a></span>');
+						$('.paging').append('<span><a class="page_number" page='+(page_count)+' id="page'+(page_count)+'" page_last='+(0)+'>Last</a></span>');
+					}
 		
-		function loadCategoryCentreList(id)
+				}
+				else
+				{
+					if(page_count < 10 && page_count > 0)
+					{
+						for(i = 0; i < page_count; i++)
+						{
+							$('.paging').append('<span><a class="page_number" page='+(i+1)+' id="page'+(i+1)+'" page_last='+(page_active - 1)+'>'+(i + 1)+'</a></span>');
+						}
+					}
+					else if(page_count > 0)
+					{
+						for(i = 0; i < 10; i++)
+						{
+							$('.paging').append('<span><a class="page_number" page='+(i+1)+' id="page'+(i+1)+'" page_last='+(page_active - 1)+'>'+(i + 1)+'</a></span>');
+						}
+						$('.paging').append('<span><a class="page_number" page='+(11)+' id="page'+(11)+'" page_last='+(0)+'>></a></span>');
+						$('.paging').append('<span><a class="page_number" page='+(page_count)+' id="page'+(page_count)+'" page_last='+(0)+'>Last</a></span>');
+					}
+				}
+			}
+			else
+			{
+					if(page_count < 10 && page_count > 0)
+					{
+						for(i = 0; i < page_count; i++)
+						{
+							$('.paging').append('<span><a class="page_number" page='+(i+1)+' id="page'+(i+1)+'" page_last='+(page_count - 1)+'>'+(i + 1)+'</a></span>');
+						}
+					}
+					else if(page_count > 0)
+					{
+						for(i = 0; i < 10; i++)
+						{
+							$('.paging').append('<span><a class="page_number" page='+(i+1)+' id="page'+(i+1)+'" page_last='+(0)+'>'+(i + 1)+'</a></span>');
+						}
+						$('.paging').append('<span><a class="page_number" page='+(11)+' id="page'+(11)+'" page_last='+(0)+'>></a></span>');
+						$('.paging').append('<span><a class="page_number" page='+(page_count)+' id="page'+(page_count)+'" page_last='+(0)+'>Last</a></span>');
+					}
+			}
+			if(id != 0)
+			{
+				if(document.getElementById(id) != null)
+					document.getElementById(id).className = "page_number_active";
+				else
+				{
+					var new_id = "page"+parseInt(id.substr(4,id.length)) - 1;
+					//document.getElementById(new_id).className = "page_number_active";
+				}
+			}
+		}
+		
+		function loadCategoryCentreList(id,pageNumber)
 		{
 			$.ajax({
 				url: "loadProductOfCategory.html",
 				type: "POST",
-				data:{id:id},
+				data:{id:id,page_number:pageNumber},
 				success: function(data){
 					//var data1=JSON.parse(data);
-					var Table = document.getElementById("product_of_category");
-					Table.innerHTML = "";
 					//var data = JSON.parse(data);
-					
-					for(var i = 0; i <data.length;i++)
+					var myTable = document.getElementById('product_of_category');
+					var j = myTable.rows.length; 
+					for(var i=1;i<j; i++)
 					{
-						$(".right_max_width table").append('<tr id="itemid'+data[i]["id"]+'"><td align="left"></td><td align="left">'+data[i]["name"]+'</td><td align="center">'+data[i]["description"]+'</td><td align="left">'+data[i]["price"]+'</td><td align="center"><a href="#" idproduct="'+data[i]["id"]+'" class="admin_detail_product">Detail</a><a href="#" idproduct="'+data[i]["id"]+'" class="admin_edit_product">Edit</a><a href="#" idproduct="'+data[i]["id"]+'" class="admin_delete_product">Delete</a></td></tr>');
+						var row = j - i;
+						var secondRow = myTable.rows[row];
+						//alert(secondRow.id);
+						myTable.deleteRow(row);
+					}	
+					var length = data.length;
+					var total_rows = data[length - 1]["total_rows"];
+					var page_size = data[length-1]["page_size"];
+					$("#total_rows").val(total_rows);
+					for(var i = 0; i <data.length -1;i++)
+					{
+						$(".right_max_width table").append('<tr id="itemid'+data[i]["id"]+'"><td align="left">'+(i+1)+'</td><td align="left">'+data[i]["name"]+'</td><td align="center">'+data[i]["description"]+'</td><td align="left">'+data[i]["price"]+'</td><td align="center"><a href="#" idproduct="'+data[i]["id"]+'" class="admin_detail_product">Detail</a><a href="#" idproduct="'+data[i]["id"]+'" class="admin_edit_product">Edit</a><a href="#" idproduct="'+data[i]["id"]+'" class="admin_delete_product">Delete</a></td></tr>');
 					}
+					paging(page_size);
 					/*if(mess){
 						showMess(mess);
 					}*/
@@ -29,7 +135,17 @@
 				}
 			});
 		}
-
+		$('.main_content .page_number').live('click', function(){
+			page_number_active = $(this).attr('page');
+			var page_last = $(this).attr('page_last');
+			var id = "page"+page_number_active;
+			document.getElementById(id).className = "page_number_active";
+			document.getElementById("page_number_last").value = page_last;
+			document.getElementById("page_number_active").value = id;
+			var page = parseInt($(this).attr('page'));
+			loadCategoryCentreList(currentNode.key,page -1);
+			//alert(page_number);
+		});
 		$("#tree").fancytree({
 			autoActivate: false, // we use scheduleAction()
 			autoCollapse: true,
@@ -62,7 +178,7 @@
 				orgEvent = data.originalEvent;
 				currentNode = node;
 				if(node.key != "_1"){
-					loadCategoryCentreList(currentNode.key);
+					loadCategoryCentreList(currentNode.key,0);
 				}
 				if(node.isActive() && node.data.href){
 					data.tree.reactivate();

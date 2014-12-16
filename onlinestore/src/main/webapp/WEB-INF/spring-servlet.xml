@@ -65,7 +65,13 @@
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver"
 		p:viewClass="org.springframework.web.servlet.view.tiles2.TilesView" />
-
+	<bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+ 
+         <!-- setting maximum upload size -->
+        <property name="maxUploadSize" value="500000" />
+ 
+    </bean>
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="alwaysUseFullPath" value="true" />
@@ -83,6 +89,9 @@
 				<prop key="/deleteCategory.html">categoryController</prop>
 				<prop key="/loadProductOfCategory.html">categoryController</prop>
 				<prop key="/productDetail.html">productController</prop>
+				<prop key="adminDetailProduct.html">productController</prop>
+				<prop key="addImageToGallery.html">productController</prop>
+				<prop key="uploadImage.html">productController</prop>
 				<prop key="/viewCart.html">cartController</prop>
 				<prop key="/addToCart.html">cartController</prop>
 				<prop key="/removeProductFromCart.html">cartController</prop>

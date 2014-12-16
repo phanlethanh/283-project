@@ -101,7 +101,6 @@ public class OsUserController {
 		List<String> list = new ArrayList<String>();
 		list.add(user.getUsername());
 		
-		
 	    OsUserServiceImpl userService = getUserService();
 		
 		userService.createOsUser(user);

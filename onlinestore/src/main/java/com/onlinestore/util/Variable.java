@@ -10,5 +10,6 @@ public class Variable {
 	// Request parameters
 	public static final String REQUEST_ORDER_ID = "order_id";
 	public static final String REQUEST_KEYWORD = "keyword";
-	
+	public static final Integer pageSize = 10;
+	public static final Integer homePageSize = 8;
 }

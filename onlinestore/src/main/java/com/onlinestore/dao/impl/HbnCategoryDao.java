@@ -9,6 +9,8 @@ import java.util.List;
 
 
 
+
+
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +18,7 @@ import com.onlinestore.dao.AbstractHbnDao;
 import com.onlinestore.dao.CategoryDao;
 import com.onlinestore.model.Category;
 import com.onlinestore.model.Product;
+import com.onlinestore.util.Variable;
 
 @Repository
 public class HbnCategoryDao extends AbstractHbnDao<Category> implements
@@ -42,14 +45,28 @@ public class HbnCategoryDao extends AbstractHbnDao<Category> implements
 		return false;
 	}
 	@Override
-	public List<Product> getProductOfCategory(Integer idCategory) {
+	public List<Product> getProductOfCategory(Integer idCategory, Integer pageNumber) {
+		// TODO Auto-generated method stub
+	
+		String sql = "select p from Product p, CategoryProduct cp where cp.category.id =:Id and cp.product.id = p.id";
+		Query query = getSession().createQuery(sql);
+		query.setParameter("Id", idCategory);
+		query.setFirstResult(pageNumber * Variable.pageSize);
+		query.setMaxResults( Variable.pageSize);
+		//query.setParameter("pageSize",pageSize);
+		System.out.print(query.list().size());
+		return query.list();
+		
+	}
+
+	@Override
+	public Integer getTotalRow(Integer idCategory) {
 		// TODO Auto-generated method stub
 		String sql = "select p from Product p, CategoryProduct cp where cp.category.id =:Id and cp.product.id = p.id";
 		Query query = getSession().createQuery(sql);
 		query.setParameter("Id", idCategory);
-		System.out.print(query.list().size());
-		return query.list();
 		
+		return query.list().size();
 	}
 	
 }

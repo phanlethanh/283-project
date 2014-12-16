@@ -28,3 +28,11 @@
 		</div>
 	</c:forEach>
 </div>
+<div class="clear_left"></div>
+<div class="home_paging">
+</div>
+<div>
+	<input id="home_total_rows" type="hidden">
+	<input id="home_page_number_active" type="hidden">
+	<input id="home_page_number_last" type="hidden">
+</div>
