@@ -1,3 +1,41 @@
+-- Table: datas_fields_product
+
+-- DROP TABLE datas_fields_product;
+
+CREATE TABLE datas_fields_product
+(
+  id serial NOT NULL,
+  serial_data bytea[],
+  create_date timestamp without time zone,
+  write_date timestamp without time zone,
+  active boolean,
+  CONSTRAINT datas_fields_product_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE datas_fields_product
+  OWNER TO postgres;
+
+-- Table: fields_product
+
+-- DROP TABLE fields_product;
+
+CREATE TABLE fields_product
+(
+  id serial NOT NULL,
+  serial_fields bytea[],
+  create_date timestamp without time zone,
+  write_date timestamp without time zone,
+  active boolean,
+  CONSTRAINT fields_product_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE fields_product
+  OWNER TO postgres;
+
 -- Table: cart
 
 -- DROP TABLE cart;
@@ -115,12 +153,16 @@ CREATE TABLE category
 (
   id serial NOT NULL,
   parent_id integer,
+  fields_id integer,
   name character varying(32),
   priority integer,
   create_date timestamp without time zone,
   write_date timestamp without time zone,
   active boolean,
-  CONSTRAINT category_pkey PRIMARY KEY (id)
+  CONSTRAINT category_pkey PRIMARY KEY (id),
+  CONSTRAINT category_fields_id_fkey FOREIGN KEY (fields_id)
+      REFERENCES fields_product (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
@@ -225,6 +267,7 @@ CREATE TABLE product
   promotion_id integer,
   price_id integer,
   gallery_id integer,
+  datas_fields_id integer,
   name character varying(32),
   icon character varying(256),
   description character varying(256),
@@ -232,6 +275,9 @@ CREATE TABLE product
   write_date timestamp without time zone,
   active boolean,
   CONSTRAINT product_pkey PRIMARY KEY (id),
+  CONSTRAINT product_datas_fields_id_fkey FOREIGN KEY (datas_fields_id)
+      REFERENCES datas_fields_product (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT product_gallery_id_fkey FOREIGN KEY (gallery_id)
       REFERENCES gallery (id) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE RESTRICT,

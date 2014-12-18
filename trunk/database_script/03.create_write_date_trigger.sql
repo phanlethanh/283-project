@@ -34,6 +34,12 @@ FOR EACH ROW EXECUTE PROCEDURE func_insert();
 CREATE TRIGGER trig_create_date BEFORE INSERT ON config
 FOR EACH ROW EXECUTE PROCEDURE func_insert();
 
+CREATE TRIGGER trig_create_date BEFORE INSERT ON datas_fields_product
+FOR EACH ROW EXECUTE PROCEDURE func_insert();
+
+CREATE TRIGGER trig_create_date BEFORE INSERT ON fields_product
+FOR EACH ROW EXECUTE PROCEDURE func_insert();
+
 CREATE TRIGGER trig_create_date BEFORE INSERT ON gallery
 FOR EACH ROW EXECUTE PROCEDURE func_insert();
 
@@ -88,6 +94,12 @@ FOR EACH ROW EXECUTE PROCEDURE func_update();
 -- FOR EACH ROW EXECUTE PROCEDURE func_update();
 
 CREATE TRIGGER trig_write_date BEFORE UPDATE ON config
+FOR EACH ROW EXECUTE PROCEDURE func_update();
+
+CREATE TRIGGER trig_write_date BEFORE UPDATE ON datas_fields_product
+FOR EACH ROW EXECUTE PROCEDURE func_update();
+
+CREATE TRIGGER trig_write_date BEFORE UPDATE ON fields_product
 FOR EACH ROW EXECUTE PROCEDURE func_update();
 
 CREATE TRIGGER trig_write_date BEFORE UPDATE ON gallery

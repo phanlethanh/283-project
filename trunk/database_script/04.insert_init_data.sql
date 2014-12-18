@@ -22,4 +22,11 @@ INSERT INTO status(name) VALUES ('shipping'); -- 7
 INSERT INTO status(name) VALUES ('done'); -- 8
 INSERT INTO status(name) VALUES ('cancel'); -- 9
 
+-- Configs
+INSERT INTO config(name, data_type, value)
+    VALUES ('Min payment', 'Double', '1000000'); -- 1
+INSERT INTO config(name, data_type, value) 
+    VALUES ('Max payment', 'Double', '80000000'); -- 2
+INSERT INTO config(name, data_type, value)
+    VALUES ('Terms and conditions', 'String', 'terms_and_conditions.txt'); -- 3
 
