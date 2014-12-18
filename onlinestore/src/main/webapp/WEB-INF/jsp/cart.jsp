@@ -29,7 +29,8 @@
 		if (confirm("Xóa sản phẩm này khỏi giỏ hàng?") == true) {
 		}
 	}
-	function nextStepOnClick() {
+
+	function createOrderOnClick() {
 		if (confirm("Bạn có muốn lập hóa đơn?") == true) {
 		}
 	}
@@ -68,6 +69,6 @@
 		<p>
 			Thanh toán: <span>0</span> đ
 		</p>
-		<input type="button" value="Bước kế tiếp" onclick="nextStepOnClick()">
+		<input type="button" value="Lập hóa đơn" onclick="createOrderOnClick()">
 	</div>
 </div>

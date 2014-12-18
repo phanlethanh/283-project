@@ -53,6 +53,8 @@
 		<value>com.onlinestore.model.Config</value>
 		<value>com.onlinestore.model.Gallery</value>
 		<value>com.onlinestore.model.Image</value>
+		<value>com.onlinestore.model.DatasFieldsProduct</value>
+		<value>com.onlinestore.model.FieldsProduct</value>
 	</util:list>
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager"

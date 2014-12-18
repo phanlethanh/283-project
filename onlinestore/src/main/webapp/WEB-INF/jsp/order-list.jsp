@@ -4,8 +4,14 @@
 <script type="text/javascript">
 	function cancelOrderOnClick() {
 		if (confirm("Bạn có muốn hủy hóa đơn này?") == true) {
-			
-		}	
+			//...
+		}
+	}
+	function confirmOrderOnClick() {
+		if (confirm("Để xác nhận đơn hàng, hệ thống sẽ gửi cho bạn email,"
+				+ " vui lòng xác nhận theo email đó!") == true) {
+			//...
+		}
 	}
 </script>
 <div>
@@ -30,6 +36,7 @@
 				<td>${order['phone']}</td>
 				<td><a href="viewOrderDetail.html?order_id=${order['id']}">Chi
 						tiết</a></td>
+				<td><a href="#" onclick="confirmOrderOnClick()">Xác nhận</a></td>
 				<td><a href="#" onclick="cancelOrderOnClick()">Hủy</a></td>
 			</tr>
 		</c:forEach>

@@ -1,6 +1,6 @@
 package com.onlinestore.model;
 
-// Generated Dec 5, 2014 12:05:32 AM by Hibernate Tools 3.4.0.CR1
+// Generated Dec 18, 2014 12:06:36 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,6 +27,7 @@ import javax.persistence.TemporalType;
 public class Category implements java.io.Serializable {
 
 	private int id;
+	private FieldsProduct fieldsProduct;
 	private Integer parentId;
 	private String name;
 	private Integer priority;
@@ -41,10 +44,11 @@ public class Category implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Category(int id, Integer parentId, String name, Integer priority,
-			Date createDate, Date writeDate, Boolean active,
-			Set<CategoryProduct> categoryProducts) {
+	public Category(int id, FieldsProduct fieldsProduct, Integer parentId,
+			String name, Integer priority, Date createDate, Date writeDate,
+			Boolean active, Set<CategoryProduct> categoryProducts) {
 		this.id = id;
+		this.fieldsProduct = fieldsProduct;
 		this.parentId = parentId;
 		this.name = name;
 		this.priority = priority;
@@ -63,6 +67,16 @@ public class Category implements java.io.Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "fields_id")
+	public FieldsProduct getFieldsProduct() {
+		return this.fieldsProduct;
+	}
+
+	public void setFieldsProduct(FieldsProduct fieldsProduct) {
+		this.fieldsProduct = fieldsProduct;
 	}
 
 	@Column(name = "parent_id")
@@ -121,7 +135,7 @@ public class Category implements java.io.Serializable {
 		this.active = active;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
 	public Set<CategoryProduct> getCategoryProducts() {
 		return this.categoryProducts;
 	}
