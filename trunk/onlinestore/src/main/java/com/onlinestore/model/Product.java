@@ -1,6 +1,6 @@
 package com.onlinestore.model;
 
-// Generated Dec 5, 2014 12:05:32 AM by Hibernate Tools 3.4.0.CR1
+// Generated Dec 18, 2014 12:06:36 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -27,6 +27,7 @@ import javax.persistence.TemporalType;
 public class Product implements java.io.Serializable {
 
 	private int id;
+	private DatasFieldsProduct datasFieldsProduct;
 	private Price price;
 	private Gallery gallery;
 	private Promotion promotion;
@@ -50,12 +51,14 @@ public class Product implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Product(int id, Price price, Gallery gallery, Promotion promotion,
-			Status status, Producer producer, String name, String icon,
-			String description, Date createDate, Date writeDate,
-			Boolean active, Set<OsOrderDetail> osOrderDetails,
-			Set<CartProduct> cartProducts, Set<CategoryProduct> categoryProducts) {
+	public Product(int id, DatasFieldsProduct datasFieldsProduct, Price price,
+			Gallery gallery, Promotion promotion, Status status,
+			Producer producer, String name, String icon, String description,
+			Date createDate, Date writeDate, Boolean active,
+			Set<OsOrderDetail> osOrderDetails, Set<CartProduct> cartProducts,
+			Set<CategoryProduct> categoryProducts) {
 		this.id = id;
+		this.datasFieldsProduct = datasFieldsProduct;
 		this.price = price;
 		this.gallery = gallery;
 		this.promotion = promotion;
@@ -81,6 +84,16 @@ public class Product implements java.io.Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "datas_fields_id")
+	public DatasFieldsProduct getDatasFieldsProduct() {
+		return this.datasFieldsProduct;
+	}
+
+	public void setDatasFieldsProduct(DatasFieldsProduct datasFieldsProduct) {
+		this.datasFieldsProduct = datasFieldsProduct;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -142,7 +155,7 @@ public class Product implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "icon", length = 64)
+	@Column(name = "icon", length = 256)
 	public String getIcon() {
 		return this.icon;
 	}
@@ -189,7 +202,7 @@ public class Product implements java.io.Serializable {
 		this.active = active;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
 	public Set<OsOrderDetail> getOsOrderDetails() {
 		return this.osOrderDetails;
 	}
@@ -198,7 +211,7 @@ public class Product implements java.io.Serializable {
 		this.osOrderDetails = osOrderDetails;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
 	public Set<CartProduct> getCartProducts() {
 		return this.cartProducts;
 	}
@@ -207,7 +220,7 @@ public class Product implements java.io.Serializable {
 		this.cartProducts = cartProducts;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
 	public Set<CategoryProduct> getCategoryProducts() {
 		return this.categoryProducts;
 	}

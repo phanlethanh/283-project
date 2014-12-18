@@ -52,6 +52,8 @@
 		<value>com.onlinestore.model.UserGroup</value>
 		<value>com.onlinestore.model.CategoryProduct</value>
 		<value>com.onlinestore.model.CartProduct</value>
+		<value>com.onlinestore.model.DatasFieldsProduct</value>
+		<value>com.onlinestore.model.FieldsProduct</value>
 	</util:list>
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
