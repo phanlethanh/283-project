@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
 public class DatasFieldsProduct implements java.io.Serializable {
 
 	private int id;
-	private Serializable serialData;
+	private String serialData;
 	private Date createDate;
 	private Date writeDate;
 	private Boolean active;
@@ -39,7 +39,7 @@ public class DatasFieldsProduct implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public DatasFieldsProduct(int id, Serializable serialData, Date createDate,
+	public DatasFieldsProduct(int id, String serialData, Date createDate,
 			Date writeDate, Boolean active, Set<Product> products) {
 		this.id = id;
 		this.serialData = serialData;
@@ -65,7 +65,7 @@ public class DatasFieldsProduct implements java.io.Serializable {
 		return this.serialData;
 	}
 
-	public void setSerialData(Serializable serialData) {
+	public void setSerialData(String serialData) {
 		this.serialData = serialData;
 	}
 

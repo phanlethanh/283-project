@@ -4,15 +4,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.postgresql.util.Base64;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.SerializationUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,9 +23,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.onlinestore.model.Category;
+import com.onlinestore.model.FieldsProduct;
 import com.onlinestore.model.OsUser;
 import com.onlinestore.model.Product;
 import com.onlinestore.service.CategoryService;
+import com.onlinestore.service.FieldsProductService;
 import com.onlinestore.service.impl.CategoryServiceImpl;
 import com.onlinestore.service.impl.OsUserServiceImpl;
 import com.onlinestore.util.Variable;
@@ -37,6 +42,14 @@ public class CategoryController {
 		CategoryService categoryService = 
 	    		(CategoryService)appCtx.getBean("categoryService");
 	    return categoryService;
+	}
+	private FieldsProductService getFieldsProductService()
+	{
+		ApplicationContext appCtx = 
+	    		new ClassPathXmlApplicationContext("beans-service.xml");
+		FieldsProductService fieldsProductService = 
+	    		(FieldsProductService)appCtx.getBean("fieldsProductService");
+	    return fieldsProductService;
 	}
 	
 	//load danh sach category
@@ -256,6 +269,128 @@ public class CategoryController {
 		return true;
 	}
 	
+	@RequestMapping(value="/addNewConfig", method = RequestMethod.POST)
+	public void addNewConfig(HttpServletRequest request, HttpServletResponse response)
+	{
+		String groupName = request.getParameter("group_name");
+		String identity = request.getParameter("identity_name");
+		String fieldName = request.getParameter("field_name");
+		int id = Integer.parseInt(request.getParameter("id"));
+		FieldsProduct fields = getFieldsProductService().getField(id);
+		HashMap<String,Object> meta = new HashMap<String,Object>();
+		if(fields != null)
+		{
+			HashMap<String,Object> fieldsMap = new HashMap<String,Object>();
+			HashMap<String,Object> fieldNew = new HashMap<String,Object>();
+			byte[] data_fields = Base64.decode(fields.getSerialFields());
+			fieldsMap = ( HashMap<String,Object>) SerializationUtils.deserialize(data_fields);
+			System.out.print(fieldsMap);
+			fieldNew.put("group_name", groupName);
+			fieldNew.put("field_name", fieldName);
+			fieldsMap.put(identity, fieldNew);
+			System.out.print(fieldsMap);
+			byte[] new_data_fields = SerializationUtils.serialize(fieldsMap);
+			String serial_fields = Base64.encodeBytes(new_data_fields);
+			fields.setSerialFields(serial_fields);
+			getFieldsProductService().updateFieldsProduct(fields);
+			meta.put("code", 1);
+		}
+		else
+		{
+			meta.put("code", 0);
+		}
+		String json = new Gson().toJson(meta);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
+	@RequestMapping(value ="/deleteField")
+	public void deleteField(HttpServletRequest request, HttpServletResponse response)
+	{
+		String fieldName = request.getParameter("field_name");
+		int id = Integer.parseInt(request.getParameter("field_id"));
+		FieldsProduct fields = getFieldsProductService().getField(id);
+		HashMap<String,Object> meta = new HashMap<String,Object>();
+		if(fields != null)
+		{
+			HashMap<String,Object> fieldsMap = new HashMap<String,Object>();
+			HashMap<String,Object> fieldNew = new HashMap<String,Object>();
+			byte[] data_fields = Base64.decode(fields.getSerialFields());
+			fieldsMap = ( HashMap<String,Object>) SerializationUtils.deserialize(data_fields);
+			fieldsMap.remove(fieldName);
+			byte[] new_data_fields = SerializationUtils.serialize(fieldsMap);
+			String serial_fields = Base64.encodeBytes(new_data_fields);
+			fields.setSerialFields(serial_fields);
+			getFieldsProductService().updateFieldsProduct(fields);
+			meta.put("code", 1);
+		}
+		else
+		{
+			meta.put("code",0);
+		}
+		String json = new Gson().toJson(meta);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping( value ="/saveConfig")
+	public void saveConfig(HttpServletRequest request, HttpServletResponse response)
+	{
+		int fields_id = Integer.parseInt(request.getParameter("fields_id"));
+		FieldsProduct fields = getFieldsProductService().getField(fields_id);
+		HashMap<String,Object> meta = new HashMap<String,Object>();
+		if(fields != null)
+		{
+			HashMap<String,Object> fieldsMap = new HashMap<String,Object>();
+			byte[] data_fields = Base64.decode(fields.getSerialFields());
+			fieldsMap = ( HashMap<String,Object>) SerializationUtils.deserialize(data_fields);
+			for(Entry<String, Object> entry: fieldsMap.entrySet())
+			{
+				
+				if(request.getParameter(""+entry.getKey()) != null)
+				{
+					/*for(Entry<String,Object> subEntry:((HashMap<String,Object>)entry.getValue()).entrySet())
+					{
+						 ((HashMap<String,Object>)subEntry.getValue()).put("field_name",request.getParameter(entry.getKey()));
+					}*/
+					HashMap<String,Object> field = ((HashMap<String,Object>)entry.getValue());
+					field.put("field_name",request.getParameter(""+entry.getKey()) );
+					//System.out.print();
+					
+				}
+			}System.out.print(fieldsMap);
+			
+			byte[] new_data_fields = SerializationUtils.serialize(fieldsMap);
+			String serial_fields = Base64.encodeBytes(new_data_fields);
+			fields.setSerialFields(serial_fields);
+			getFieldsProductService().updateFieldsProduct(fields);
+			meta.put("code", 1);
+		}
+		else
+		{
+			meta.put("code", 0);
+		}
+		String json = new Gson().toJson(meta);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }

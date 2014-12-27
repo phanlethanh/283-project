@@ -5,7 +5,7 @@
 CREATE TABLE datas_fields_product
 (
   id serial NOT NULL,
-  serial_data bytea[],
+  serial_data character varying[],
   create_date timestamp without time zone,
   write_date timestamp without time zone,
   active boolean,
@@ -24,10 +24,10 @@ ALTER TABLE datas_fields_product
 CREATE TABLE fields_product
 (
   id serial NOT NULL,
-  serial_fields bytea[],
   create_date timestamp without time zone,
   write_date timestamp without time zone,
   active boolean,
+  serial_fields character(1000),
   CONSTRAINT fields_product_pkey PRIMARY KEY (id)
 )
 WITH (

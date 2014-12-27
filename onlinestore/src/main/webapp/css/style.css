@@ -186,3 +186,51 @@ admin_detail_product_icon{width:90%; margin-left:20px; height:30px; margin-botto
 .gallery_item {width:100px; height:120px; display:inline-block; margin-left:5px}
 .gallery_item img {width:100px; height:100px};
 .admin_detail_product_gallery span {width:100px; height:20px; text-align:center}
+
+.config_field {margin-left:880px; }
+.add-new-field{
+	background-color: #4572a7;
+    color: white;
+    cursor: pointer;
+    margin: 19px 4px;
+    padding: 5px 5px 5px 20px;
+    width: 100px;
+}
+.new-field{
+	padding: 5px;
+	display: none;
+}
+.new-field input{
+	margin: 0 5px;
+}
+.item-diff-delete{
+	font-size: 11px;
+    padding: 5px;
+    position: absolute;
+    top: -13px;
+	cursor: pointer;
+}
+.item-diff-delete:hover{
+	font-weight:bold;
+	
+}
+.item-diff{
+	background: none repeat scroll 0 0 #dddddd;
+    display: inline-block;
+    margin: 4px;
+    padding: 5px 9px 5px 5px;
+    position: relative;
+}
+.checkboxchecked{
+	background: #4572a7;
+	color: white;
+	display: inline-block;
+    margin: 5px;
+    padding: 5px;
+}
+.checkbox{
+	background: none repeat scroll 0 0 #dddddd;
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+}

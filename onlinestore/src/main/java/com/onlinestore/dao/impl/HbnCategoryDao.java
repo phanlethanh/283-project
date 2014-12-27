@@ -11,12 +11,15 @@ import java.util.List;
 
 
 
+
+
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.onlinestore.dao.AbstractHbnDao;
 import com.onlinestore.dao.CategoryDao;
 import com.onlinestore.model.Category;
+import com.onlinestore.model.FieldsProduct;
 import com.onlinestore.model.Product;
 import com.onlinestore.util.Variable;
 
@@ -30,6 +33,7 @@ public class HbnCategoryDao extends AbstractHbnDao<Category> implements
 		String sql = "from Category where parentId=:Id";
 		Query query = getSession().createQuery(sql);
 		query.setParameter("Id", parent);
+		
 		return query.list();
 	}
 
@@ -67,6 +71,21 @@ public class HbnCategoryDao extends AbstractHbnDao<Category> implements
 		query.setParameter("Id", idCategory);
 		
 		return query.list().size();
+	}
+
+	@Override
+	public FieldsProduct getFieldsOfCategory(Integer id) {
+		// TODO Auto-generated method stub
+		String sql ="from Category where id=:Id";
+		Query query = getSession().createQuery(sql);
+		query.setParameter("Id", id);
+		//String serial_data = query.list().get(0)
+		if(query.list().size() > 0)
+		{
+			Category category =(Category) query.list().get(0);
+			return category.getFieldsProduct();
+		}
+		return null;
 	}
 	
 }

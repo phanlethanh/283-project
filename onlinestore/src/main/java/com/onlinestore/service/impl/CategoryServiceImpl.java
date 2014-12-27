@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.onlinestore.dao.CategoryDao;
 import com.onlinestore.model.Category;
+import com.onlinestore.model.FieldsProduct;
 import com.onlinestore.model.Product;
 import com.onlinestore.service.CategoryService;
 
@@ -61,6 +62,12 @@ public class CategoryServiceImpl implements CategoryService {
 	public Integer getTotalRow(Integer idCategory) {
 		// TODO Auto-generated method stub
 		return categoryDao.getTotalRow(idCategory);
+	}
+
+	@Override
+	public FieldsProduct getFieldsOfCategory(Integer id) {
+		// TODO Auto-generated method stub
+		return categoryDao.getFieldsOfCategory(id);
 	}
 
 }

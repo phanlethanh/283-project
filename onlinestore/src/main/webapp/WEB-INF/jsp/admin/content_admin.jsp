@@ -102,6 +102,11 @@
 			$('#changeIconProduct').trigger('reveal:close');
 			$('#adminEditProduct').reveal();
 		});
+		$(".cancel_add_image").live('click', function(){
+			$('#addImageGalleryProduct').trigger('reveal:close');
+			$('#adminEditProduct').reveal();
+			
+		});
 		$("save_edit_product").live('click', function(){
 			var data_form = $("form.form_admin_edit_product").serialize();
 			$.ajax({
@@ -165,6 +170,32 @@
 			    }
 			});
 		});
+		
+		$(".admin_delete_product").live('click', function(){
+			var id = $(this).attr("idproduct");
+			createConfirm(".main_content", "Delete product ", "Are you sure delete?", 'delete_product');	
+			if($('#confirmModaldelete_product span').length <= 0)
+			{
+				$('#confirmModaldelete_product').append('<span style="display: none">'+id+'</span>');
+			} else 
+			{
+				$('#confirmModaldelete_product span').empty().text(id);
+			}	
+			
+		});
+		$("#confirmModaldelete_product .bntsubmit").live('click',function(){
+			var id= parseInt($('#confirmModaldelete_product span').text());
+			$.ajax({
+				url:"deleteProduct.html",
+				type:"POST",
+				data:{id:id},
+				success:function(data){
+					
+					var element = document.getElementById("itemid"+id);
+					element.parentNode.removeChild(element);
+				}
+			});
+		});
 		/*$(".upload_image").live('click', function(){
 			//var data = $("#form_upload_image").serialize();
 			var data_form = $("form.form_upload_image").serialize();
@@ -179,14 +210,124 @@
 				}
 			});
 		});*/
+		$("#config_field").live('click', function(){
+			var id = $("#category_id").val();
+			var list_field =["memory","camera","media"];
+			$("#fields_product_form .fields_input").empty();
+			if(id != '')
+			{
+				$.ajax({
+					url:"configFieldOfProduct.html",
+					type:"POST",
+					data:{id_category:id},
+					success:function(data){
+						$("#config_fields_modal").reveal();
+						$(".new-field").hide();
+						$("#fields_product_form .fields_input").append('<input name="fields_id" id="fields_id" type="hidden" value="'+data[3]['fields_id']+'">');
+						for(var i = 0; i < list_field.length; i++)
+						{
+							var field_name = data[0][list_field[i]]['field_name'];
+							$("#fields_product_form .fields_input").append('<div class="checkbox'+field_name+'"><input name="'+list_field[i]+'" type="checkbox" value="'+field_name+'" '+field_name+'>'+list_field[i]+'</div>');							
+					
+						}
+						var count = data[2]["count"];
+						for(var i = 0; i < count; i++)
+						{
+							var temp = data[2][i];
+							$("#fields_product_form .fields_input").append('<div class="item-diff"><input value="'+data[1][temp]['field_name']+'" type="hidden" ><input value="'+data[1][temp]['group_name']+'" type="hidden" ><span class="item-diff-name">'+data[2][i]+'</span><span class="item-diff-delete" title="Delete" item_name="'+data[2][i]+'" field_id="'+data[3]['fields_id']+'">X</span></div>');
+							
+						}
+					}
+				});
+			}
+				//window.location="configFieldOfProduct.html?id_category="+id;
+		});
+		$(".add-new-field").live('click',function(){
+			$("#group_name").val("");
+			$("#identity_name").val("");
+			$("#field_name").val("");
+			$(".new-field").show();
+		});
 		
+
+		$("#submit_new_field").live('click',function(){
+			var group_name = $("#group_name").val();
+			var identity_name = $("#identity_name").val();
+			var field_name = $("#field_name").val();
+			var category_id = $("#category_id").val();
+			var fields_id = $("#fields_id").val();
+			if(group_name != '' && identity_name != '' && field_name != ''){
+				$.ajax({
+					url:"addNewConfig.html",
+					type: "POST",
+					data: {id: fields_id,group_name:group_name, identity_name: identity_name,field_name: field_name},
+					success: function(data){
+						if(data.code == 1){
+							$("#fields_product_form .fields_input").append('<div class="item-diff"><input value="'+field_name+'" type="hidden" ><input value="'+group_name+'" type="hidden" ><span class="item-diff-name">'+identity_name+'</span><span class="item-diff-delete" title="Delete" item_name="'+identity_name+'" field_id="'+fields_id+'">X</span></div>');
+						} else {
+							
+						}
+					},
+					error : function(jqXHR, status, errorThrown){ 
+						
+					}
+				});
+			}
+		});
+		$(".item-diff-delete").live('click',function(){
+			var field_name = $(this).attr('item_name');
+			var field_id = $(this).attr('field_id');
+			var item_obj = $(this).parent();
+			$.ajax({
+				url: "deleteField.html",
+				type: "POST",
+				data: {field_id: field_id,field_name: field_name},
+				success: function(data){
+					if(data.code == 1){
+						 item_obj.remove();
+					} else {
+						alert("Not Success");
+					}
+				},
+				error : function(jqXHR, status, errorThrown){ 
+					
+				}
+			});
+		});
+		$("#config_fields_modal .bntsubmit").live('click', function(){
+			var data_form = $("form.fields_product_form").serialize();
+			$.ajax({
+				url:"saveConfig.html",
+				type:"POST",
+				data:data_form,
+				success:function(data){
+					if(data.code == 1)
+					{
+						$("#config_fields_modal").trigger('reveal:close');
+					}
+				}
+			});
+		});
+		$("#fields_product_form .fields_input input").live('click',function(){
+			if($(this).text() == "")
+				$(this).val("checked");
+			else
+				$(this).val("");
+			//alert("check");
+		});
 	});
 	
 </script>
 <div class="right_max_width">
 <div class="form-message"></div>
+	
 	<h2 class="group_title">List Product</h2>
 	<div class="clear"></div>
+	
+	<div class="hidden_info">
+		<input type="hidden" class="category_id" id="category_id">
+	</div>
+	<input type="button" id="config_field" value="Config Fields" class="config_field">
 	<table id="product_of_category">
 		<tr>
 			<th align="left">#</th>
@@ -332,4 +473,31 @@
 				<input class="formButton cancel_add_image" type="button" value="Thoát"/>
 			</div>
 	</div>
+</div>
+<div id="config_fields_modal" class="reveal-editrecordmodalwindow">
+	<h4>Config Fields</h4>
+	<div class="in-progress"></div>
+	<div class="modalConfigFieldsCentreContent">
+		<div class="modalMess"></div>
+		<div class="config_fields_content">
+			<form id="fields_product_form" class="fields_product_form" method="post">
+				<div class="fields_input">
+				</div>
+				<div class="fields_button">
+					<div class='add-new-field add'>Add new field</div>
+					<div class='new-field'>
+						<label>Group name</label><input id='group_name' type='text'></input>
+						<label>Identity name</label><input id='identity_name' type='text'>
+						<label>Field name</label><input id='field_name' type='text'></input>
+						<input id='submit_new_field' type='button' value='Save'></input>
+					</div>	
+					<div class="groupFormButton">
+						<input type="button" class="formButton editUserButton bntsubmit" value="Finish"/>
+						<button class="formButton cancel close-reveal-all">Cancel</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<a class="close-reveal-modal close-reveal-all"></a>
 </div>
