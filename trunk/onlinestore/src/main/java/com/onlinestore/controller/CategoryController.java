@@ -370,6 +370,11 @@ public class CategoryController {
 					//System.out.print();
 					
 				}
+				else
+				{
+					HashMap<String,Object> field = ((HashMap<String,Object>)entry.getValue());
+					field.put("field_name","" );
+				}
 			}System.out.print(fieldsMap);
 			
 			byte[] new_data_fields = SerializationUtils.serialize(fieldsMap);
