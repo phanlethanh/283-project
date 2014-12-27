@@ -101,6 +101,8 @@
 		
 		function loadCategoryCentreList(id,pageNumber)
 		{
+			var category_id = id;
+			$(document.getElementById("category_id")).val(id);
 			$.ajax({
 				url: "loadProductOfCategory.html",
 				type: "POST",

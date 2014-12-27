@@ -94,6 +94,8 @@
 				<prop key="adminDetailProduct.html">productController</prop>
 				<prop key="addImageToGallery.html">productController</prop>
 				<prop key="uploadImage.html">productController</prop>
+				<prop key="deleteProduct.html">productController</prop>
+				<prop key="configFieldOfProduct.html*">productController</prop>
 				<prop key="/viewCart.html">cartController</prop>
 				<prop key="/addToCart.html">cartController</prop>
 				<prop key="/removeProductFromCart.html">cartController</prop>
@@ -101,6 +103,9 @@
 				<prop key="/viewOrderDetail.html">osOrderDetailController</prop>
 				<prop key="/homeProductOfCategory.html">categoryController</prop>
 				<prop key="/loadHomeProductOfCategory.html">categoryController</prop>
+				<prop key="/addNewConfig.html">categoryController</prop>
+				<prop key="/deleteField.html">categoryController</prop>
+				<prop key="/saveConfig.html">categoryController</prop>
 			</props>
 		</property>
 	</bean>
