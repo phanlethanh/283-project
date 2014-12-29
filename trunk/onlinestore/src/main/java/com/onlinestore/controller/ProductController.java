@@ -26,11 +26,21 @@ import javax.servlet.http.HttpSession;
 
 
 
+
+
+
+
+
+
+
+
+
 import org.postgresql.util.Base64;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.SerializationUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,12 +49,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.onlinestore.model.Category;
+import com.onlinestore.model.DatasFieldsProduct;
 import com.onlinestore.model.FieldsProduct;
 import com.onlinestore.model.Image;
+import com.onlinestore.model.OsUser;
+import com.onlinestore.model.Price;
 import com.onlinestore.model.Product;
+import com.onlinestore.model.Promotion;
+import com.onlinestore.model.Status;
 import com.onlinestore.service.CategoryService;
+import com.onlinestore.service.DatasFieldsProductService;
 import com.onlinestore.service.FieldsProductService;
+import com.onlinestore.service.ImageService;
+import com.onlinestore.service.PriceService;
 import com.onlinestore.service.ProductService;
+import com.onlinestore.service.PromotionService;
+import com.onlinestore.service.StatusService;
 import com.onlinestore.util.Variable;
 
 
@@ -70,6 +90,41 @@ public class ProductController {
 		FieldsProductService fieldsProductService = (FieldsProductService) appCtx
 				.getBean("fieldsProductService");
 		return fieldsProductService;
+	}
+	private DatasFieldsProductService getDatasFieldsProductService() {
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
+				"beans-service.xml");
+		DatasFieldsProductService datasFieldsProductService = (DatasFieldsProductService) appCtx
+				.getBean("datasFieldsProductService");
+		return datasFieldsProductService;
+	}
+	private ImageService getImageService() {
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
+				"beans-service.xml");
+		ImageService imageService = (ImageService) appCtx
+				.getBean("imageService");
+		return imageService;
+	}
+	private PromotionService getPromotionService() {
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
+				"beans-service.xml");
+		PromotionService promotionService = (PromotionService) appCtx
+				.getBean("promotionService");
+		return promotionService;
+	}
+	private PriceService getPriceService() {
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
+				"beans-service.xml");
+		PriceService priceService = (PriceService) appCtx
+				.getBean("priceService");
+		return priceService;
+	}
+	private StatusService getStatusService() {
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
+				"beans-service.xml");
+		StatusService statusService = (StatusService) appCtx
+				.getBean("statusService");
+		return statusService;
 	}
 	@RequestMapping(value = "/productDetail")
 	public ModelAndView index(HttpServletRequest request) {
@@ -121,14 +176,14 @@ public class ProductController {
 		productMap.put("id", product.getId());
 		productMap.put("name", product.getName());
 		productMap.put("icon", product.getIcon());
-		productMap.put("status", product.getStatus().getName());
+		productMap.put("name_status", product.getStatus().getName());
 		double price = product.getPrice().getPrice();
 		productMap.put("price", String.format(Variable.CURRENCY_FORMAT, price));
 		productMap.put("description", product.getDescription());
 		productMap.put("producer", product.getProducer().getName());
 		productMap.put("producerDescription", product.getProducer()
 				.getDescription());
-		productMap.put("promotion", product.getPromotion().getName());
+		productMap.put("name_promotion", product.getPromotion().getName());
 		// Images of gallery
 		List<HashMap<String, Object>> imageMapList = new ArrayList<HashMap<String, Object>>();
 		List<Image> images = new ArrayList<Image>(product.getGallery()
@@ -142,7 +197,31 @@ public class ProductController {
 		}
 		productMap.put("images", imageMapList);
 		
-		request.setAttribute("product", product);
+		List<Promotion> promotion = new ArrayList<Promotion>();
+		List<HashMap<String, Object>> promotionMapList = new ArrayList<HashMap<String, Object>>();
+		promotion = getPromotionService().getPromotions();
+		for(int i = 0; i < promotion.size(); i++)
+		{
+			HashMap<String, Object> promotionMap = new HashMap<String, Object>();
+			promotionMap.put("name", promotion.get(i).getName());
+			promotionMap.put("id", promotion.get(i).getId());
+			promotionMapList.add(promotionMap);
+		}
+		productMap.put("promotion",promotionMapList);
+		
+		List<Status> status = new ArrayList<Status>();
+		List<HashMap<String, Object>> statusMapList = new ArrayList<HashMap<String, Object>>();
+		status = getStatusService().getStatuses();
+		for(int i = 0; i < status.size(); i++)
+		{
+			HashMap<String, Object> statusMap = new HashMap<String, Object>();
+			statusMap.put("name", status.get(i).getName());
+			statusMap.put("id", status.get(i).getId());
+			statusMapList.add(statusMap);
+		}
+		productMap.put("status",statusMapList);
+		
+		
 		String json = new Gson().toJson(productMap);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
@@ -162,9 +241,10 @@ public class ProductController {
 			HashMap<String, Object> map = new HashMap<String,Object>();
 		    try {
 		    BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-		    File destination = new File("C:/Users/11123_000/workspace/283-project/onlinestore/src/main/webapp/image/"+name);
+		    String filePath = request.getServletContext().getRealPath("/image/product_icon/"+name); 
+		    File destination = new File(filePath);
 		    
-		    String link_store = "image/"+name;
+		    String link_store = "image/product_icon/"+name;
 		    ImageIO.write(src, "png", destination);
 		    map.put("code", 1);
 		    map.put("link", link_store);
@@ -172,7 +252,7 @@ public class ProductController {
 		    	map.put("code", 0);
 		        e.printStackTrace();
 		    }
-		   
+		    
 		    String json = new Gson().toJson(map);
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
@@ -187,19 +267,26 @@ public class ProductController {
 	public void addImageGallery(@RequestParam("myimage") MultipartFile file, HttpServletResponse response, HttpServletRequest request) {
 	     //rest of the code goes here...
 			String name = file.getOriginalFilename();
+			String description = request.getParameter("image_description");
 			HashMap<String, Object> map = new HashMap<String,Object>();
 		    try {
 		    BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
 		    String fileSeparator = System.getProperty("file.separator");
-		   
-		    File destination = new File("C:/Users/11123_000/workspace/283-project/onlinestore/src/main/webapp/image/"+name);
+		    String filePath = request.getServletContext().getRealPath("/image/product_image/"+name); 
+		    File destination = new File(filePath);
 		    destination.createNewFile();
-		    System.out.print(destination.getAbsoluteFile().getParent());
+		
 		    String link_store = "image/product_image/"+name;
 		    if(ImageIO.write(src, "png", destination))
 		    {
 		    	map.put("code", 1);
 			    map.put("link", link_store);
+			    Image image = new Image();
+			    image.setName(link_store);
+			    image.setDescription(description);
+			    getImageService().createImage(image);
+			    int id = getImageService().getLastInsertId();
+			    map.put("id_image", id);
 		    }
 		    
 		    } catch(Exception e) {
@@ -348,5 +435,146 @@ public class ProductController {
 		return  result;
 	}
 	
+	@RequestMapping(value="/loadFieldsOfProduct")
+	public void loadFieldsOfProduct(HttpServletRequest request, HttpServletResponse response)
+	{
+		int category_id = Integer.parseInt(request.getParameter("category_id"));
+		int category_root = findRootOfCategory(category_id);
+		System.out.print("abbbbbbb"+category_root);
+		int product_id = Integer.parseInt(request.getParameter("product_id"));
+		Product product = getProductService().getProduct(product_id);
+		DatasFieldsProduct datasFields = product.getDatasFieldsProduct();
+		
+		//if(getDatasFieldsProductService().getDatasFieldsProduct(product_id) != null)
+		
+		HashMap<String,Object> fieldsMap = new HashMap<String,Object>();
+		HashMap<String,Object> fieldsName = new HashMap<String,Object>();
+		HashMap<String,Object> fieldsData = new HashMap<String,Object>();
+		List<HashMap> data = new ArrayList<HashMap>();
+		
+		FieldsProduct fields = getCategoryService().getFieldsOfCategory(category_root);
+		byte[] data_fields1 = Base64.decode(fields.getSerialFields());
+		fieldsMap = ( HashMap<String,Object>) SerializationUtils.deserialize(data_fields1);
+		int i =0;
+		for (Entry<String, Object> entry : fieldsMap.entrySet())
+		{
+			fieldsData.put(entry.getKey(),"");
+            String key=entry.getKey();
+            fieldsName.put(""+i,key);
+            i++;
+        }
+		fieldsName.put("count", i);
+		
+		if(datasFields != null)
+		{
+			byte[] data_fields = Base64.decode(datasFields.getSerialData());
+			fieldsData = ( HashMap<String,Object>) SerializationUtils.deserialize(data_fields);
+			int size = fieldsData.size();
+			fieldsData.put("count", size);
+		}
+		else
+		{
+			
+			DatasFieldsProduct newDataFields = new DatasFieldsProduct();
+			byte[] data_encode = SerializationUtils.serialize(fieldsData);
+			String data1 = Base64.encodeBytes(data_encode);
+			newDataFields.setSerialData(data1);
+			newDataFields.setId(1);
+			System.out.print(newDataFields);
+			if(newDataFields != null)
+				getDatasFieldsProductService().createDatasFieldsProduct(newDataFields);
+			product.setDatasFieldsProduct(newDataFields);
+			getProductService().updateProduct(product);
+		}
+		
+		data.add(fieldsData);
+		data.add(fieldsName);
+		String json = new Gson().toJson(data);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping(value="/saveEditConfigProduct", method=RequestMethod.POST)
+	public void saveEditConfigProduct(HttpServletRequest request, HttpServletResponse response)
+	{
+		int product_id = Integer.parseInt(request.getParameter("product_id"));
+		Product product = getProductService().getProduct(product_id);
+		DatasFieldsProduct fields = product.getDatasFieldsProduct();
+		HashMap<String,Object> datasFields = new HashMap<String,Object>();
+		byte[] data_fields = Base64.decode(fields.getSerialData());
+		datasFields = ( HashMap<String,Object>) SerializationUtils.deserialize(data_fields);
+		for (Entry<String, Object> entry : datasFields.entrySet())
+		{
+            if(request.getParameter(entry.getKey()) != null)
+            	entry.setValue(request.getParameter(entry.getKey()));
+        }
+		System.out.print("cccccccccc "+datasFields);
+		byte[] data_encode = SerializationUtils.serialize(datasFields);
+		String data1 = Base64.encodeBytes(data_encode);
+		fields.setSerialData(data1);
+		getDatasFieldsProductService().update(fields);
+		HashMap<String, Object> meta = new HashMap<String,Object>();
+		meta.put("code", 1);
+		String json = new Gson().toJson(meta);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public int findRootOfCategory(int category_id)
+	{
+		Category category = getCategoryService().getCategory(category_id);
+		while(category.getParentId() != 0)
+		{
+			category = getCategoryService().getCategory(category.getParentId());
+		}
+		return category.getId();
+	}
+	
+	@RequestMapping(value="/saveEditProduct", method=RequestMethod.POST)
+	public void saveEditProduct(HttpServletRequest request, HttpServletResponse response)
+	{
+		//getProductService().updateProduct(product);
+		int id_product = Integer.parseInt(request.getParameter("id_product"));
+		Product product = getProductService().getProduct(id_product);
+		Price price =product.getPrice();
+		price.setPrice(Double.parseDouble(request.getParameter("price")));
+		getPriceService().updatePrice(price);
+		product.setDescription(request.getParameter("description"));
+		product.setIcon(request.getParameter("icon"));
+		//product.getPromotion().set;
+		int id_promotion = Integer.parseInt(request.getParameter("id_promotion"));
+		product.setPromotion(getPromotionService().getPromotion(id_promotion));
+		int id_status = Integer.parseInt(request.getParameter("id_status"));
+		product.setStatus(getStatusService().getStatus(id_status));
+		String[] arr_list = null;
+		if(request.getParameter("list_image_add")!= null)
+		{
+			String list_image = request.getParameter("list_image_add");
+			arr_list = list_image.split("\\|", -1);
+		}
+		System.out.print(arr_list[0]);
+		HashMap<String,Object> meta = new HashMap<String,Object>();
+		meta.put("code", 1);
+		String json = new Gson().toJson(meta);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }

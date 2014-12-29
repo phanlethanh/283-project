@@ -15,6 +15,7 @@
 					//document.getElementById("form_admin_detail_product").reset();
 					$(".icon_content").empty();
 					$("#adminDetailProduct").reveal();
+					$("#dt_product_id").val(id);
 					//$(".form_admin_detail_product").html(data);
 					$(".detail_producer").val(data.producer);
 					$(".detail_name").val(data.name);
@@ -47,13 +48,13 @@
 					$(".edit_gallery_content").empty();
 					$(".icon_content").empty();
 					$("#adminEditProduct").reveal();
+					$("#edit_product_id").val(id);
 					//$(".form_admin_detail_product").html(data);
 					$(".edit_producer").val(data.producer);
 					$(".edit_name").val(data.name);
 					$(".edit_description").val(data.description);
 					$(".edit_price").val(data.price);
-					$(".edit_promotion").val(data.promotion);
-					$(".edit_status").val(data.status);
+					
 					$(".icon_content").append('<img alt="" src="'+data.icon+'" id="icon_content">');
 					for(var i = 0; i < data.images.length; i++)
 					{
@@ -61,9 +62,30 @@
 						$(".edit_gallery_content").append('<div class="gallery_item" id="image'+data.images[i]["id"]+'"><img alt="" src="'+data.images[i]["imageName"]+'"><input type="button" value="Xóa" imageId="'+data.images[i]["id"]+'" class="gallary_delete_image"></div>')
 						//$(".list_name_image").val($(".list_name_image").val()+data.images[i]["imageName"]);
 						var temp = data.images[i]["id"];
-						list_name_image.push({"id" :data.images[i]["id"],"name":data.images[id]["imageName"]});
+						list_name_image.push({"id" :temp,"name":data.images[i]["imageName"]});
 					}
-						
+					var cbb_promotion = document.getElementById("edit_promotion");
+					$("#edit_promotion").empty();
+					for(var j=0; j<data.promotion.length; j++)
+					{
+						var option = document.createElement('option');
+						option.text = data.promotion[j]["name"];
+						option.value = data.promotion[j]["id"];
+						cbb_promotion.add(option,0);
+					}
+					$("#edit_promotion option:contains(" + data.name_promotion + ")").attr('selected', 'selected');
+					//$("#edit_promotion").find("option[text=" + data.name_promotion + "]").attr("selected", true);
+					var cbb_status = document.getElementById("edit_status");
+					$("#edit_status").empty();
+					for(var j=0; j<data.status.length; j++)
+					{
+						var option = document.createElement('option');
+						option.text = data.status[j]["name"];
+						option.value = data.status[j]["id"];
+						cbb_status.add(option,0);
+					}
+					$("#edit_status option:contains(" + data.name_status + ")").attr('selected', 'selected');
+					$("#edit_id_product").val(id);
 					var length = data.name;
 					
 				}
@@ -86,7 +108,7 @@
 			    		$('#adminEditProduct').reveal();
 			    		$(".icon_content").empty();
 			    		$(".icon_content").append('<img alt="" src="'+data.link+'" id="icon_content">');
-			    		$(".admin_detail_product_icon").append('<input type="hidden" class="name_icon_change" value="'+data.link+'">')
+			    		$(".admin_detail_product_icon").append('<input type="hidden" class="name_icon_change" value="'+data.link+'" name="icon">')
 			    	}
 			    },
 			    error: function() {
@@ -136,9 +158,6 @@
 				}
 				
 			}
-			
-			
-			
 			return false;
 		});
 		
@@ -163,6 +182,12 @@
 			    		$("#addImageGalleryProduct").trigger('reveal:close');
 			    		$('#adminEditProduct').reveal();
 			    		$(".edit_gallery_content").append('<div class="gallery_item" id=""><img alt="" src="'+data.link+'"><input type="button" value="Xóa" imageId="" class="gallary_delete_image"></div>');
+			    		var list_id = $(".list_id_image_add").val();
+			    		if(list_id != "")
+			    			var new_list = list_id+"|"+data.id_image;
+			    		else
+			    			var new_list = data.id_image;
+			    		$(".list_id_image_add").val(new_list);
 			    	}
 			    },
 			    error: function() {
@@ -190,7 +215,6 @@
 				type:"POST",
 				data:{id:id},
 				success:function(data){
-					
 					var element = document.getElementById("itemid"+id);
 					element.parentNode.removeChild(element);
 				}
@@ -315,6 +339,74 @@
 				$(this).val("");
 			//alert("check");
 		});
+		$( "#tabs" ).tabs();
+		$("#dt_tabs").tabs();
+		$(".tab_item").live('click', function(){
+			var category_id = $("#category_id").val();
+			var product_id = $("#edit_product_id").val();
+			$(".content_fields").empty();
+			$.ajax({
+				url:"loadFieldsOfProduct.html",
+				data:{category_id:category_id, product_id:product_id},
+				type:"POST",
+				success:function(data){
+						
+						var size = data[1]['count'];
+						$(".content_fields").append('<input name="id_category" type="hidden" value="'+category_id+'"><input name="product_id" type="hidden" value="'+product_id+'">');
+						for(var i = 0; i < size; i++)
+						{
+							var name = data[1][i];
+							$(".content_fields").append('<div class="field_item"><span class="field_name">'+data[1][i]+'</span><input type="text" name="'+data[1][i]+'" value="'+data[0][name]+'" class="field_data"></div>');
+						}
+						
+				}
+			});
+		});
+		$(".dt_tab_item").live('click', function(){
+			var category_id = $("#category_id").val();
+			var product_id = $("#dt_product_id").val();
+			$(".dt_content_fields").empty();
+			$.ajax({
+				url:"loadFieldsOfProduct.html",
+				data:{category_id:category_id, product_id:product_id},
+				type:"POST",
+				success:function(data){
+						
+						var size = data[1]['count'];
+						$(".dt_content_fields").append('<input name="id_category" type="hidden" value="'+category_id+'"><input name="product_id" type="hidden" value="'+product_id+'">');
+						for(var i = 0; i < size; i++)
+						{
+							var name = data[1][i];
+							$(".dt_content_fields").append('<div class="field_item"><span class="field_name">'+data[1][i]+'</span><input class="field_data" type="text" name="'+data[1][i]+'" value="'+data[0][name]+'"></div>');
+						}
+						
+				}
+			});
+		});
+		$("#bntSaveConfig").live('click', function(){
+			var data_form = $("form.form_edit_fields_product").serialize();
+			$.ajax({
+				url:"saveEditConfigProduct.html",
+				type:"POST",
+				data:data_form,
+				success:function(data){
+					alert("ok");
+				},
+			});
+		});
+		$(".save_edit_product").live('click',function(){
+			$("#edit_id_promotion").val($("#edit_promotion").val());
+			$("#edit_id_status").val($("#edit_status").val());
+			var data_form = $("form.form_admin_edit_product").serialize();
+			$.ajax({
+				url:"saveEditProduct.html",
+				type:"POST",
+				data:data_form,
+				success:function(data){
+					
+				}
+			});
+		});
 	});
 	
 </script>
@@ -349,40 +441,51 @@
 
 <div id="adminDetailProduct" class="reveal-editrecordmodalwindow">
 	<h4>Chi tiết sản phẩm</h4>
+	<input type="hidden" id="dt_product_id">
 	<div class="in-progress"></div>
 	<div class="modalAddCategoryCentreContent">
 		<div class="modalMess"></div>
 		<form action="" id="form_admin_detail_product" method="post" modelAttribute="Product">
 			<div class="in-progress"></div>
-			<div class="modalContent">
+			<div id="dt_tabs">
+				<ul>
+					<li><a href="#dt_tab1">Thông tin chung</a></li>
+					<li><a href="#dt_tab2" class="dt_tab_item">Thuộc tính</a></li>
+				</ul>
+				<div class="modalContent" id="dt_tab1">
 			
-				<div class=admin_detail_product_item>
-					<span>Hãng sản xuất</span><input class="detail_producer" type="text" name="Producer">
+					<div class=admin_detail_product_item>
+						<span>Hãng sản xuất</span><input class="detail_producer" type="text" name="producer">
+					</div>
+					<div class=admin_detail_product_item>
+						<span>Tên sản phẩm</span><input class="detail_name" type="text" name="name">
+					</div>
+					<div class=admin_detail_product_item>
+						<span class="dt_name_discription">Mô tả</span><textarea name="description" cols="40" rows="3" class="detail_description"></textarea>
+					</div>
+					<div class="admin_detail_product_icon">
+						<span>Icon</span><div class="icon_content"></div>
+					</div>
+					<div class=admin_detail_product_item>
+						<span class="dt_name_field">Giá</span><input class="detail_price" type="text"name="">
+					</div>
+					<div class=admin_detail_product_item>
+						<span>Trạng thái</span><input class="detail_status" type="text">
+					</div>
+					<div class=admin_detail_product_item>
+						<span>Khuyến mãi</span><input class="detail_promotion" type="text">
+					</div>
+					<div class=admin_detail_product_gallery>
+						<div class="gallery_title">Gallery</div>
+						<div class="gallery_content"></div>
+						
+					</div>
 				</div>
-				<div class=admin_detail_product_item>
-					<span>Tên sản phẩm</span><input class="detail_name" type="text">
-				</div>
-				<div class=admin_detail_product_item>
-					<span>Mô tả</span><textarea name="Description" cols="40" rows="3" class="detail_description"></textarea>
-				</div>
-				<div class="admin_detail_product_icon">
-					<span>Icon</span><div class="icon_content"></div>
-				</div>
-				<div class=admin_detail_product_item>
-					<span>Giá</span><input class="detail_price" type="text">
-				</div>
-				<div class=admin_detail_product_item>
-					<span>Trạng thái</span><input class="detail_status" type="text">
-				</div>
-				<div class=admin_detail_product_item>
-					<span>Khuyến mãi</span><input class="detail_promotion" type="text">
-				</div>
-				<div class=admin_detail_product_gallery>
-					<div class="gallery_title">Gallery</div>
-					<div class="gallery_content"></div>
-					
+				<div id="dt_tab2">
+					<div class="dt_content_fields"></div>
 				</div>
 			</div>
+			
 			<div class="groupFormButton">
 				<input class="formButton cancel  close-reveal-all" type="button" value="Cancel"/>
 			</div>
@@ -392,25 +495,31 @@
 	<a class="close-reveal-modal close-reveal-all"></a>
 </div>
 <div id="adminEditProduct" class="reveal-editrecordmodalwindow">
-	<h4>Chi tiết sản phẩm</h4>
+	<h4>Cập nhập sản phẩm</h4>
+	<input type="hidden" id=edit_product_id>
 	<div class="in-progress"></div>
 	<div class="modalAddCategoryCentreContent">
 		<div class="modalMess"></div>
-		<form id="form_admin_edit_product" class="form_admin_edit_product" method="post">
+		
 			<div class="in-progress"></div>
-			<div class="modalContent">
-			
+			<div id="tabs">
+				<ul>
+					<li><a href="#tab1">Thông tin chung</a></li>
+					<li><a href="#tab2" class="tab_item">Thuộc tính</a></li>
+				</ul>
+				<div class="modalContent" id="tab1">
+				<form id="form_admin_edit_product" class="form_admin_edit_product" method="post" modelAttribute="Product">
 				<div class=admin_detail_product_item>
 					<span>Hãng sản xuất</span><input class="edit_producer" type="text" name="producer">
 				</div>
 				<div class=admin_detail_product_item>
 					<span>Tên sản phẩm</span><input class="edit_name" type="text" name="name">
 				</div>
-				<div class=admin_detail_product_item>
-					<span>Mô tả</span><textarea name="description" cols="40" rows="3" class="edit_description"></textarea>
+				<div class=admin_dt_product_item_discript>
+					<span  class="dt_name_discription">Mô tả</span><textarea name="description" cols="40" rows="3" class="edit_description"></textarea>
 				</div>
-				<div class="admin_detail_product_icon">
-					<span>Icon</span>
+				<div class="admin_dt_product_item_discript">
+					<span class="dt_name_discription">Icon</span>
 					<div class="icon_content">
 					</div>
 					<input type="button" value="Thay đổi icon" id="button_change_icon">
@@ -418,25 +527,40 @@
 				<div class=admin_detail_product_item>
 					<span>Giá</span><input class="edit_price" type="text" name="price">
 				</div>
-				<div class=admin_detail_product_item>
-					<span>Trạng thái</span><input class="edit_status" type="text" name="status">
+				<div class=admin_detail_product_promotion>
+					<span>Trạng thái</span><select id="edit_status"></select>
 				</div>
-				<div class=admin_detail_product_item>
-					<span>Khuyến mãi</span><input class="edit_promotion" type="text" name="promotion">
+				<div class=admin_detail_product_promotion>
+					<span>Khuyến mãi</span><select id="edit_promotion"></select>
 				</div>
 				<div class=admin_detail_product_gallery id="gallery">
 					<div class="gallery_title">Gallery</div>
 					<div class="edit_gallery_content"></div>
 					<input type="hidden" class="list_name_image" >
-					<input type="button" value="Thêm ảnh" class="edit_product_add_image">
+					<input type="button" value="Thêm ảnh" class="formButton edit_product_add_image">
 				</div>
-				
+				<input type="hidden" name="id_product" id="edit_id_product">
+				<input type="hidden" class="list_id_image_add" name="list_image_add">
+				<input type="hidden" name="id_promotion" id="edit_id_promotion">
+				<input type="hidden" name="id_status" id="edit_id_status">
+				</form>
+				</div>
+				<div id="tab2" class="tab2">
+					<form class="form_edit_fields_product" id="form_edit_fields_product" method="post">
+						<div class="content_fields"></div>
+						<div class="groupFormButton">
+							<input type="button" value="Lưu thuộc tính" id="bntSaveConfig">
+						</div>
+					</form>
+					
+				</div>
 			</div>
+			
 			<div class="groupFormButton">
 				<input class="formButton save_edit_product" type="button" value="Lưu"/>
 				<input class="formButton cancel  close-reveal-all" type="button" value="Thoát"/>
 			</div>
-		</form>
+		
 	</div>
 	<a class="close-reveal-modal close-reveal-all"></a>
 </div>
@@ -448,7 +572,8 @@
 			<div class="in-progress"></div>
 			<div class="modalContent">							
 				<form id="uploadForm">
-				     <input type="file" name="myimage" id="imageid" accept=".png" />				     
+				     <input type="file" name="myimage" id="imageid" accept=".png" />
+				     			     
 				</form>
 			</div>
 			<div class="groupFormButton">
@@ -458,14 +583,15 @@
 	</div>
 </div>
 <div id="addImageGalleryProduct" class="reveal-recordmodalwindow medium">
-	<h4>Thay đổi icon sản phẩm</h4>
+	<h4>Thêm ảnh</h4>
 	<div class="in-progress"></div>
 	<div class="modalChangeIconCentreContent">
 		<div class="modalMess"></div>
 			<div class="in-progress"></div>
 			<div class="modalContent">							
 				<form id="addImageForm">
-				     <input type="file" name="myimage" id="image_item_id" accept=".png" />				     
+				     <input type="file" name="myimage" id="image_item_id" accept=".png" />	
+				     <span  class="">Mô tả</span><textarea name="image_description" cols="40" rows="3" class=""></textarea>			     
 				</form>
 			</div>
 			<div class="groupFormButton">
