@@ -5,7 +5,7 @@ import java.util.List;
 import com.onlinestore.model.Promotion;
 
 public interface PromotionService {
-	void createPromotion(Promotion promotion);
+	Integer createPromotion(Promotion promotion);
 	
 	List<Promotion> getPromotions();
 	
@@ -14,4 +14,6 @@ public interface PromotionService {
 	void updatePromotion(Promotion promotion);
 	
 	void deletePromotion(Integer id);
+	
+	List<Promotion> getPromotionList();
 }

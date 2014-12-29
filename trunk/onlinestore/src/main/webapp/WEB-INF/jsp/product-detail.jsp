@@ -19,11 +19,69 @@
 	}
 </script>
 
+<!-- Begin Facebook plugin javascript -->
+<div id="fb-root"></div>
+<script>
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id))
+			return;
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>
+<!-- End Facebook plugin javascript -->
+
+<!-- Begin Google+ plugin javascript -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!-- End Google+ plugin javascript -->
+
+<!-- Begin Twitter plugin javascript -->
+<script type="text/javascript">
+	window.twttr = (function(d, s, id) {
+		var t, js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {
+			return
+		}
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "https://platform.twitter.com/widgets.js";
+		fjs.parentNode.insertBefore(js, fjs);
+		return window.twttr || (t = {
+			_e : [],
+			ready : function(f) {
+				t._e.push(f)
+			}
+		})
+	}(document, "script", "twitter-wjs"));
+</script>
+<!-- End Twitter plugin javascript -->
+
 <div class="product_detail">
 	<form action="" method="get">
 		<h2>
 			<c:out value="${product['name']}" />
 		</h2>
+		<!-- Begin Facebook like plugin -->
+		<div class="fb-like"
+			data-href="http://localhost:8080/onlinestore/productDetail.html?product_id=${product['id']}"
+			data-layout="button_count" data-action="like" data-show-faces="true"
+			data-share="true"></div>
+		<!-- End Facebook like plugin -->
+
+		<!-- Begin Tweet plugin -->
+		<a class="twitter-share-button"
+			href="https://twitter.com/share"> Tweet </a>
+		<!-- End Tweet plugin -->
+
+		<!-- Begin Google+ add plugin -->
+		<!-- <div class="g-plusone" data-annotation="inline" data-width="200"></div> -->
+		<div class="g-plus" data-action="share"
+			data-href="http://localhost:8080/onlinestore/productDetail.html?product_id=${product['id']}"></div>
+		<!-- End Google+ add plugin -->
+		<br>
 		<table>
 			<tr>
 				<td><img src="${product['icon']}" width="150" height="150"></td>
@@ -71,4 +129,10 @@
 		<p>${image['imageDescription']}</p>
 		<br />
 	</c:forEach>
+	<br>
+	<!-- Begin Facebook comment plugin -->
+	<div class="fb-comments"
+		data-href="https://www.facebook.com/onlinestore.fanpage"
+		data-numposts="5" data-colorscheme="light"></div>
+	<!-- End Facebook comment plugin -->
 </div>

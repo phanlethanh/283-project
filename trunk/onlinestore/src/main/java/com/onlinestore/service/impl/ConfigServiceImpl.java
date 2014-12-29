@@ -2,6 +2,7 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +14,11 @@ import com.onlinestore.service.ConfigService;
 @Transactional
 public class ConfigServiceImpl implements ConfigService{
 
-	
+	@Autowired
 	private ConfigDao configDao;
 	
-	public void createConfig(Config config) {
-		configDao.create(config);		
+	public Integer createConfig(Config config) {
+		return (Integer) configDao.create(config);		
 	}
 
 	public List<Config> getConfigs() {

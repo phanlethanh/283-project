@@ -13,6 +13,4 @@ import com.onlinestore.model.Promotion;
 public class HbnPromotionDao extends AbstractHbnDao<Promotion> implements
 		PromotionDao {
 
-	
-
 }

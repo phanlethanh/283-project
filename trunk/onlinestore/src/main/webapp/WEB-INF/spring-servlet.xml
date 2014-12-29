@@ -106,6 +106,17 @@
 				<prop key="/addNewConfig.html">categoryController</prop>
 				<prop key="/deleteField.html">categoryController</prop>
 				<prop key="/saveConfig.html">categoryController</prop>
+				<prop key="/viewPromotionList.html">promotionController</prop>
+				<prop key="adminDetailPromotion.html">promotionController</prop>
+				<prop key="adminEditPromotion.html">promotionController</prop>
+				<prop key="adminDeletePromotion.html">promotionController</prop>
+				<prop key="adminAddPromotion.html">promotionController</prop>
+				<prop key="/viewConfigInfo.html">configController</prop>
+				<prop key="adminDetailConfigInfo.html">configController</prop>
+				<prop key="adminEditConfigInfo.html">configController</prop>
+				<prop key="getTermsAndConditions.html">cartController</prop>
+				<prop key="deleteCartProductFromCart.html">cartController</prop>
+				<prop key="createOrderFromCart.html">osOrderController</prop>
 			</props>
 		</property>
 	</bean>
@@ -117,6 +128,8 @@
 	<bean id="cartController" class="com.onlinestore.controller.CartController" />
 	<bean id="osOrderController" class="com.onlinestore.controller.OsOrderController" />
 	<bean id="osOrderDetailController" class="com.onlinestore.controller.OsOrderDetailController" />
+	<bean id="promotionController" class="com.onlinestore.controller.PromotionController" />
+	<bean id="configController" class="com.onlinestore.controller.ConfigController" />
 	<context:annotation-config />
 	<tx:annotation-driven proxy-target-class="true" />
 	<context:component-scan base-package="com.onlinestore.dao" />

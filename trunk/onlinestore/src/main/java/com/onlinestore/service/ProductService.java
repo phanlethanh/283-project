@@ -5,7 +5,7 @@ import java.util.List;
 import com.onlinestore.model.Product;
 
 public interface ProductService {
-	void createProduct(Product product);
+	Integer createProduct(Product product);
 	
 	List<Product> getProducts();
 	

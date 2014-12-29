@@ -5,7 +5,7 @@ import java.util.List;
 import com.onlinestore.model.TransportFee;
 
 public interface TransportFeeService {
-	void createTransportFee(TransportFee transportFee);
+	Integer createTransportFee(TransportFee transportFee);
 	
 	List<TransportFee> getTransportFees();
 	

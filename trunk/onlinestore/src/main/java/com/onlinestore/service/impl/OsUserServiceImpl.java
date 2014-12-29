@@ -17,8 +17,8 @@ public class OsUserServiceImpl implements OsUserService {
 	@Autowired
 	private OsUserDao userDao;
 	
-	public void createOsUser(OsUser osUser) {
-		userDao.create(osUser);		
+	public Integer createOsUser(OsUser osUser) {
+		return (Integer) userDao.create(osUser);		
 	}
 
 	public List<OsUser> getOsUsers() {
@@ -35,6 +35,11 @@ public class OsUserServiceImpl implements OsUserService {
 
 	public void deleteOsUser(Integer id) {
 		userDao.deleteById(id);
+	}
+
+	@Override
+	public boolean isAdminUser(Integer id) {
+		return userDao.isAdminUser(id);
 	}
 
 }

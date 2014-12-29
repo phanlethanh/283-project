@@ -19,8 +19,8 @@ public class CartServiceImpl implements CartService{
 	private CartDao cartDao;
 	
 	@Override
-	public void createCart(Cart cart) {
-		cartDao.create(cart);
+	public Integer createCart(Cart cart) {
+		return (Integer) cartDao.create(cart);
 	}
 
 	@Override

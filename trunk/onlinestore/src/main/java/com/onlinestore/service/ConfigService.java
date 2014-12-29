@@ -5,7 +5,7 @@ import java.util.List;
 import com.onlinestore.model.Config;
 
 public interface ConfigService {
-	void createConfig(Config config);
+	Integer createConfig(Config config);
 	
 	List<Config> getConfigs();
 	

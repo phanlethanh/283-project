@@ -17,8 +17,8 @@ public class OsOrderServiceImpl implements OsOrderService {
 	@Autowired
 	private OsOrderDao orderDao;
 	
-	public void createOsOrder(OsOrder osOrder) {
-		orderDao.create(osOrder);		
+	public Integer createOsOrder(OsOrder osOrder) {
+		return (Integer) orderDao.create(osOrder);		
 	}
 
 	public List<OsOrder> getOsOrders() {

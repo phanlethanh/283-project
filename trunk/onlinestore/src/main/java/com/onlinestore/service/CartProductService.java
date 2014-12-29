@@ -6,13 +6,15 @@ import com.onlinestore.model.CartProduct;
 
 
 public interface CartProductService {
-	void createCartProduct(CartProduct cartProduct);
+	Integer createCartProduct(CartProduct cartProduct);
 
-	List<CartProduct> getCategories();
+	List<CartProduct> getCartProducts();
 
 	CartProduct getCartProduct(Integer id);
 
 	void updateCartProduct(CartProduct cartProduct);
 
 	void deleteCartProduct(Integer id);
+	
+	List<CartProduct> getCartProductsByCartId(Integer cartId);
 }

@@ -2,6 +2,7 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,10 +14,11 @@ import com.onlinestore.service.CategoryProductService;
 @Transactional
 public class CategoryProductServiceImpl implements CategoryProductService {
 
+	@Autowired
 	private CategoryProductDao cpDao;
 
-	public void createCategoryProduct(CategoryProduct categoryProduct) {
-		cpDao.create(categoryProduct);
+	public Integer createCategoryProduct(CategoryProduct categoryProduct) {
+		return (Integer) cpDao.create(categoryProduct);
 	}
 
 	public List<CategoryProduct> getCategoryProducts() {

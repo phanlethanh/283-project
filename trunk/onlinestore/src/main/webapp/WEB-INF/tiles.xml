@@ -41,6 +41,18 @@
     	<put-attribute name="left_content" value="/WEB-INF/jsp/admin/left_content_admin.jsp"/>
         <put-attribute name="content" value="/WEB-INF/jsp/admin/config_fields_product.jsp" />
     </definition>
+    <definition name="promotion" extends=".mainTemplate">
+    	<put-attribute name="left_content" value="/WEB-INF/jsp/admin/left_content_admin.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/content_admin_promotion.jsp" />
+    </definition>
+    <definition name="error" extends=".mainTemplate">
+    	<put-attribute name="left_content" value="/WEB-INF/jsp/admin/left_content_admin.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/template/error.jsp" />
+    </definition>
+    <definition name="configInfo" extends=".mainTemplate">
+    	<put-attribute name="left_content" value="/WEB-INF/jsp/admin/left_content_admin.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/content_admin_config_info.jsp" />
+    </definition>
     
 </tiles-definitions>
                 

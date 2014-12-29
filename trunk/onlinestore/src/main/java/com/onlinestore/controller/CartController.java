@@ -1,60 +1,27 @@
 package com.onlinestore.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.onlinestore.model.Cart;
 import com.onlinestore.model.CartProduct;
 import com.onlinestore.model.Product;
-import com.onlinestore.service.CartProductService;
-import com.onlinestore.service.CartService;
-import com.onlinestore.service.OsUserService;
-import com.onlinestore.service.ProductService;
 import com.onlinestore.util.Variable;
 
 @Controller
-public class CartController {
-
-	private CartService getCartService() {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
-				"beans-service.xml");
-		CartService cartService = (CartService) appCtx.getBean("cartService");
-		return cartService;
-	}
-
-	private OsUserService getUserService() {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
-				"beans-service.xml");
-		OsUserService userService = (OsUserService) appCtx
-				.getBean("osUserService");
-		return userService;
-	}
-
-	private ProductService getProductService() {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
-				"beans-service.xml");
-		ProductService productService = (ProductService) appCtx
-				.getBean("productService");
-		return productService;
-	}
-
-	private CartProductService getCartProductService() {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
-				"beans-service.xml");
-		CartProductService cartProductService = (CartProductService) appCtx
-				.getBean("cartProductService");
-		return cartProductService;
-	}
+public class CartController extends OsController {
 
 	@RequestMapping(value = "/viewCart")
 	public ModelAndView viewCart(HttpServletRequest request) {
@@ -68,7 +35,7 @@ public class CartController {
 			Object obj = session
 					.getAttribute(Variable.SESSION_CART_PRODUCT_MAP_LIST);
 			if (obj == null) {
-				// Ignore because cpMapList defined
+				cpMapList = new ArrayList<HashMap<String, Object>>();
 			} else {
 				// Get cpMapList object from session
 				cpMapList = (List<HashMap<String, Object>>) obj;
@@ -87,11 +54,34 @@ public class CartController {
 				map.put("productName", cp.getProduct().getName());
 				map.put("productIcon", cp.getProduct().getIcon());
 				map.put("quantity", cp.getQuantity());
-				map.put("price", cp.getProduct().getPrice().getPrice());
+				double tempPrice = cp.getProduct().getPrice().getPrice();
+				map.put("price",
+						String.format(Variable.CURRENCY_FORMAT, tempPrice));
 				cpMapList.add(map);
 			}
 		}
+		// calculate money
+		double totalMoney = 0;
+		double transportFee = 0;
+		double totalPayment = 0;
+		double price = 0;
+		int sizeMap = cpMapList.size();
+		int tempQuantity = 0;
+		for (int i = 0; i < sizeMap; i++) {
+			price = Double.parseDouble(cpMapList.get(i).get("price").toString()
+					.replace(",", "")); // 23,000,000 => 23000000
+			tempQuantity = Integer.parseInt(cpMapList.get(i).get("quantity")
+					.toString());
+			totalMoney += price * tempQuantity;
+		}
+		totalPayment = totalMoney + transportFee; // thanh toan
 		view.addObject("cpMapList", cpMapList);
+		view.addObject("totalMoney",
+				String.format(Variable.CURRENCY_FORMAT, totalMoney));
+		view.addObject("transportFee",
+				String.format(Variable.CURRENCY_FORMAT, transportFee));
+		view.addObject("totalPayment",
+				String.format(Variable.CURRENCY_FORMAT, totalPayment));
 		view.setViewName(viewName);
 		return view;
 	}
@@ -115,12 +105,13 @@ public class CartController {
 			// add product to map list
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			Product p = getProductService().getProduct(productId);
-			map.put("id", cpMapList.size());
+			map.put("id", p.getId());
 			map.put("productId", p.getId());
 			map.put("productName", p.getName());
 			map.put("productIcon", p.getIcon());
 			map.put("quantity", 1);
-			map.put("price", p.getPrice().getPrice());
+			double tempPrice = p.getPrice().getPrice();
+			map.put("price", String.format(Variable.CURRENCY_FORMAT, tempPrice));
 			cpMapList.add(map);
 			// Set cpMapList object to session
 			session.setAttribute(Variable.SESSION_CART_PRODUCT_MAP_LIST,
@@ -150,5 +141,99 @@ public class CartController {
 		view.addObject("cpMapList", null);
 		view.setViewName(viewName);
 		return view;
+	}
+
+	@RequestMapping(value = "/getTermsAndConditions", method = RequestMethod.POST)
+	public void getTermsAndConditions(HttpServletRequest request,
+			HttpServletResponse response) {
+		// UTF-8 Encoding issue
+	}
+
+	@RequestMapping(value = "/deleteCartProductFromCart", method = RequestMethod.POST)
+	public void deleteCartProductFromCart(HttpServletRequest request,
+			HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		String cpId = request.getParameter("id");
+		List<HashMap<String, Object>> cpMapList = null;
+		List<CartProduct> cartProducts = null;
+		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
+			// Not login
+			Object obj = session
+					.getAttribute(Variable.SESSION_CART_PRODUCT_MAP_LIST);
+			if (obj == null) {
+				cpMapList = new ArrayList<HashMap<String, Object>>();
+			} else {
+				// Get cpMapList object from session
+				cpMapList = (List<HashMap<String, Object>>) obj;
+				// delete product to map list
+				int cpMapListSize = cpMapList.size();
+				if (cpMapListSize > 0) {
+					int index = 0;
+					HashMap<String, Object> map = null;
+					for (int i = 0; i < cpMapListSize; i++) {
+						if (cpId.compareTo(cpMapList.get(i).get("id")
+								.toString()) == 0) {
+							index = i;
+							map = cpMapList.get(i);
+							break;
+						}
+					}
+					cpMapList.remove(index);
+				}
+			}
+			// Set cpMapList object to session
+			session.setAttribute(Variable.SESSION_CART_PRODUCT_MAP_LIST,
+					cpMapList);
+		} else {
+			// Logged in
+			getCartProductService().deleteCartProduct(Integer.parseInt(cpId));
+			// get cpMapList from database to calculate money
+			cpMapList = new ArrayList<HashMap<String, Object>>();
+			Integer userId = Integer.valueOf(session.getAttribute(
+					Variable.SESSION_USER_ID).toString());
+			cartProducts = getCartService().getProductList(userId);
+			for (int i = 0; i < cartProducts.size(); i++) {
+				CartProduct cp = cartProducts.get(i);
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("quantity", cp.getQuantity());
+				double tempPrice = cp.getProduct().getPrice().getPrice();
+				map.put("price",
+						String.format(Variable.CURRENCY_FORMAT, tempPrice));
+				cpMapList.add(map);
+			}
+		}
+		// calculate money
+		double totalMoney = 0;
+		double transportFee = 0;
+		double totalPayment = 0;
+		double price = 0;
+		int sizeMap = cpMapList.size();
+		int tempQuantity = 0;
+		for (int i = 0; i < sizeMap; i++) {
+			price = Double.parseDouble(cpMapList.get(i).get("price").toString()
+					.replace(",", "")); // 23,000,000 => 23000000
+			tempQuantity = Integer.parseInt(cpMapList.get(i).get("quantity")
+					.toString());
+			totalMoney += price * tempQuantity;
+		}
+		totalPayment = totalMoney + transportFee; // thanh toan
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("code", 1);
+		map.put("id", cpId);
+		map.put("totalMoney",
+				String.format(Variable.CURRENCY_FORMAT, totalMoney));
+		map.put("transportFee",
+				String.format(Variable.CURRENCY_FORMAT, transportFee));
+		map.put("totalPayment",
+				String.format(Variable.CURRENCY_FORMAT, totalPayment));
+		String json = new Gson().toJson(map);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -1,6 +1,5 @@
 package com.onlinestore.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,8 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryDao categoryDao;
 
-	public void createCategory(Category category) {
-		categoryDao.create(category);		
+	public Integer createCategory(Category category) {
+		return (Integer) categoryDao.create(category);		
 	}
 
 	public List<Category> getCategories() {

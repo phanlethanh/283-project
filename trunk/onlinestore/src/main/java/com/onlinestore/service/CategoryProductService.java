@@ -5,7 +5,7 @@ import java.util.List;
 import com.onlinestore.model.CategoryProduct;
 
 public interface CategoryProductService {
-	void createCategoryProduct(CategoryProduct categoryProduct);
+	Integer createCategoryProduct(CategoryProduct categoryProduct);
 	
 	List<CategoryProduct> getCategoryProducts();
 	

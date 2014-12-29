@@ -2,6 +2,7 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +14,11 @@ import com.onlinestore.service.PriceService;
 @Transactional
 public class PriceServiceImpl implements PriceService {
 
-	
+	@Autowired
 	private PriceDao priceDao;
 
-	public void createPrice(Price price) {
-		priceDao.create(price);
+	public Integer createPrice(Price price) {
+		return (Integer) priceDao.create(price);
 	}
 
 	public List<Price> getPrices() {

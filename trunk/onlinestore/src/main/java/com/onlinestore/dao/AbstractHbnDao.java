@@ -33,8 +33,8 @@ public abstract class AbstractHbnDao<T extends Object> implements Dao<T> {
 		return getDomainClass().getName();
 	}
 
-	public void create(T t) {
-		getSession().save(t);
+	public Serializable create(T t) {
+		return getSession().save(t);
 	}
 
 	public T get(Serializable id) {

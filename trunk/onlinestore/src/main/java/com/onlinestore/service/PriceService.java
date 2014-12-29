@@ -5,7 +5,7 @@ import java.util.List;
 import com.onlinestore.model.Price;
 
 public interface PriceService {
-	void createPrice(Price price);
+	Integer createPrice(Price price);
 	
 	List<Price> getPrices();
 	
