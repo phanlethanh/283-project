@@ -183,11 +183,11 @@ admin_detail_product_icon{width:90%; margin-left:20px; height:30px; margin-botto
 .admin_detail_product_gallery {width:90%; margin-left:20px; height:200px; margin-bottom:10px; overflow:scroll}
 .gallery_title {width:25%; float:left; height:200px; line-height:200px}
 .gallery_content {width:65%; display:inline-block; margin-left:5%}
-.gallery_item {width:100px; height:120px; display:inline-block; margin-left:5px}
+.gallery_item {width:100px; height:130px; display:inline-block; margin-left:5px; margin-bottom:5px}
 .gallery_item img {width:100px; height:100px};
 .admin_detail_product_gallery span {width:100px; height:20px; text-align:center}
 
-.config_field {margin-left:880px; }
+.config_field { }
 .add-new-field{
 	background-color: #4572a7;
     color: white;
@@ -278,3 +278,17 @@ admin_detail_product_icon{width:90%; margin-left:20px; height:30px; margin-botto
 }
 .admin_detail_product_promotion{width:100%; height:30px}
 .admin_detail_product_promotion span {width:25%; display:inline-block}
+.admin_action{
+	margin-left:733px;
+	
+}
+.admin_add_product_name span{
+	width:25%;
+	display:inline-block;
+}
+#button_add_icon
+{
+	height: 30px;
+    margin-left: 20px;
+    margin-top: 45px;
+}

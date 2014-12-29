@@ -11,8 +11,6 @@ import com.onlinestore.model.CategoryProduct;
 
 @Repository
 public class HbnCategoryProductDao extends AbstractHbnDao<CategoryProduct>
-		implements CategoryProductDao {
-
-	
+		implements CategoryProductDao {	
 
 }

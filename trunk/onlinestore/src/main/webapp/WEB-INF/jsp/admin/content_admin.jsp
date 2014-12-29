@@ -21,8 +21,8 @@
 					$(".detail_name").val(data.name);
 					$(".detail_description").val(data.description);
 					$(".detail_price").val(data.price);
-					$(".detail_promotion").val(data.promotion);
-					$(".detail_status").val(data.status);
+					$(".detail_promotion").val(data.name_promotion);
+					$(".detail_status").val(data.name_status);
 					$(".icon_content").append('<img alt="" src="'+data.icon+'" id="icon_content">');
 					for(var i = 0; i < data.images.length; i++)
 					{
@@ -103,12 +103,13 @@
 			    success: function(data) {
 			    	if(data.code == 1)
 			    	{
-			    		alert("success");
+			    		//alert("success");
 			    		$("#changeIconProduct").trigger('reveal:close');
 			    		$('#adminEditProduct').reveal();
 			    		$(".icon_content").empty();
 			    		$(".icon_content").append('<img alt="" src="'+data.link+'" id="icon_content">');
-			    		$(".admin_detail_product_icon").append('<input type="hidden" class="name_icon_change" value="'+data.link+'" name="icon">')
+			    		//$(".admin_detail_product_icon").append('<input type="hidden" class="name_icon_change" value="'+data.link+'" name="icon">')
+			    		$("#edit_icon_change").val(data.link);
 			    	}
 			    },
 			    error: function() {
@@ -144,10 +145,15 @@
 		$(".gallary_delete_image").live("click",function(){
 			var id = $(this).attr('imageId');
 			//document.getElementById("gallery").remove();
-			$("#image"+id).remove();
+			//$("#image"+id).remove();
 			
 			var element = document.getElementById("image"+id);
 			element.parentNode.removeChild(element);
+			var list_image_deleted = $("#list_id_image_delete").val();
+			if(list_image_deleted != "")
+				$("#list_id_image_delete").val(list_image_deleted+"|"+id);
+			else
+				$("#list_id_image_delete").val(id);
 			//element.outerHTML = "";
 			//delete element;
 			for(var key in list_name_image)
@@ -341,6 +347,7 @@
 		});
 		$( "#tabs" ).tabs();
 		$("#dt_tabs").tabs();
+		$("#add_tabs").tabs();
 		$(".tab_item").live('click', function(){
 			var category_id = $("#category_id").val();
 			var product_id = $("#edit_product_id").val();
@@ -403,8 +410,129 @@
 				type:"POST",
 				data:data_form,
 				success:function(data){
-					
+					if(data.code == 1)
+					{
+						$("#adminEditProduct").trigger('reveal:close');
+					}
 				}
+			});
+		});
+		$(".save_add_product").live('click', function(){
+			$("#add_id_promotion").val($("#add_promotion").val());
+			$("#add_id_status").val($("#add_status").val());
+			var data_form = $("form.form_admin_add_product").serialize();
+			$.ajax({
+				url:"saveAddProduct.html",
+				type:"POST",
+				data:data_form,
+				success:function(data){
+					if(data.code == 1)
+					{
+						$("#adminAddProduct").trigger('reveal:close');
+					}
+				}
+			});
+		});
+		$("#add_product").live('click', function(){
+			var id_category = $("#category_id").val();
+			$.ajax({
+				url:"addProduct.html",
+				type:"POST",
+				data:{id_category:id_category},
+				success:function(data){
+					$("#adminAddProduct").reveal();
+					var cbb_promotion = document.getElementById("add_promotion");
+					$("#add_promotion").empty();
+					for(var j=0; j<data.promotion.length; j++)
+					{
+						var option = document.createElement('option');
+						option.text = data.promotion[j]["name"];
+						option.value = data.promotion[j]["id"];
+						cbb_promotion.add(option,0);
+					}
+					//$("#edit_promotion").find("option[text=" + data.name_promotion + "]").attr("selected", true);
+					var cbb_status = document.getElementById("add_status");
+					$("#add_status").empty();
+					for(var j=0; j<data.status.length; j++)
+					{
+						var option = document.createElement('option');
+						option.text = data.status[j]["name"];
+						option.value = data.status[j]["id"];
+						cbb_status.add(option,0);
+					}
+					var cbb_producer = document.getElementById("add_producer");
+					$("#add_producer").empty();
+					for(var j=0; j<data.sub_category.length; j++)
+					{
+						var option = document.createElement('option');
+						option.text = data.sub_category[j]["name"];
+						option.value = data.sub_category[j]["id"];
+						cbb_producer.add(option,0);
+					}
+				}
+			});
+		});
+		$("#button_add_icon").live('click', function(){
+			$('#adminAddProduct').hideModal();
+			$("#addIconProduct").reveal();
+		});
+		$(".save_add_icon").on("click", function() {
+			var formData = new FormData($('#addUploadForm')[0]);
+			$.ajax({
+			    url: "uploadImage.html",
+			    type: "POST",
+			    contentType: false,
+			    processData: false,
+			    cache: false,
+			    data: formData,
+			    success: function(data) {
+			    	if(data.code == 1)
+			    	{
+			    		//alert("success");
+			    		$("#addIconProduct").trigger('reveal:close');
+			    		$('#adminAddProduct').reveal();
+			    		$(".icon_content").empty();
+			    		$(".icon_content").append('<img alt="" src="'+data.link+'" id="icon_content">');
+			    		//$(".admin_detail_product_icon").append('<input type="hidden" class="name_icon_change" value="'+data.link+'" name="icon">')
+			    		$("#add_icon_change").val(data.link);
+			    	}
+			    },
+			    error: function() {
+			        alert("unable to create the record");
+			    }
+			});
+		});
+		$(".add_product_add_image").live('click', function(){
+			$('#adminAddProduct').hideModal();
+			$("#addProductNewImage").reveal();
+		});
+		$(".save_add_new_image").live('click', function(){
+			var formData = new FormData($('#addProductNewImageForm')[0]);
+			$.ajax({
+			    url: "addImageToGallery.html",
+			    type: "POST",
+			    contentType: false,
+			    processData: false,
+			    cache: false,
+			    data: formData,
+			    success: function(data) {
+			    	if(data.code == 1)
+			    	{
+			    		//alert("success");
+			    		$("#addProductNewImage").trigger('reveal:close');
+			    		$('#adminAddProduct').reveal();
+			    		$(".add_gallery_content").append('<div class="gallery_item" id=""><img alt="" src="'+data.link+'"><input type="button" value="Xóa" imageId="" class="gallary_delete_image"></div>');
+			    		var list_id = $(".list_id_image_add").val();
+			    		if(list_id != "")
+			    			var new_list = list_id+"|"+data.id_image;
+			    		else
+			    			var new_list = data.id_image;
+			    		$(".list_id_image_add").val(new_list);
+			    	}
+			    },
+			    error: function() {
+			        alert("unable to create the record");
+			    }
 			});
 		});
 	});
@@ -419,14 +547,18 @@
 	<div class="hidden_info">
 		<input type="hidden" class="category_id" id="category_id">
 	</div>
-	<input type="button" id="config_field" value="Config Fields" class="config_field">
+	<div class="admin_action">
+		<input type="button" id="add_product" value="Thêm sản phẩm" class="config_field">
+		<input type="button" id="config_field" value="Cài đặt thuộc tính" class="config_field">
+	</div>
+	
 	<table id="product_of_category">
 		<tr>
 			<th align="left">#</th>
-			<th align="left">Name</th>
-			<th align="center">Description</th>
-			<th align="left">Price</th>
-			<th align="center">Action</th>
+			<th align="left">Tên sản phẩm</th>
+			<th align="center">Mô tả</th>
+			<th align="left">Giá</th>
+			<th align="center">Thao tác</th>
 		</tr>
 		
 	</table>
@@ -541,8 +673,10 @@
 				</div>
 				<input type="hidden" name="id_product" id="edit_id_product">
 				<input type="hidden" class="list_id_image_add" name="list_image_add">
+				<input type="hidden" name="list_image_delete" id="list_id_image_delete">
 				<input type="hidden" name="id_promotion" id="edit_id_promotion">
 				<input type="hidden" name="id_status" id="edit_id_status">
+				<input type="hidden" name="icon" id="edit_icon_change">
 				</form>
 				</div>
 				<div id="tab2" class="tab2">
@@ -582,6 +716,24 @@
 			</div>
 	</div>
 </div>
+<div id="addIconProduct" class="reveal-recordmodalwindow medium">
+	<h4>Chọn icon sản phẩm</h4>
+	<div class="in-progress"></div>
+	<div class="modalAddIconCentreContent">
+		<div class="modalMess"></div>
+			<div class="in-progress"></div>
+			<div class="modalContent">							
+				<form id="addUploadForm">
+				     <input type="file" name="myimage" id="imageid" accept=".png" />
+				     			     
+				</form>
+			</div>
+			<div class="groupFormButton">
+				<input class="formButton save_add_icon" type="button" value="Lưu"/>
+				<input class="formButton cancel_add_icon" type="button" value="Thoát"/>
+			</div>
+	</div>
+</div>
 <div id="addImageGalleryProduct" class="reveal-recordmodalwindow medium">
 	<h4>Thêm ảnh</h4>
 	<div class="in-progress"></div>
@@ -596,6 +748,24 @@
 			</div>
 			<div class="groupFormButton">
 				<input class="formButton save_add_image" type="button" value="Lưu"/>
+				<input class="formButton cancel_add_image" type="button" value="Thoát"/>
+			</div>
+	</div>
+</div>
+<div id="addProductNewImage" class="reveal-recordmodalwindow medium">
+	<h4>Thêm ảnh</h4>
+	<div class="in-progress"></div>
+	<div class="modalNewImageCentreContent">
+		<div class="modalMess"></div>
+			<div class="in-progress"></div>
+			<div class="modalContent">							
+				<form id="addProductNewImageForm">
+				     <input type="file" name="myimage" id="image_item_id" accept=".png" />	
+				     <span  class="">Mô tả</span><textarea name="image_description" cols="40" rows="3" class=""></textarea>			     
+				</form>
+			</div>
+			<div class="groupFormButton">
+				<input class="formButton save_add_new_image" type="button" value="Lưu"/>
 				<input class="formButton cancel_add_image" type="button" value="Thoát"/>
 			</div>
 	</div>
@@ -624,6 +794,77 @@
 				</div>
 			</form>
 		</div>
+	</div>
+	<a class="close-reveal-modal close-reveal-all"></a>
+</div>
+<div id="adminAddProduct" class="reveal-editrecordmodalwindow">
+	<h4>Cập nhập sản phẩm</h4>
+	<input type="hidden" id=edit_product_id>
+	<div class="in-progress"></div>
+	<div class="modalAddProductCentreContent">
+		<div class="modalMess"></div>
+		
+			<div class="in-progress"></div>
+			<div id="add_tabs">
+				<ul>
+					<li><a href="#add_tab1">Thông tin chung</a></li>
+					<li><a href="#add_tab2" class="tab_item">Thuộc tính</a></li>
+				</ul>
+				<div class="modalContent" id="add_tab1">
+				<form id="form_admin_add_product" class="form_admin_add_product" method="post" modelAttribute="Product">
+				<div class=admin_add_product_name>
+					<span>Hãng sản xuất</span><select id="add_producer"></select>
+				</div>
+				<div class=admin_detail_product_item>
+					<span>Tên sản phẩm</span><input class="add_name" type="text" name="name">
+				</div>
+				<div class=admin_dt_product_item_discript>
+					<span  class="dt_name_discription">Mô tả</span><textarea name="description" cols="40" rows="3" class="add_description"></textarea>
+				</div>
+				<div class="admin_dt_product_item_discript">
+					<span class="dt_name_discription">Icon</span>
+					<div class="icon_content">
+					</div>
+					<input type="button" value="Chọn icon" id="button_add_icon">
+				</div>
+				<div class=admin_detail_product_item>
+					<span>Giá</span><input class="add_price" type="text" name="price">
+				</div>
+				<div class=admin_detail_product_promotion>
+					<span>Trạng thái</span><select id="add_status"></select>
+				</div>
+				<div class=admin_detail_product_promotion>
+					<span>Khuyến mãi</span><select id="add_promotion"></select>
+				</div>
+				<div class=admin_detail_product_gallery id="gallery">
+					<div class="gallery_title">Gallery</div>
+					<div class="add_gallery_content"></div>
+					<input type="hidden" class="list_name_image" >
+					<input type="button" value="Thêm ảnh" class="formButton add_product_add_image">
+				</div>
+				<input type="hidden" class="list_id_image_add" name="list_image_add">
+				<input type="hidden" name="list_image_delete" id="list_id_image_delete">
+				<input type="hidden" name="id_promotion" id="add_id_promotion">
+				<input type="hidden" name="id_status" id="add_id_status">
+				<input type="hidden" name="icon" id="add_icon">
+				</form>
+				</div>
+				<div id="add_tab2" class="add_tab2">
+					<form class="form_edit_fields_product" id="form_edit_fields_product" method="post">
+						<div class="content_fields"></div>
+						<div class="groupFormButton">
+							<input type="button" value="Lưu thuộc tính" id="bntSaveConfig">
+						</div>
+					</form>
+					
+				</div>
+			</div>
+			
+			<div class="groupFormButton">
+				<input class="formButton save_add_product" type="button" value="Lưu"/>
+				<input class="formButton cancel  close-reveal-all" type="button" value="Thoát"/>
+			</div>
+		
 	</div>
 	<a class="close-reveal-modal close-reveal-all"></a>
 </div>

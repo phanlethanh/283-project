@@ -98,7 +98,7 @@ public class DatasFieldsProduct implements java.io.Serializable {
 		this.active = active;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datasFieldsProduct")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "datasFieldsProduct")
 	public Set<Product> getProducts() {
 		return this.products;
 	}

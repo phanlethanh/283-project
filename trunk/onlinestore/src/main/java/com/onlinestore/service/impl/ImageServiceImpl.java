@@ -24,5 +24,20 @@ public class ImageServiceImpl implements ImageService{
 		// TODO Auto-generated method stub
 		return imageDao.getLastInsertId();
 	}
+	@Override
+	public Image getImage(Integer id) {
+		// TODO Auto-generated method stub
+		return imageDao.get(id);
+	}
+	@Override
+	public void update(Image image) {
+		// TODO Auto-generated method stub
+		imageDao.update(image);
+	}
+	@Override
+	public void deleteImage(Image image) {
+		// TODO Auto-generated method stub
+		imageDao.delete(image);
+	}
 	
 }

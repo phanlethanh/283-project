@@ -99,6 +99,7 @@
 				<prop key="loadFieldsOfProduct.html*">productController</prop>
 				<prop key="saveEditConfigProduct.html*">productController</prop>
 				<prop key="saveEditProduct.html">productController</prop>
+				<prop key="addProduct.html">productController</prop>
 				<prop key="/viewCart.html">cartController</prop>
 				<prop key="/addToCart.html">cartController</prop>
 				<prop key="/removeProductFromCart.html">cartController</prop>
