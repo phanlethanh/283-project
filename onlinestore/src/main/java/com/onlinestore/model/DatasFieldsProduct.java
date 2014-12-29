@@ -61,7 +61,7 @@ public class DatasFieldsProduct implements java.io.Serializable {
 	}
 
 	@Column(name = "serial_data")
-	public Serializable getSerialData() {
+	public String getSerialData() {
 		return this.serialData;
 	}
 

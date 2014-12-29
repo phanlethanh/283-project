@@ -96,6 +96,9 @@
 				<prop key="uploadImage.html">productController</prop>
 				<prop key="deleteProduct.html">productController</prop>
 				<prop key="configFieldOfProduct.html*">productController</prop>
+				<prop key="loadFieldsOfProduct.html*">productController</prop>
+				<prop key="saveEditConfigProduct.html*">productController</prop>
+				<prop key="saveEditProduct.html">productController</prop>
 				<prop key="/viewCart.html">cartController</prop>
 				<prop key="/addToCart.html">cartController</prop>
 				<prop key="/removeProductFromCart.html">cartController</prop>

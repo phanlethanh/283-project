@@ -172,16 +172,16 @@
 .page_number_active { padding-left:10px; padding-right:10px; padding-top:5px; padding-bottom:5px; margin-right:5px; text-decoration:none; border-radius:3px;background-color:#CCCCCC}
 .page_number_active:hover {text-decoration:none}
 .paging{ align:center; text-align:left; margin-left:20px}
-.admin_detail_product_item {width:90%; margin-left:20px; height:30px; margin-bottom:10px}
+.admin_detail_product_item {width:100%; height:30px;}
 .admin_detail_product_item span {width:20%; display:inline-block}
-.admin_detail_product_item input {width:65%; display:inline-block; margin-left:5%}
-.admin_detail_product_item textarea {width:65%; display:inline-block; margin-left:5%}
-.icon_content {width:100px; height:100px; margin-left:20px; display:inline-block}
-.icon_content img {width:100px; height:100px; margin-top:20px}
+.admin_detail_product_item input {width:65%; display:inline-block; margin-left:5%; padding:5px}
+.admin_detail_product_item textarea {width:65%; display:inline-block; margin-left:5%; padding:5px}
+.icon_content {width:100px; height:100px;}
+.icon_content img {width:100px; height:100px;}
 admin_detail_product_icon{width:90%; margin-left:20px; height:30px; margin-bottom:10px}
 .admin_detail_product_icon span {width:20%; display:inline-block; margin-left:20px}
 .admin_detail_product_gallery {width:90%; margin-left:20px; height:200px; margin-bottom:10px; overflow:scroll}
-.gallery_title {width:20%; float:left; height:200px; line-height:200px}
+.gallery_title {width:25%; float:left; height:200px; line-height:200px}
 .gallery_content {width:65%; display:inline-block; margin-left:5%}
 .gallery_item {width:100px; height:120px; display:inline-block; margin-left:5px}
 .gallery_item img {width:100px; height:100px};
@@ -234,3 +234,47 @@ admin_detail_product_icon{width:90%; margin-left:20px; height:30px; margin-botto
     margin: 5px;
     padding: 5px;
 }
+.field_item{
+	width:200px;
+	display:inline-block;
+	margin-left:10px;
+}
+.field_name{
+	width:100px;
+	display:inline-block;
+}
+.field_data{
+	width:150px;
+	display:inline-block;
+}
+.admin_dt_product_item_discript{
+	width:100%;
+	height:100px;
+	display:inline-flex;
+}
+.dt_name_discription{
+	display:inline-block;
+	width:25%;
+	height:100px;
+	line-height:100px;
+}
+#button_change_icon{
+	height: 30px;
+    margin-left: 20px;
+    margin-top: 45px;
+}
+.gallary_delete_image{
+	width:50px; 
+	margin-left:25px;
+	margin-top:5px; 
+}
+.edit_product_add_image{
+	display: inline-block;
+    margin-top: 20px;
+    width: 100px;
+}
+.edit_description{
+	width:65%;
+}
+.admin_detail_product_promotion{width:100%; height:30px}
+.admin_detail_product_promotion span {width:25%; display:inline-block}
