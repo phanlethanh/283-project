@@ -33,7 +33,7 @@ public class HomeController {
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		String viewName = "home";
-		
+
 		Cookie[] cookie = request.getCookies();
 		String ck_user = null;
 		ck_user = getItemCookies(cookie, "os_username");
@@ -59,7 +59,8 @@ public class HomeController {
 			meta.put("name", product.getName());
 			meta.put("icon", product.getIcon());
 			meta.put("status", product.getStatus().getName());
-			meta.put("price", product.getPrice().getPrice());
+			double price = product.getPrice().getPrice();
+			meta.put("price", String.format(Variable.CURRENCY_FORMAT, price));
 			meta.put("description", product.getDescription());
 			mapList.add(meta);
 		}
@@ -67,7 +68,7 @@ public class HomeController {
 		view.setViewName(viewName);
 		return view;
 	}
-	
+
 	@RequestMapping(value = "/searchProduct")
 	public ModelAndView searchProduct(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
@@ -89,7 +90,8 @@ public class HomeController {
 			meta.put("name", product.getName());
 			meta.put("icon", product.getIcon());
 			meta.put("status", product.getStatus().getName());
-			meta.put("price", product.getPrice().getPrice());
+			double price = product.getPrice().getPrice();
+			meta.put("price", String.format(Variable.CURRENCY_FORMAT, price));
 			meta.put("description", product.getDescription());
 			productMapList.add(meta);
 		}

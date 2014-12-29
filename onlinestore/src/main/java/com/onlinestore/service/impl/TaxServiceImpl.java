@@ -2,6 +2,7 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +14,11 @@ import com.onlinestore.service.TaxService;
 @Transactional
 public class TaxServiceImpl implements TaxService{
 
-	
+	@Autowired
 	private TaxDao taxDao;
 	
-	public void createTax(Tax tax) {
-		taxDao.create(tax);
+	public Integer createTax(Tax tax) {
+		return (Integer) taxDao.create(tax);
 	}
 
 	public List<Tax> getTaxes() {

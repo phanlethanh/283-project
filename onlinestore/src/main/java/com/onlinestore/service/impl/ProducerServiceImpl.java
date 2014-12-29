@@ -2,6 +2,7 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,10 +14,11 @@ import com.onlinestore.service.ProducerService;
 @Transactional
 public class ProducerServiceImpl implements ProducerService {
 
+	@Autowired
 	private ProducerDao producerDao;
 	
-	public void createProducer(Producer producer) {
-		producerDao.create(producer);		
+	public Integer createProducer(Producer producer) {
+		return (Integer) producerDao.create(producer);		
 	}
 
 	public List<Producer> getProducers() {

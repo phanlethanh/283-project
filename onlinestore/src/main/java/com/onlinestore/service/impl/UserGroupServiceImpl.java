@@ -2,6 +2,7 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +14,11 @@ import com.onlinestore.service.UserGroupService;
 @Transactional
 public class UserGroupServiceImpl implements UserGroupService {
 
-	
+	@Autowired
 	private UserGroupDao userGroupDao;
 	
-	public void createUserGroup(UserGroup userGroup) {
-		userGroupDao.create(userGroup);
+	public Integer createUserGroup(UserGroup userGroup) {
+		return (Integer) userGroupDao.create(userGroup);
 	}
 
 	public List<UserGroup> getUserGroups() {

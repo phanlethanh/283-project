@@ -2,6 +2,7 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +14,11 @@ import com.onlinestore.service.StatusService;
 @Transactional
 public class StatusServiceImpl implements StatusService {
 
-	
+	@Autowired
 	private StatusDao statusDao;
 
-	public void createStatus(Status status) {
-		statusDao.create(status);
+	public Integer createStatus(Status status) {
+		return (Integer) statusDao.create(status);
 	}
 
 	public List<Status> getStatuses() {

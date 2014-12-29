@@ -18,11 +18,11 @@
 			<img src="${product['icon']}" width="150" height="150"> <input
 				name="product_id" type="hidden" value="${product['id']}" />
 			<div>
-				<c:out value="${product['status']}" />
+				<span>${product['status']}</span>
 				<br />
-				<c:out value="${product['price']}" />
-				đ <br />
-				<c:out value="${product['name']}" />
+				<span>${product['price']}</span>
+				đ<br />
+				<span>${product['name']}</span>
 				<br /> <a href="productDetail.html?product_id=${product['id']}">Chi tiết</a>
 			</div>
 		</div>

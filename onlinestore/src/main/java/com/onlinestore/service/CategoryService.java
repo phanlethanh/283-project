@@ -7,7 +7,7 @@ import com.onlinestore.model.FieldsProduct;
 import com.onlinestore.model.Product;
 
 public interface CategoryService {
-	void createCategory(Category category);
+	Integer createCategory(Category category);
 
 	List<Category> getCategories();
 	List<Category> getSubCategory(Integer parent_id);

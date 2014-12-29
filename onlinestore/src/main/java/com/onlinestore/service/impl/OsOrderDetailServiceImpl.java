@@ -17,8 +17,8 @@ public class OsOrderDetailServiceImpl implements OsOrderDetailService {
 	@Autowired
 	private OsOrderDetailDao orderDetailDao;
 	
-	public void createOsOrderDetail(OsOrderDetail osOrderDetail) {
-		orderDetailDao.create(osOrderDetail);		
+	public Integer createOsOrderDetail(OsOrderDetail osOrderDetail) {
+		return (Integer) orderDetailDao.create(osOrderDetail);		
 	}
 
 	public List<OsOrderDetail> getOsOrderDetails() {

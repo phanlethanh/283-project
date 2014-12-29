@@ -5,7 +5,7 @@ import java.util.List;
 import com.onlinestore.model.OsOrder;
 
 public interface OsOrderService {
-	void createOsOrder(OsOrder osOrder);
+	Integer createOsOrder(OsOrder osOrder);
 
 	List<OsOrder> getOsOrders();
 

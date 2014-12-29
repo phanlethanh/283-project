@@ -6,7 +6,7 @@ import com.onlinestore.model.Cart;
 import com.onlinestore.model.CartProduct;
 
 public interface CartService {
-	void createCart(Cart cart);
+	Integer createCart(Cart cart);
 
 	List<Cart> getCategories();
 

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface Dao<T extends Object> {
-	void create(T t);
+	Serializable create(T t);
 
 	T get(Serializable id);
 
@@ -12,7 +12,6 @@ public interface Dao<T extends Object> {
 
 	List<T> getAll();
 	
-
 	void update(T t);
 
 	void delete(T t);

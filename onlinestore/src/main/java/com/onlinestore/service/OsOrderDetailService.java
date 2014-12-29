@@ -5,7 +5,7 @@ import java.util.List;
 import com.onlinestore.model.OsOrderDetail;
 
 public interface OsOrderDetailService {
-	void createOsOrderDetail(OsOrderDetail osOrderDetail);
+	Integer createOsOrderDetail(OsOrderDetail osOrderDetail);
 	
 	List<OsOrderDetail> getOsOrderDetails();
 	

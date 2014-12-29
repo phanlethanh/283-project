@@ -17,8 +17,8 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productDao;
 	
-	public void createProduct(Product product) {
-		productDao.create(product);
+	public Integer createProduct(Product product) {
+		return (Integer) productDao.create(product);
 	}
 
 	public List<Product> getProducts() {

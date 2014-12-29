@@ -5,7 +5,7 @@ import java.util.List;
 import com.onlinestore.model.Producer;
 
 public interface ProducerService {
-	void createProducer(Producer producer);
+	Integer createProducer(Producer producer);
 	
 	List<Producer> getProducers();
 	

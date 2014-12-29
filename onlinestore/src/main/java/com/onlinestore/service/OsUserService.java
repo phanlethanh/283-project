@@ -5,14 +5,15 @@ import java.util.List;
 import com.onlinestore.model.OsUser;
 
 public interface OsUserService {
-	void createOsUser(OsUser osUser);
+	Integer createOsUser(OsUser osUser);
 	
 	List<OsUser> getOsUsers();
 	
 	OsUser getOsUser(Integer id);
 	
-	
 	void updateOsUser(OsUser osUser);
 	
 	void deleteOsUser(Integer id);
+	
+	boolean isAdminUser(Integer id);
 }

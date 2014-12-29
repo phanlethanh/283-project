@@ -2,6 +2,7 @@ package com.onlinestore.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +14,11 @@ import com.onlinestore.service.PromotionService;
 @Transactional
 public class PromotionServiceImpl implements PromotionService {
 
-	
+	@Autowired
 	private PromotionDao promotionDao;
 	
-	public void createPromotion(Promotion promotion) {
-		promotionDao.create(promotion);
+	public Integer createPromotion(Promotion promotion) {
+		return (Integer) promotionDao.create(promotion);
 	}
 
 	public List<Promotion> getPromotions() {
@@ -34,6 +35,12 @@ public class PromotionServiceImpl implements PromotionService {
 
 	public void deletePromotion(Integer id) {
 		promotionDao.deleteById(id);
+	}
+
+	@Override
+	public List<Promotion> getPromotionList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

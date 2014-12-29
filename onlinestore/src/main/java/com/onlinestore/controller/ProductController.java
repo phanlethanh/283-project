@@ -24,6 +24,8 @@ import javax.servlet.http.HttpSession;
 
 
 
+
+
 import org.postgresql.util.Base64;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -43,6 +45,7 @@ import com.onlinestore.model.Product;
 import com.onlinestore.service.CategoryService;
 import com.onlinestore.service.FieldsProductService;
 import com.onlinestore.service.ProductService;
+import com.onlinestore.util.Variable;
 
 
 @Controller
@@ -85,7 +88,8 @@ public class ProductController {
 		productMap.put("name", product.getName());
 		productMap.put("icon", product.getIcon());
 		productMap.put("status", product.getStatus().getName());
-		productMap.put("price", product.getPrice().getPrice());
+		double price = product.getPrice().getPrice();
+		productMap.put("price", String.format(Variable.CURRENCY_FORMAT, price));
 		productMap.put("description", product.getDescription());
 		productMap.put("producer", product.getProducer().getName());
 		productMap.put("producerDescription", product.getProducer()
@@ -118,7 +122,8 @@ public class ProductController {
 		productMap.put("name", product.getName());
 		productMap.put("icon", product.getIcon());
 		productMap.put("status", product.getStatus().getName());
-		productMap.put("price", product.getPrice().getPrice());
+		double price = product.getPrice().getPrice();
+		productMap.put("price", String.format(Variable.CURRENCY_FORMAT, price));
 		productMap.put("description", product.getDescription());
 		productMap.put("producer", product.getProducer().getName());
 		productMap.put("producerDescription", product.getProducer()

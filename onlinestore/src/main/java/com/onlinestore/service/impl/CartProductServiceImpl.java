@@ -18,12 +18,12 @@ public class CartProductServiceImpl implements CartProductService {
 	private CartProductDao cpDao;
 	
 	@Override
-	public void createCartProduct(CartProduct cartProduct) {
-		cpDao.create(cartProduct);
+	public Integer createCartProduct(CartProduct cartProduct) {
+		return (Integer) cpDao.create(cartProduct);
 	}
 
 	@Override
-	public List<CartProduct> getCategories() {
+	public List<CartProduct> getCartProducts() {
 		return cpDao.getAll();
 	}
 
@@ -40,6 +40,11 @@ public class CartProductServiceImpl implements CartProductService {
 	@Override
 	public void deleteCartProduct(Integer id) {
 		cpDao.deleteById(id);
+	}
+
+	@Override
+	public List<CartProduct> getCartProductsByCartId(Integer cartId) {
+		return cpDao.getCartProductsByCartId(cartId);
 	}
 
 }

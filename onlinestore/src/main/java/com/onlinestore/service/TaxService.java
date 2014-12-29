@@ -5,7 +5,7 @@ import java.util.List;
 import com.onlinestore.model.Tax;
 
 public interface TaxService {
-	void createTax(Tax tax);
+	Integer createTax(Tax tax);
 	
 	List<Tax> getTaxes();
 	

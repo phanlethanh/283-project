@@ -5,7 +5,7 @@ import java.util.List;
 import com.onlinestore.model.UserGroup;
 
 public interface UserGroupService {
-	void createUserGroup(UserGroup userGroup);
+	Integer createUserGroup(UserGroup userGroup);
 	
 	List<UserGroup> getUserGroups();
 	

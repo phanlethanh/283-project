@@ -5,7 +5,7 @@ import java.util.List;
 import com.onlinestore.model.Status;
 
 public interface StatusService {
-	void createStatus(Status status);
+	Integer createStatus(Status status);
 
 	List<Status> getStatuses();
 
