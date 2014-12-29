@@ -135,7 +135,7 @@ public class Category implements java.io.Serializable {
 		this.active = active;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
 	public Set<CategoryProduct> getCategoryProducts() {
 		return this.categoryProducts;
 	}

@@ -35,6 +35,8 @@ import javax.servlet.http.HttpSession;
 
 
 
+
+
 import org.postgresql.util.Base64;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -51,6 +53,7 @@ import com.google.gson.Gson;
 import com.onlinestore.model.Category;
 import com.onlinestore.model.DatasFieldsProduct;
 import com.onlinestore.model.FieldsProduct;
+import com.onlinestore.model.Gallery;
 import com.onlinestore.model.Image;
 import com.onlinestore.model.OsUser;
 import com.onlinestore.model.Price;
@@ -60,6 +63,7 @@ import com.onlinestore.model.Status;
 import com.onlinestore.service.CategoryService;
 import com.onlinestore.service.DatasFieldsProductService;
 import com.onlinestore.service.FieldsProductService;
+import com.onlinestore.service.GalleryService;
 import com.onlinestore.service.ImageService;
 import com.onlinestore.service.PriceService;
 import com.onlinestore.service.ProductService;
@@ -126,6 +130,13 @@ public class ProductController {
 				.getBean("statusService");
 		return statusService;
 	}
+	private GalleryService getGalleryService() {
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
+				"beans-service.xml");
+		GalleryService galleryService = (GalleryService) appCtx
+				.getBean("galleryService");
+		return galleryService;
+	}
 	@RequestMapping(value = "/productDetail")
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
@@ -178,7 +189,7 @@ public class ProductController {
 		productMap.put("icon", product.getIcon());
 		productMap.put("name_status", product.getStatus().getName());
 		double price = product.getPrice().getPrice();
-		productMap.put("price", String.format(Variable.CURRENCY_FORMAT, price));
+		productMap.put("price", product.getPrice().getPrice());
 		productMap.put("description", product.getDescription());
 		productMap.put("producer", product.getProducer().getName());
 		productMap.put("producerDescription", product.getProducer()
@@ -245,9 +256,13 @@ public class ProductController {
 		    File destination = new File(filePath);
 		    
 		    String link_store = "image/product_icon/"+name;
-		    ImageIO.write(src, "png", destination);
-		    map.put("code", 1);
-		    map.put("link", link_store);
+		    if(ImageIO.write(src, "png", destination))
+		    {
+		    	
+		    	map.put("code", 1);
+			    map.put("link", link_store);
+		    }
+		    
 		    } catch(Exception e) {
 		    	map.put("code", 0);
 		        e.printStackTrace();
@@ -551,19 +566,49 @@ public class ProductController {
 		price.setPrice(Double.parseDouble(request.getParameter("price")));
 		getPriceService().updatePrice(price);
 		product.setDescription(request.getParameter("description"));
-		product.setIcon(request.getParameter("icon"));
+		if(request.getParameter("icon") != null)
+			product.setIcon(request.getParameter("icon"));
 		//product.getPromotion().set;
 		int id_promotion = Integer.parseInt(request.getParameter("id_promotion"));
 		product.setPromotion(getPromotionService().getPromotion(id_promotion));
 		int id_status = Integer.parseInt(request.getParameter("id_status"));
 		product.setStatus(getStatusService().getStatus(id_status));
-		String[] arr_list = null;
+		String[] arr_list_add = null;
 		if(request.getParameter("list_image_add")!= null)
 		{
 			String list_image = request.getParameter("list_image_add");
-			arr_list = list_image.split("\\|", -1);
+			arr_list_add = list_image.split("\\|", -1);
 		}
-		System.out.print(arr_list[0]);
+		Gallery gallery = product.getGallery();
+		for(int i = 0; i < arr_list_add.length; i++)
+		{
+			if(arr_list_add[i] != "")
+			{
+				Image image = getImageService().getImage(Integer.parseInt(arr_list_add[i]));
+				image.setGallery(gallery);
+				if(image != null)
+					getImageService().update(image);
+			}
+			
+		}
+		String[] arr_list_delete = null;
+		if(request.getParameter("list_image_delete") != null)
+		{
+			String list_image = request.getParameter("list_image_delete");
+			arr_list_delete = list_image.split("\\|", -1);
+		}
+		for(int i = 0; i < arr_list_delete.length; i++)
+		{
+			if(arr_list_delete[i] != "")
+			{
+				Image image = getImageService().getImage(Integer.parseInt(arr_list_delete[i]));
+				if(image != null)
+					getImageService().deleteImage(image);
+			}
+			
+		}
+		getProductService().updateProduct(product);
+		
 		HashMap<String,Object> meta = new HashMap<String,Object>();
 		meta.put("code", 1);
 		String json = new Gson().toJson(meta);
@@ -575,6 +620,108 @@ public class ProductController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping (value="/addProduct",method=RequestMethod.POST)
+	public void addProduct(HttpServletRequest request, HttpServletResponse response)
+	{
+		int id_category = Integer.parseInt(request.getParameter("id_category"));
+		HashMap<String,Object> data = new HashMap<String,Object>();
+		List<Category> list_sub_category = new ArrayList<Category>();
+		List<HashMap<String, Object>> subCategoryMapList = new ArrayList<HashMap<String, Object>>();
+		list_sub_category = getCategoryService().getSubCategory(id_category);
+		if(list_sub_category.isEmpty())
+		{
+			list_sub_category.add(getCategoryService().getCategory(id_category));
+		}
+		
+		for(int i = 0; i<list_sub_category.size(); i++)
+		{
+			HashMap<String, Object> subCategoryMap = new HashMap<String, Object>();
+			subCategoryMap.put("name", list_sub_category.get(i).getName());
+			subCategoryMap.put("id", list_sub_category.get(i).getId());
+			subCategoryMapList.add(subCategoryMap);
+		}
+		data.put("sub_category", subCategoryMapList);
+		List<Promotion> promotion = new ArrayList<Promotion>();
+		List<HashMap<String, Object>> promotionMapList = new ArrayList<HashMap<String, Object>>();
+		promotion = getPromotionService().getPromotions();
+		for(int i = 0; i < promotion.size(); i++)
+		{
+			HashMap<String, Object> promotionMap = new HashMap<String, Object>();
+			promotionMap.put("name", promotion.get(i).getName());
+			promotionMap.put("id", promotion.get(i).getId());
+			promotionMapList.add(promotionMap);
+		}
+		data.put("promotion",promotionMapList);
+		
+		List<Status> status = new ArrayList<Status>();
+		List<HashMap<String, Object>> statusMapList = new ArrayList<HashMap<String, Object>>();
+		status = getStatusService().getStatuses();
+		for(int i = 0; i < status.size(); i++)
+		{
+			HashMap<String, Object> statusMap = new HashMap<String, Object>();
+			statusMap.put("name", status.get(i).getName());
+			statusMap.put("id", status.get(i).getId());
+			statusMapList.add(statusMap);
+		}
+		data.put("status",statusMapList);
+		String json = new Gson().toJson(data);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	@RequestMapping(value="/adminAddProduct", method = RequestMethod.POST)
+	public void adminAddProduct(HttpServletRequest request, HttpServletResponse response)
+	{
+		Product product = new Product();
+		List<Integer> list_parent_category = findListParentCategory(Integer.parseInt(request.getParameter("list_id_image_add")));
+		product.setDescription(request.getParameter("description"));
+		product.setIcon(request.getParameter("icon"));
+		product.setName(request.getParameter("name"));
+		int id_promotion = Integer.parseInt(request.getParameter("id_promotion"));
+		product.setPromotion(getPromotionService().getPromotion(id_promotion));
+		int id_status = Integer.parseInt(request.getParameter("id_status"));
+		product.setStatus(getStatusService().getStatus(id_status));
+		String[] arr_list_add = null;
+		if(request.getParameter("list_image_add")!= null)
+		{
+			String list_image = request.getParameter("list_image_add");
+			arr_list_add = list_image.split("\\|", -1);
+		}
+		Gallery gallery = new Gallery();
+		gallery.setName(request.getParameter("name"));
+		getGalleryService().createGallery(gallery);
+		
+		for(int i = 0; i < arr_list_add.length; i++)
+		{
+			if(arr_list_add[i] != "")
+			{
+				Image image = getImageService().getImage(Integer.parseInt(arr_list_add[i]));
+				image.setGallery(gallery);
+				if(image != null)
+					getImageService().update(image);
+			}
+			
+		}
+		
+	}
+	public List<Integer> findListParentCategory(int category_id)
+	{
+		List<Integer> list_parent = new ArrayList<Integer>();
+		Category category = getCategoryService().getCategory(category_id);
+		while(category.getParentId() != 0)
+		{
+			category = getCategoryService().getCategory(category.getParentId());
+			list_parent.add(category.getId());
+		}
+		return list_parent;
 	}
 	
 }
