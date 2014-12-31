@@ -48,6 +48,7 @@
 					$(".edit_gallery_content").empty();
 					$(".icon_content").empty();
 					$("#adminEditProduct").reveal();
+					$(".list_id_image_add").empty();
 					$("#edit_product_id").val(id);
 					//$(".form_admin_detail_product").html(data);
 					$(".edit_producer").val(data.producer);
@@ -420,6 +421,7 @@
 		$(".save_add_product").live('click', function(){
 			$("#add_id_promotion").val($("#add_promotion").val());
 			$("#add_id_status").val($("#add_status").val());
+			$("#add_pr_id_category").val($("#add_producer").val());
 			var data_form = $("form.form_admin_add_product").serialize();
 			$.ajax({
 				url:"saveAddProduct.html",
@@ -441,6 +443,7 @@
 				data:{id_category:id_category},
 				success:function(data){
 					$("#adminAddProduct").reveal();
+					$(".add_pr_image_add").empty();
 					var cbb_promotion = document.getElementById("add_promotion");
 					$("#add_promotion").empty();
 					for(var j=0; j<data.promotion.length; j++)
@@ -491,10 +494,10 @@
 			    		//alert("success");
 			    		$("#addIconProduct").trigger('reveal:close');
 			    		$('#adminAddProduct').reveal();
-			    		$(".icon_content").empty();
-			    		$(".icon_content").append('<img alt="" src="'+data.link+'" id="icon_content">');
+			    		$(".add_pr_icon_content").empty();
+			    		$(".add_pr_icon_content").append('<img alt="" src="'+data.link+'" id="icon_content">');
 			    		//$(".admin_detail_product_icon").append('<input type="hidden" class="name_icon_change" value="'+data.link+'" name="icon">')
-			    		$("#add_icon_change").val(data.link);
+			    		$("#add_icon").val(data.link);
 			    	}
 			    },
 			    error: function() {
@@ -522,12 +525,12 @@
 			    		$("#addProductNewImage").trigger('reveal:close');
 			    		$('#adminAddProduct').reveal();
 			    		$(".add_gallery_content").append('<div class="gallery_item" id=""><img alt="" src="'+data.link+'"><input type="button" value="Xóa" imageId="" class="gallary_delete_image"></div>');
-			    		var list_id = $(".list_id_image_add").val();
+			    		var list_id = $(".add_pr_image_add").val();
 			    		if(list_id != "")
 			    			var new_list = list_id+"|"+data.id_image;
 			    		else
 			    			var new_list = data.id_image;
-			    		$(".list_id_image_add").val(new_list);
+			    		$(".add_pr_image_add").val(new_list);
 			    	}
 			    },
 			    error: function() {
@@ -823,7 +826,7 @@
 				</div>
 				<div class="admin_dt_product_item_discript">
 					<span class="dt_name_discription">Icon</span>
-					<div class="icon_content">
+					<div class="add_pr_icon_content">
 					</div>
 					<input type="button" value="Chọn icon" id="button_add_icon">
 				</div>
@@ -842,8 +845,8 @@
 					<input type="hidden" class="list_name_image" >
 					<input type="button" value="Thêm ảnh" class="formButton add_product_add_image">
 				</div>
-				<input type="hidden" class="list_id_image_add" name="list_image_add">
-				<input type="hidden" name="list_image_delete" id="list_id_image_delete">
+				<input type="hidden" class="add_pr_image_add" name="list_image_add">
+				<input type="hidden" name="add_pr_id_category" id="add_pr_id_category">
 				<input type="hidden" name="id_promotion" id="add_id_promotion">
 				<input type="hidden" name="id_status" id="add_id_status">
 				<input type="hidden" name="icon" id="add_icon">

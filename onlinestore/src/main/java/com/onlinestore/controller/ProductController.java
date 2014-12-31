@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -21,6 +22,11 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
+
+
+
 
 
 
@@ -51,21 +57,25 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.onlinestore.model.Category;
+import com.onlinestore.model.CategoryProduct;
 import com.onlinestore.model.DatasFieldsProduct;
 import com.onlinestore.model.FieldsProduct;
 import com.onlinestore.model.Gallery;
 import com.onlinestore.model.Image;
 import com.onlinestore.model.OsUser;
 import com.onlinestore.model.Price;
+import com.onlinestore.model.Producer;
 import com.onlinestore.model.Product;
 import com.onlinestore.model.Promotion;
 import com.onlinestore.model.Status;
+import com.onlinestore.service.CategoryProductService;
 import com.onlinestore.service.CategoryService;
 import com.onlinestore.service.DatasFieldsProductService;
 import com.onlinestore.service.FieldsProductService;
 import com.onlinestore.service.GalleryService;
 import com.onlinestore.service.ImageService;
 import com.onlinestore.service.PriceService;
+import com.onlinestore.service.ProducerService;
 import com.onlinestore.service.ProductService;
 import com.onlinestore.service.PromotionService;
 import com.onlinestore.service.StatusService;
@@ -137,6 +147,21 @@ public class ProductController {
 				.getBean("galleryService");
 		return galleryService;
 	}
+	private ProducerService getProducerService() {
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
+				"beans-service.xml");
+		ProducerService producerService = (ProducerService) appCtx
+				.getBean("producerService");
+		return producerService;
+	}
+	private CategoryProductService getCategoryProductService() {
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
+				"beans-service.xml");
+		CategoryProductService categoryProductService = (CategoryProductService) appCtx
+				.getBean("categoryProductService");
+		return categoryProductService;
+	}
+	
 	@RequestMapping(value = "/productDetail")
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
@@ -161,6 +186,8 @@ public class ProductController {
 		productMap.put("producerDescription", product.getProducer()
 				.getDescription());
 		productMap.put("promotion", product.getPromotion().getName());
+		if(product.getDatasFieldsProduct() != null)
+			productMap.put("datasFields", product.getDatasFieldsProduct());
 		// Images of gallery
 		List<HashMap<String, Object>> imageMapList = new ArrayList<HashMap<String, Object>>();
 		List<Image> images = new ArrayList<Image>(product.getGallery()
@@ -450,12 +477,11 @@ public class ProductController {
 		return  result;
 	}
 	
-	@RequestMapping(value="/loadFieldsOfProduct")
+	@RequestMapping(value="/loadFieldsOfProduct", method = RequestMethod.POST)
 	public void loadFieldsOfProduct(HttpServletRequest request, HttpServletResponse response)
 	{
 		int category_id = Integer.parseInt(request.getParameter("category_id"));
 		int category_root = findRootOfCategory(category_id);
-		System.out.print("abbbbbbb"+category_root);
 		int product_id = Integer.parseInt(request.getParameter("product_id"));
 		Product product = getProductService().getProduct(product_id);
 		DatasFieldsProduct datasFields = product.getDatasFieldsProduct();
@@ -494,8 +520,8 @@ public class ProductController {
 			byte[] data_encode = SerializationUtils.serialize(fieldsData);
 			String data1 = Base64.encodeBytes(data_encode);
 			newDataFields.setSerialData(data1);
-			newDataFields.setId(1);
-			System.out.print(newDataFields);
+			//newDataFields.setId(1);
+			//System.out.print(newDataFields);
 			if(newDataFields != null)
 				getDatasFieldsProductService().createDatasFieldsProduct(newDataFields);
 			product.setDatasFieldsProduct(newDataFields);
@@ -566,7 +592,7 @@ public class ProductController {
 		price.setPrice(Double.parseDouble(request.getParameter("price")));
 		getPriceService().updatePrice(price);
 		product.setDescription(request.getParameter("description"));
-		if(request.getParameter("icon") != null)
+		if(request.getParameter("icon") != "")
 			product.setIcon(request.getParameter("icon"));
 		//product.getPromotion().set;
 		int id_promotion = Integer.parseInt(request.getParameter("id_promotion"));
@@ -574,7 +600,7 @@ public class ProductController {
 		int id_status = Integer.parseInt(request.getParameter("id_status"));
 		product.setStatus(getStatusService().getStatus(id_status));
 		String[] arr_list_add = null;
-		if(request.getParameter("list_image_add")!= null)
+		if(request.getParameter("list_image_add")!= "")
 		{
 			String list_image = request.getParameter("list_image_add");
 			arr_list_add = list_image.split("\\|", -1);
@@ -592,7 +618,7 @@ public class ProductController {
 			
 		}
 		String[] arr_list_delete = null;
-		if(request.getParameter("list_image_delete") != null)
+		if(request.getParameter("list_image_delete") != "")
 		{
 			String list_image = request.getParameter("list_image_delete");
 			arr_list_delete = list_image.split("\\|", -1);
@@ -677,11 +703,11 @@ public class ProductController {
 		}
 		
 	}
-	@RequestMapping(value="/adminAddProduct", method = RequestMethod.POST)
+	@RequestMapping(value="/saveAddProduct", method = RequestMethod.POST)
 	public void adminAddProduct(HttpServletRequest request, HttpServletResponse response)
 	{
 		Product product = new Product();
-		List<Integer> list_parent_category = findListParentCategory(Integer.parseInt(request.getParameter("list_id_image_add")));
+		List<Category> list_parent_category = findListParentCategory(Integer.parseInt(request.getParameter("add_pr_id_category")));
 		product.setDescription(request.getParameter("description"));
 		product.setIcon(request.getParameter("icon"));
 		product.setName(request.getParameter("name"));
@@ -698,28 +724,61 @@ public class ProductController {
 		Gallery gallery = new Gallery();
 		gallery.setName(request.getParameter("name"));
 		getGalleryService().createGallery(gallery);
-		
+		Gallery new_gallery_insert = getGalleryService().getLastInsertId();
 		for(int i = 0; i < arr_list_add.length; i++)
 		{
 			if(arr_list_add[i] != "")
 			{
 				Image image = getImageService().getImage(Integer.parseInt(arr_list_add[i]));
-				image.setGallery(gallery);
+				image.setGallery(new_gallery_insert);
 				if(image != null)
 					getImageService().update(image);
 			}
 			
 		}
-		
+		product.setGallery(new_gallery_insert);
+		Double fprice = Double.parseDouble(request.getParameter("price"));
+		Price price = new Price();
+		price.setPrice(fprice);
+		getPriceService().createPrice(price);
+		product.setPrice(price);
+		Producer producer = getProducerService().getProducer(Integer.parseInt(request.getParameter("add_pr_id_category")));
+		product.setProducer(producer);
+		getProductService().createProduct(product);
+		Product product_new = getProductService().getLastInsertId();
+		Set set_category_product = new HashSet();
+		for(int i = 0; i< list_parent_category.size(); i++)
+		{
+			CategoryProduct category_product_item = new CategoryProduct();
+			category_product_item.setCategory(list_parent_category.get(i));
+			category_product_item.setProduct(product_new);
+			getCategoryProductService().createCategoryProduct(category_product_item);
+			CategoryProduct new_insert = getCategoryProductService().getLastInsertId();
+			set_category_product.add(new_insert);
+		}
+		product_new.setCategoryProducts(set_category_product);
+		getProductService().updateProduct(product_new);
+		HashMap<String,Object> meta = new HashMap<String,Object>();
+		meta.put("code", 1);
+		String json = new Gson().toJson(meta);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	public List<Integer> findListParentCategory(int category_id)
+	public List<Category> findListParentCategory(int category_id)
 	{
-		List<Integer> list_parent = new ArrayList<Integer>();
+		List<Category> list_parent = new ArrayList<Category>();
 		Category category = getCategoryService().getCategory(category_id);
 		while(category.getParentId() != 0)
 		{
+			list_parent.add(category);
 			category = getCategoryService().getCategory(category.getParentId());
-			list_parent.add(category.getId());
+			
 		}
 		return list_parent;
 	}

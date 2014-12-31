@@ -80,7 +80,7 @@
 
 		<property name="mappings">
 			<props>
-				<prop key="/homes.html">homeController</prop>
+				<prop key="homes.html">homeController</prop>
 				<prop key="/register.html">osUserController</prop>
 				<prop key="/login.html">osUserController</prop>
 				<prop key="/logout.html">osUserController</prop>
@@ -100,6 +100,7 @@
 				<prop key="saveEditConfigProduct.html*">productController</prop>
 				<prop key="saveEditProduct.html">productController</prop>
 				<prop key="addProduct.html">productController</prop>
+				<prop key="saveAddProduct.html">productController</prop>
 				<prop key="/viewCart.html">cartController</prop>
 				<prop key="/addToCart.html">cartController</prop>
 				<prop key="/removeProductFromCart.html">cartController</prop>

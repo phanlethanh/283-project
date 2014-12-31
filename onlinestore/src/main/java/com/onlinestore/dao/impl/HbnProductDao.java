@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.onlinestore.dao.AbstractHbnDao;
 import com.onlinestore.dao.ProductDao;
+import com.onlinestore.model.FieldsProduct;
 import com.onlinestore.model.Product;
 
 @Repository
@@ -28,6 +29,13 @@ public class HbnProductDao extends AbstractHbnDao<Product> implements
 		query.setParameter("keyword", "%" + keyword + "%");
 		return query.list();
 	}
-	
+	@Override
+	public Product getLastInsertId() {
+		// TODO Auto-generated method stub
+		String sql = "from Product";
+		Query query = getSession().createQuery(sql);   
+		Product product = ((Product)query.list().get(query.list().size()-1));// this will convert it to a long value
+		return product;
+	}
 
 }

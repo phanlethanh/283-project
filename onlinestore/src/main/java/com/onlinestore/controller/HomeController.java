@@ -33,7 +33,6 @@ public class HomeController {
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		String viewName = "home";
-
 		Cookie[] cookie = request.getCookies();
 		String ck_user = null;
 		ck_user = getItemCookies(cookie, "os_username");
