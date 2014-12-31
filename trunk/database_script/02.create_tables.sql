@@ -270,6 +270,7 @@ CREATE TABLE product
   datas_fields_id integer,
   name character varying(32),
   icon character varying(256),
+  stock_quantity integer,
   description character varying(256),
   create_date timestamp without time zone,
   write_date timestamp without time zone,
