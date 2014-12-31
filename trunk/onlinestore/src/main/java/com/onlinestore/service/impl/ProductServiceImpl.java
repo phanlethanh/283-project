@@ -46,4 +46,10 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.search(keyword);
 	}
 
+	@Override
+	public Product getLastInsertId() {
+		// TODO Auto-generated method stub
+		return productDao.getLastInsertId();
+	}
+
 }

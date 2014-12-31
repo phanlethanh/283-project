@@ -4,4 +4,5 @@ import com.onlinestore.model.Gallery;
 
 public interface GalleryService {
 	void createGallery(Gallery gallery);
+	Gallery getLastInsertId();
 }

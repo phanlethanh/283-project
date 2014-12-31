@@ -37,4 +37,10 @@ public class CategoryProductServiceImpl implements CategoryProductService {
 		cpDao.deleteById(id);
 	}
 
+	@Override
+	public CategoryProduct getLastInsertId() {
+		// TODO Auto-generated method stub
+		return cpDao.getLastInsertId();
+	}
+
 }
