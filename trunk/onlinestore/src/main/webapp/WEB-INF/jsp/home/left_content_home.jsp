@@ -230,9 +230,9 @@
 	</div>
       <div class="title_box">Sản phẩm đặc sắc</div>
       <div class="border_box">
-        <div class="product_title"><a href="details.html">Motorola 156 MX-VL</a></div>
-        <div class="product_img"><a href="details.html"><img src="image/image_template/laptop.png" alt="" border="0" /></a></div>
-        <div class="prod_price"><span class="reduce">350$</span> <span class="price">270$</span></div>
+        <div class="product_title"><a href="productDetail.html?product_id=35">Asus Zenfone 5</a></div>
+        <div class="product_img"><a href="productDetail.html?product_id=35"><img src="image/product_icon/asus-zenfone-5-icon.jpg" alt="" border="0" /></a></div>
+        <div class="prod_price"><span class="reduce"></span> <span class="price">3,990,000</span> đ</div>
       </div>
       <div class="title_box">Đăng ký nhận tin</div>
       <div class="border_box">

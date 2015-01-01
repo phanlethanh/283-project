@@ -7,6 +7,7 @@ public class Variable {
 	public static final String SESSION_USER_ID = "os_userid";
 	public static final String SESSION_CART_PRODUCT_MAP_LIST = "cartProductMapListSession";
 	public static final String SESSION_CART_NUMBER = "cartNumber";
+	public static final String SESSION_CART_PRICE = "cartPrice";
 	public static final String SESSION_CATEGORY = "categoryMapList";
 	public static final String SESSION_CATEGORY_SELECTED = "categorySelected";
 	

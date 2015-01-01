@@ -83,6 +83,7 @@ public class CartController extends OsController {
 		view.addObject("totalPayment",
 				String.format(Variable.CURRENCY_FORMAT, totalPayment));
 		session.setAttribute(Variable.SESSION_CART_NUMBER, sizeMap);
+		session.setAttribute(Variable.SESSION_CART_PRICE, totalMoney);
 		view.setViewName(viewName);
 		return view;
 	}

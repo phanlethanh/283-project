@@ -168,11 +168,11 @@ $(document).ready(
 			<div class="modalContent">
 				<div class=password_item>
 					<span>Mật khẩu cũ</span><input class="change_user_old_password"
-						type="password" name="user_old_password">
+						type="password" name="user_old_password" required>
 				</div>
 				<div class=password_item>
 					<span>Mật khẩu mới</span><input class="change_user_new_password"
-						type="password" name="user_new_password">
+						type="password" name="user_new_password" required>
 				</div>
 			</div>
 			<div class="groupFormButton">

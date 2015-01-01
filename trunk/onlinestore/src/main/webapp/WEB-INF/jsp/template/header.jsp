@@ -21,7 +21,7 @@
 	            <div class="oferta_text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </div>
 	            <a href="details.html" class="details">details</a> </div>
 	        </div>
-	        <div class="oferta_pagination"> <span class="current">1</span> <a href="http://all-free-download.com/free-website-templates/">2</a> <a href="http://all-free-download.com/free-website-templates/">3</a> <a href="http://all-free-download.com/free-website-templates/">4</a> <a href="http://all-free-download.com/free-website-templates/">5</a> </div>
+	        <div class="oferta_pagination"> <span class="current">1</span> <a href="#">2</a> <a href="">3</a> <a href="#">4</a> <a href="#">5</a> </div>
 	      </div>
 	      <div class="top_divider"><img src="image/image_template/header_divider.png" alt="" width="1" height="164" /></div>
 	    </div>
@@ -34,13 +34,13 @@
 	      <ul class="menu">
 	        <li><a href="homes.html" class="nav1"> Trang chủ</a></li>
 	        <li class="divider"></li>
-	        <li><a href="#" class="nav2">Sản phẩm</a></li>
+	        <li><a href="newProducts.html" class="nav2">Sản phẩm MỚI</a></li>
 	        <li class="divider"></li>
-	        <li><a href="#" class="nav3">Đặc biệt</a></li>
+	        <li><a href="hotProducts.html" class="nav3">Đang HOT</a></li>
 	        <li class="divider"></li>
 	       
 	        
-	        <li><a href="#" class="nav5">Vận chuyển</a></li>
+	        <li><a href="viewOrderList.html" class="nav5">Đơn hàng</a></li>
 	        <li class="divider"></li>
 	        <li><a href="contact.html" class="nav6">Liên hệ</a></li>
 	        <li class="divider"></li>
@@ -61,12 +61,6 @@
 			<%
 				}
 			%>
-	        <li class="currencies">Đơn vị
-	          <select>
-	            <option>VND</option>
-	            <option>Đô la Mỹ</option>
-	          </select>
-	        </li>
 	      </ul>
 	      <div class="right_menu_corner"></div>
 	    </div>
@@ -81,46 +75,48 @@
 			<span id="login_message"></span>
 		</div>
 		<span>Tên đăng nhập</span> <input name="username" type="text"
-			id="login_user_name" title="Name"> <span>Mật khẩu</span> <input
+			id="login_user_name" title="Name" maxlength="15" required> 
+			<span>Mật khẩu</span> <input
 			name="password" type="password" id="login_user_password"
-			title="Password"> <input type="checkbox" id="login_save"
-			name="login_save"> <span>Ghi nhớ đăng nhập</span> <input
+			title="Password" maxlength="15" required> 
+			<input type="checkbox" id="login_save" name="login_save"> 
+			<span>Ghi nhớ đăng nhập</span> <input
 			type="button" id="login_submit" value="Đăng nhập">
 	</form>
 
 	<a class="close-reveal-modal close-reveal-all"></a>
 </div>
 <div id="form_register" class="reveal-modallogin">
-	<h4>Register</h4>
+	<h4>Đăng ký</h4>
 	<form action="" id="register" method="post" class="form_register"
 		modelAttribute="OsUser">
 
 		<div class="register_info">
-			<span>User name</span> <input name="username" type="text"
-				id="register_user_name" title="Name">
+			<span>Tên tài khoản</span> <input name="username" type="text"
+				id="register_user_name" title="Name" maxlength="15" required>
 		</div>
 
 		<div class="register_info">
-			<span>Password</span> <input name="password" type="password"
-				id="register_user_password" title="Password">
+			<span>Mật khẩu</span> <input name="password" type="password"
+				id="register_user_password" title="Password" maxlength="15" required>
 		</div>
 
 		<div class="register_info">
-			<span>Full name</span> <input name="fullName" type="text"
-				id="register_full_name" title="Full name">
+			<span>Họ tên</span> <input name="fullName" type="text"
+				id="register_full_name" title="Full name" maxlength="31" required>
 		</div>
 		<div class="register_info">
-			<span>Email Address</span> <input name="email" type="text"
-				id="register_email" title="Email">
+			<span>Email</span> <input name="email" type="email"
+				id="register_email" title="Email" maxlength="63" required>
 		</div>
 		<div class="register_info">
-			<span>Address</span> <input name="address" type="text"
-				id="register_address" title="Address">
+			<span>Địa chỉ</span> <input name="address" type="text"
+				id="register_address" title="Address" maxlength="255" required>
 		</div>
 
 		<div class="register_info">
-			<span>Phone number</span> <input name="phone" type="text"
-				id="register_phone_number" title="Phone">
+			<span>Điện thoại</span> <input name="phone" type="text" pattern="[0-9]"
+				id="register_phone_number" title="Phone" maxlength="15" required>
 		</div>
 
 		<input type="button" id="register_submit" value="Đăng kí">

@@ -1,6 +1,8 @@
 <%@taglib  prefix="tiles"  uri="http://tiles.apache.org/tags-tiles"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.HashMap"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -106,18 +108,30 @@
 	    <div class="search_box">
 		<div class="search_select">
 			<span class="index_select"><select id="category_select">
-				<c:forEach var="category" items="${categoryMapList}">
-					<c:choose>
-						<c:when test="${category['categoryId'] == categorySelected}">
-							<option selected="selected" value="${category['categoryId']}">
-							${category['categoryName']}</option>
-						</c:when>
-						<c:otherwise>
-							<option value="${category['categoryId']}">
-							${category['categoryName']}</option>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
+				<%
+				String categorySelected;
+				List<HashMap<String, Object>> categoryMapList
+					= (List<HashMap<String, Object>>) session.getAttribute("categoryMapList");
+				if (null == request.getParameter("category_id")) {
+					categorySelected = "0";
+				} else {
+					categorySelected = request.getParameter("category_id");
+				}
+				int size = categoryMapList.size();
+				for (int i = 0; i < size; i++) {
+					HashMap<String, Object> map = categoryMapList.get(i);
+					String tempId = map.get("categoryId").toString();
+					String tempName = map.get("categoryName").toString();
+					if (categorySelected.compareTo(tempId) == 0) {
+					%>
+						<option selected="selected" value="<%=tempId%>"><%=tempName%></option>
+					<% } else {
+					%>
+						<option value="<%=tempId%>"><%=tempName%></option>
+					<%
+					}
+				}
+				%>
 			</select></span>
 		</div>
 		<div class="clear_left"></div>

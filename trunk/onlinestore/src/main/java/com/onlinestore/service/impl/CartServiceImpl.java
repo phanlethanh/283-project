@@ -52,5 +52,10 @@ public class CartServiceImpl implements CartService{
 	public Integer getProductCount(Integer userId) {
 		return cartDao.getProductCount(userId);
 	}
+
+	@Override
+	public Double getProductPriceSum(Integer userId) {
+		return cartDao.getProductPriceSum(userId);
+	}
 	
 }

@@ -23,10 +23,13 @@
 		$(".agree_terms_and_conditions_button").live(
 				'click',
 				function() {
+					var data_form = $(
+					"form.form_cart_product_list")
+					.serialize();
 					$.ajax({
 						url : "createOrderFromCart.html",
 						type : "POST",
-						data : {},
+						data : data_form,
 						success : function(data) {
 							if(data.code == 1)
 							{
@@ -39,6 +42,7 @@
 						}
 					});
 				});
+		
 		$(".delete_cart_product_from_cart").live('click',
 				function() {
 				if (confirm("Bạn có muốn xóa sản phẩm này ra khỏi giỏ hàng?") == true) {
@@ -61,6 +65,7 @@
 </script>
 <div class="cart">
 	<span class="ctgh_p">Chi tiết giỏ hàng</span></br>
+		<form class="form_cart_product_list" name="form_cart_product_list" method="post">
 		<table class="cart_product_table">
 			<tr>
 				<td></td>
@@ -72,13 +77,14 @@
 				<tr id="cart_product_id_${cp['id']}">
 					<td><img src="${cp['productIcon']}" width="70" height="70"></td>
 					<td><a href="productDetail.html?product_id=${cp['productId']}">${cp['productName']}</a></td>
-					<td><input type="text" name="quantity"
+					<td><input type="number" name="quantity_${cp['id']}"  min="1" max="1000"
 						value="${cp['quantity']}"></td>
 					<td>${cp['price']} đ</td>
 					<td><a href="#" productid="${cp['id']}" class="delete_cart_product_from_cart">Xoá</a></td>
 				</tr>
 			</c:forEach>
 		</table>
+		</form>
 	<div class="cart_summary">
 		<p>
 			Tổng tiền: <span id="total_money">${totalMoney}</span> đ

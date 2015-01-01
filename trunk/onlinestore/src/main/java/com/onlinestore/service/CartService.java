@@ -19,4 +19,6 @@ public interface CartService {
 	List<CartProduct> getProductList(Integer userId);
 	
 	Integer getProductCount(Integer userId);
+	
+	Double getProductPriceSum(Integer userId);
 }
