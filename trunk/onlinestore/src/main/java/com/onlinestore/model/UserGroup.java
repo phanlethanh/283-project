@@ -24,6 +24,10 @@ import javax.persistence.TemporalType;
 @Table(name = "user_group", schema = "public")
 public class UserGroup implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1408770505639210786L;
 	private int id;
 	private String name;
 	private Date createDate;

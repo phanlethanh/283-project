@@ -1,15 +1,12 @@
 package com.onlinestore.dao;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ReflectionUtils;
 
 public abstract class AbstractHbnDao<T extends Object> implements Dao<T> {
 	@Autowired
@@ -20,6 +17,7 @@ public abstract class AbstractHbnDao<T extends Object> implements Dao<T> {
 		return sessionFactory.getCurrentSession();
 	}
 
+	@SuppressWarnings("unchecked")
 	private Class<T> getDomainClass() {
 		if (domainClass == null) {
 			ParameterizedType thisType = (ParameterizedType) getClass()
@@ -37,14 +35,17 @@ public abstract class AbstractHbnDao<T extends Object> implements Dao<T> {
 		return getSession().save(t);
 	}
 
+	@SuppressWarnings("unchecked")
 	public T get(Serializable id) {
 		return (T) getSession().get(getDomainClass(), id);
 	}
 
+	@SuppressWarnings("unchecked")
 	public T load(Serializable id) {
 		return (T) getSession().load(getDomainClass(), id);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<T> getAll() {
 		return getSession().createQuery("from " + getDomainClassName()).list();
 	}

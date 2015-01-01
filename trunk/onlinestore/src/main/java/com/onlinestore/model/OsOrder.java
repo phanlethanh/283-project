@@ -26,6 +26,10 @@ import javax.persistence.TemporalType;
 @Table(name = "os_order", schema = "public")
 public class OsOrder implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3833737676222089168L;
 	private int id;
 	private OsUser osUser;
 	private TransportFee transportFee;

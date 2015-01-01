@@ -42,4 +42,9 @@ public class OsOrderDetailServiceImpl implements OsOrderDetailService {
 		return orderDetailDao.getOrderDetailListByOrderId(orderId);
 	}
 
+	@Override
+	public void deleteByOrderId(Integer orderId) {
+		orderDetailDao.deleteByOrderId(orderId);
+	}
+
 }

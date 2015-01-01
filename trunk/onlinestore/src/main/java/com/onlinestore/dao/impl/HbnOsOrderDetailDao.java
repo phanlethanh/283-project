@@ -19,4 +19,12 @@ public class HbnOsOrderDetailDao extends AbstractHbnDao<OsOrderDetail>
 		query.setParameter("oid", orderId);
 		return query.list();
 	}
+
+	@Override
+	public void deleteByOrderId(Integer orderId) {
+		String sql = "delete from OsOrderDetail where osOrder.id = :oid";
+		Query query = getSession().createQuery(sql);
+		query.setParameter("oid", orderId);
+		query.executeUpdate();
+	}
 }

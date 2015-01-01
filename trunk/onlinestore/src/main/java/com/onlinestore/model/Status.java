@@ -24,7 +24,12 @@ import javax.persistence.TemporalType;
 @Table(name = "status", schema = "public")
 public class Status implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6239172456742389270L;
 	private int id;
+	private String statusType;
 	private String name;
 	private Date createDate;
 	private Date writeDate;
@@ -61,6 +66,15 @@ public class Status implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "status_type", length = 32)
+	public String getStatusType() {
+		return this.statusType;
+	}
+
+	public void setStatusType(String statusType) {
+		this.statusType = statusType;
+	}
+	
 	@Column(name = "name", length = 32)
 	public String getName() {
 		return this.name;

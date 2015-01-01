@@ -46,12 +46,16 @@
         <put-attribute name="content" value="/WEB-INF/jsp/admin/content_admin_promotion.jsp" />
     </definition>
     <definition name="error" extends=".mainTemplate">
-    	<put-attribute name="left_content" value="/WEB-INF/jsp/admin/left_content_admin.jsp"/>
+    	<put-attribute name="left_content" value="/WEB-INF/jsp/home/left_content_home.jsp"/>
         <put-attribute name="content" value="/WEB-INF/jsp/template/error.jsp" />
     </definition>
     <definition name="configInfo" extends=".mainTemplate">
     	<put-attribute name="left_content" value="/WEB-INF/jsp/admin/left_content_admin.jsp"/>
         <put-attribute name="content" value="/WEB-INF/jsp/admin/content_admin_config_info.jsp" />
+    </definition>
+    <definition name="user" extends=".mainTemplate">
+    	<put-attribute name="left_content" value="/WEB-INF/jsp/home/left_content_home.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/user_detail.jsp" />
     </definition>
     
 </tiles-definitions>

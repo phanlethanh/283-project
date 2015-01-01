@@ -24,6 +24,10 @@ import javax.persistence.TemporalType;
 @Table(name = "price", schema = "public")
 public class Price implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2389137693349367234L;
 	private int id;
 	private Double price;
 	private Date createDate;

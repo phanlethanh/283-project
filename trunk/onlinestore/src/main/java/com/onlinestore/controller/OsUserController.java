@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.onlinestore.model.OsUser;
 import com.onlinestore.service.impl.OsUserServiceImpl;
+import com.onlinestore.util.Variable;
 
 
 
@@ -135,6 +136,8 @@ public class OsUserController {
 		response.sendRedirect("homes.html");
 		
 	}
+	
+	@SuppressWarnings("unused")
 	private boolean checkUserIsAdmin(Integer id)
 	{
 	    OsUserServiceImpl userService = getUserService(); 
@@ -145,5 +148,110 @@ public class OsUserController {
 		return false;
 	}
 	
+	@RequestMapping(value = "/userDetail")
+	public ModelAndView viewCart(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		String viewName = "user";
+		HttpSession session = request.getSession();
+		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
+			// Not login
+			viewName = "error";
+		} else {
+			// Logged in
+			Integer userId = Integer.valueOf(session.getAttribute(
+					Variable.SESSION_USER_ID).toString());
+			OsUser user = getUserService().getOsUser(userId);
+			view.addObject("id", userId);
+			view.addObject("group", user.getUserGroup().getName());
+			view.addObject("fullName", user.getFullName());
+			view.addObject("address", user.getAddress());
+			view.addObject("email", user.getEmail());
+			view.addObject("phone", user.getPhone());
+		}
+		view.setViewName(viewName);
+		return view;
+	}
 	
+	@RequestMapping(value = "/userDetailForEdit", method = RequestMethod.POST)
+	public void userDetailForEdit(HttpServletRequest request,
+			HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
+			// Not login
+		} else {
+			// Logged in
+			Integer userId = Integer.valueOf(session.getAttribute(
+					Variable.SESSION_USER_ID).toString());
+			OsUser user = getUserService().getOsUser(userId);
+			map.put("fullname", user.getFullName());
+			map.put("address", user.getAddress());
+			map.put("email", user.getEmail());
+			map.put("phone", user.getPhone());
+		}
+		String json = new Gson().toJson(map);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value = "/editUserInfo", method = RequestMethod.POST)
+	public void editUserInfo(HttpServletRequest request,
+			HttpServletResponse response) {
+		String fullName = request.getParameter("user_fullname");
+		String address = request.getParameter("user_address");
+		String email = request.getParameter("user_email");
+		String phone = request.getParameter("user_phone");
+		HttpSession session = request.getSession();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
+			// Not login
+			map.put("code", 0);
+		} else {
+			// Logged in
+			Integer userId = Integer.valueOf(session.getAttribute(
+					Variable.SESSION_USER_ID).toString());
+			OsUser user = new OsUser();
+			user.setId(userId);
+			user.setFullName(fullName);
+			user.setAddress(address);
+			user.setEmail(email);
+			user.setPhone(phone);
+			// Update user
+			getUserService().updateOsUser(user);
+			map.put("code", 1);
+			map.put("fullname", fullName);
+			map.put("address", address);
+			map.put("email", email);
+			map.put("phone", phone);
+		}
+		String json = new Gson().toJson(map);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value = "/changeUserPassword", method = RequestMethod.POST)
+	public void changeUserPassword(HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("code", 1);
+		String json = new Gson().toJson(map);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

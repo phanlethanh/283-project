@@ -27,6 +27,10 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "os_user", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class OsUser implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8055433700453497138L;
 	private int id;
 	private UserGroup userGroup;
 	private Cart cart;
@@ -78,7 +82,7 @@ public class OsUser implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "group_id")
 	public UserGroup getUserGroup() {
 		return this.userGroup;

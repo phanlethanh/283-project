@@ -249,7 +249,8 @@ public class ProductController {
 		
 		List<Status> status = new ArrayList<Status>();
 		List<HashMap<String, Object>> statusMapList = new ArrayList<HashMap<String, Object>>();
-		status = getStatusService().getStatuses();
+		// status = getStatusService().getStatuses();
+		status = getStatusService().getProductStatuses();
 		for(int i = 0; i < status.size(); i++)
 		{
 			HashMap<String, Object> statusMap = new HashMap<String, Object>();
@@ -683,7 +684,8 @@ public class ProductController {
 		
 		List<Status> status = new ArrayList<Status>();
 		List<HashMap<String, Object>> statusMapList = new ArrayList<HashMap<String, Object>>();
-		status = getStatusService().getStatuses();
+		// status = getStatusService().getStatuses();
+		status = getStatusService().getProductStatuses();
 		for(int i = 0; i < status.size(); i++)
 		{
 			HashMap<String, Object> statusMap = new HashMap<String, Object>();

@@ -23,6 +23,10 @@ import javax.persistence.TemporalType;
 @Table(name = "cart_product", schema = "public")
 public class CartProduct implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7805194479487796680L;
 	private int id;
 	private Cart cart;
 	private Product product;

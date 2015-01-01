@@ -24,6 +24,10 @@ import javax.persistence.TemporalType;
 @Table(name = "promotion", schema = "public")
 public class Promotion implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1818430433187008906L;
 	private int id;
 	private String name;
 	private Date startDate;

@@ -26,6 +26,10 @@ import javax.persistence.TemporalType;
 @Table(name = "product", schema = "public")
 public class Product implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2867879917381153825L;
 	private int id;
 	private DatasFieldsProduct datasFieldsProduct;
 	private Price price;
@@ -35,6 +39,7 @@ public class Product implements java.io.Serializable {
 	private Producer producer;
 	private String name;
 	private String icon;
+	private Integer stockQuantity;
 	private String description;
 	private Date createDate;
 	private Date writeDate;
@@ -162,6 +167,15 @@ public class Product implements java.io.Serializable {
 
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+	
+	@Column(name = "stock_quantity")
+	public Integer getStockQuantity() {
+		return this.stockQuantity;
+	}
+
+	public void setStockQuantity(Integer stockQuantity) {
+		this.stockQuantity = stockQuantity;
 	}
 
 	@Column(name = "description", length = 256)

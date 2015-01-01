@@ -19,6 +19,10 @@ import javax.persistence.Table;
 @Table(name = "category_product", schema = "public")
 public class CategoryProduct implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 505963785961914998L;
 	private int id;
 	private Product product;
 	private Category category;

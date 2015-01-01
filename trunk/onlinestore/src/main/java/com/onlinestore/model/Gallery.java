@@ -24,6 +24,10 @@ import javax.persistence.TemporalType;
 @Table(name = "gallery", schema = "public")
 public class Gallery implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5083455484949682166L;
 	private int id;
 	private String name;
 	private Date createDate;
