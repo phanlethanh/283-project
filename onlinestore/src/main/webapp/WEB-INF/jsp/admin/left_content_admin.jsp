@@ -336,6 +336,8 @@
 		}
 	}
 </script>
+<div class="left_content">
+<div class="title_box">Quản lý danh mục</div>
 <div class="group_product">
 	<div class="top_group_product">
 		<p><?php echo __('All items');?></p>
@@ -349,17 +351,10 @@
 		</ul>
 	</div>
 </div>
-
-<div class="admin_menu">
-	<br>
-	<div class="admin_menu_promotion">
-		<a href="viewPromotionList.html">Quản lý khuyến mãi</a>
-	</div>
-	<br>
-	<div class="admin_menu_config">
-		<a href="viewConfigInfo.html">Quản lý cấu hình</a>
-	</div>
+<div class="title_box"><a href="viewPromotionList.html">Quản lý khuyến mãi</a></div>
+<div class="title_box"><a href="viewConfigInfo.html">Quản lý cấu hình</a></div>
 </div>
+
 
 <div id="addCategoryCentreModal" class="reveal-modaladd medium">
 	<h4>Add Category Centre</h4>

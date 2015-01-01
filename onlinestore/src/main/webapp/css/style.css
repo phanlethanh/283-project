@@ -188,6 +188,27 @@
     margin-left: 10px;
    
 }
+.right_max_width{
+	width:100%;
+	margin-left:20px;
+}
+.right_max_width table{
+	display: inline-block;
+    width: 792px;
+}
+.admin_config_promotion table
+{
+	display: inline-block;
+    width: 792px;
+}
+.admin_config_info{
+	display: inline-block;
+    width: 792px;
+}
+.user_detail table{
+	display: inline-block;
+    width: 792px;
+}
 .main_content table tr th {
     background: linear-gradient(#FFFFFF, #EFEFEF) repeat scroll 0 0 rgba(0, 0, 0, 0);
     box-shadow: 0 1px 0 0 #FFFFFF inset;
@@ -208,7 +229,7 @@
 .page_number:hover{ text-decoration:none; background-color:#336699; color:#FFFFFF}
 .page_number_active { padding-left:10px; padding-right:10px; padding-top:5px; padding-bottom:5px; margin-right:5px; text-decoration:none; border-radius:3px;background-color:#CCCCCC}
 .page_number_active:hover {text-decoration:none}
-.paging{ align:center; text-align:left; margin-left:20px}
+.paging{ align:center; text-align:left; margin-left:20px; float:right}
 .admin_detail_product_item {width:100%; height:30px;}
 .admin_detail_product_item span {width:20%; display:inline-block}
 .admin_detail_product_item input {width:65%; display:inline-block; margin-left:5%; padding:5px}
@@ -328,4 +349,7 @@
 	height: 30px;
     margin-left: 20px;
     margin-top: 45px;
+}
+#admin_add_promotion_button {
+	float:right;
 }

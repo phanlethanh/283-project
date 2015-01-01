@@ -9,7 +9,10 @@
 			page_count = ((parseInt(total_row) / pageSize).toFixed(0) );
 			if(page_count < (parseInt(total_row) / pageSize))
 				page_count = parseInt(page_count) +1;
-			var id = $("#home_page_number_active").val();
+			var id = 0;
+			if(document.getElementById("home_page_number_active") != null)
+				var id = $("#home_page_number_active").val();
+			
 			var page_last = parseInt($("#home_page_number_last").val());
 			var page_active = 0;
 			if(page_last >= 10)

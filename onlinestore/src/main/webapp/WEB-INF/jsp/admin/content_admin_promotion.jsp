@@ -113,7 +113,8 @@
 	});
 </script>
 
-<div>
+<div class="admin_config_promotion">
+	<span class="ctgh_p">Danh sách khuyến mãi</span>
 	<input type="button" value="Thêm khuyến mãi" id="admin_add_promotion_button"
 		class="admin_add_promotion_button">
 	<table>

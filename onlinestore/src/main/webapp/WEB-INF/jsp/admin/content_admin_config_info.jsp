@@ -54,7 +54,8 @@
 			});
 </script>
 
-<div>
+<div class="admin_config_info">
+	<span class="ctgh_p">Danh sách cấu hình</span>
 	<table>
 		<tr>
 			<td>Cấu hình</td>
