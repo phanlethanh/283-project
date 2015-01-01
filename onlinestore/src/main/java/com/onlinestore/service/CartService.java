@@ -17,4 +17,6 @@ public interface CartService {
 	void deleteCart(Integer id);
 	
 	List<CartProduct> getProductList(Integer userId);
+	
+	Integer getProductCount(Integer userId);
 }

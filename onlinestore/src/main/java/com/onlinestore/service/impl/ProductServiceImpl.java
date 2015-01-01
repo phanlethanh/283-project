@@ -57,4 +57,24 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.searchByCategory(keyword, categoryId);
 	}
 
+	@Override
+	public List<Product> getNewProducts() {
+		return productDao.getNewProducts();
+	}
+
+	@Override
+	public List<Product> getHotProducts() {
+		return productDao.getHotProducts();
+	}
+
+	@Override
+	public List<Product> getWaitingProducts() {
+		return productDao.getWaitingProducts();
+	}
+
+	@Override
+	public List<Product> getPromotionProducts() {
+		return productDao.getPromotionProducts();
+	}
+
 }

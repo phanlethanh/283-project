@@ -47,5 +47,10 @@ public class CartServiceImpl implements CartService{
 	public List<CartProduct> getProductList(Integer userId) {
 		return cartDao.getProductList(userId);
 	}
+
+	@Override
+	public Integer getProductCount(Integer userId) {
+		return cartDao.getProductCount(userId);
+	}
 	
 }

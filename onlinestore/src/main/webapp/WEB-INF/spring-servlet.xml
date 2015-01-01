@@ -133,6 +133,10 @@
 				<prop key="userDetailForEdit.html">osUserController</prop>
 				<prop key="editUserInfo.html">osUserController</prop>
 				<prop key="changeUserPassword.html">osUserController</prop>
+				<prop key="newProducts.html">homeController</prop>
+				<prop key="hotProducts.html">homeController</prop>
+				<prop key="waitingProducts.html">homeController</prop>
+				<prop key="promotionProducts.html">homeController</prop>
 			</props>
 		</property>
 	</bean>

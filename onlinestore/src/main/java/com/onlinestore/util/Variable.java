@@ -6,7 +6,10 @@ public class Variable {
 	public static final String SESSION_PASSWORD = "password";
 	public static final String SESSION_USER_ID = "os_userid";
 	public static final String SESSION_CART_PRODUCT_MAP_LIST = "cartProductMapListSession";
-
+	public static final String SESSION_CART_NUMBER = "cartNumber";
+	public static final String SESSION_CATEGORY = "categoryMapList";
+	public static final String SESSION_CATEGORY_SELECTED = "categorySelected";
+	
 	// Request parameters
 	public static final String REQUEST_ORDER_ID = "order_id";
 	public static final String REQUEST_KEYWORD = "keyword";
@@ -27,4 +30,9 @@ public class Variable {
 	public static final Integer ID_VAT_TAX = 1;
 	public static final Integer ID_MIN_PAYMENT = 1;
 	public static final Integer ID_MAX_PAYMENT = 2;
+	public static final Integer ID_NEW_PRODUCT_STATUS = 1;
+	public static final Integer ID_HOT_PRODUCT_STATUS = 2;
+	public static final Integer ID_WAITING_PRODUCT_STATUS = 3;
+	public static final Integer ID_INSTOCK_PRODUCT_STATUS = 4;
+	public static final Integer ID_OUTOFSTOCK_PRODUCT_STATUS = 5;
 }
