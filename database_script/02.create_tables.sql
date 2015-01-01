@@ -113,6 +113,7 @@ ALTER TABLE os_user
 CREATE TABLE status
 (
   id serial NOT NULL,
+  status_type character varying(32),
   name character varying(32),
   create_date timestamp without time zone,
   write_date timestamp without time zone,

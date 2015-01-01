@@ -11,22 +11,23 @@ INSERT INTO os_user(group_id, username, password, full_name, address, phone, ema
     VALUES (2, 'member', 'member', 'Member', 'None', 'None', 'None'); -- 2
 	
 -- Statuses of product
-INSERT INTO status(name) VALUES ('New'); -- 1 
-INSERT INTO status(name) VALUES ('Hot'); -- 2
-INSERT INTO status(name) VALUES ('Waiting'); -- 3
-INSERT INTO status(name) VALUES ('In stock'); -- 4
-INSERT INTO status(name) VALUES ('Out of stock'); -- 5
+INSERT INTO status(status_type, name) VALUES ('product', 'Mới'); -- 1 
+INSERT INTO status(status_type, name) VALUES ('product', 'Hot'); -- 2
+INSERT INTO status(status_type, name) VALUES ('product', 'Chưa có hàng'); -- 3
+INSERT INTO status(status_type, name) VALUES ('product', 'Còn hàng'); -- 4
+INSERT INTO status(status_type, name) VALUES ('product', 'Hết hàng'); -- 5
 
 -- Statuses of order
-INSERT INTO status(name) VALUES ('New'); -- 6
-INSERT INTO status(name) VALUES ('Confirmed'); -- 7
-INSERT INTO status(name) VALUES ('Shipping'); -- 8
-INSERT INTO status(name) VALUES ('Done'); -- 9
-INSERT INTO status(name) VALUES ('Canceled'); -- 10
+INSERT INTO status(status_type, name) VALUES ('order', 'Mới'); -- 6
+INSERT INTO status(status_type, name) VALUES ('order', 'Đã xác nhận'); -- 7
+INSERT INTO status(status_type, name) VALUES ('order', 'Đang giao hàng'); -- 8
+INSERT INTO status(status_type, name) VALUES ('order', 'Hoàn tất'); -- 9
+INSERT INTO status(status_type, name) VALUES ('order', 'Đã hủy'); -- 10
+INSERT INTO status(status_type, name) VALUES ('order', 'Đã thanh toán'); -- 11
 
 -- Configs
 INSERT INTO config(name, data_type, value)
-    VALUES ('Min payment', 'VN�', '1000000'); -- 1
+    VALUES ('Min payment', 'VNÐ', '1000000'); -- 1
 INSERT INTO config(name, data_type, value) 
-    VALUES ('Max payment', 'VN�', '80000000'); -- 2
+    VALUES ('Max payment', 'VNÐ', '80000000'); -- 2
 

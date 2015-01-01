@@ -913,9 +913,9 @@ INSERT INTO cart_product(cart_id, product_id, quantity) VALUES (2, 4, 1);
 -- ###############################################################################################################
 -- Users
 INSERT INTO os_user(group_id, cart_id, username, password, full_name, address, phone, email)
-    VALUES (2, 1, 'thanh', 'thanh', 'Phan Lê Thanh', '181 An Binh, P.7, Q.5, TP.HCM', '01657776661', 'phanlethanh93@gmail.com'); -- 3
+    VALUES (2, 1, 'thanh', 'thanh', 'Phan Lê Thanh', '181 An Bình, P.7, Q.5, TP.HCM', '01657776661', 'phanlethanh93@gmail.com'); -- 3
 INSERT INTO os_user(group_id, cart_id, username, password, full_name, address, phone, email)
-    VALUES (2, 2, 'thang', 'thang', 'Tran Viet Thang', '302/126C Nguyen Duy, P.9, Q.8, TP.HCM', '01658884442', 'thangviet1206@gmail.com'); -- 4
+    VALUES (2, 2, 'thang', 'thang', 'Trần Việt Thắng', '302/126C Nguyễn Duy, P.9, Q.8, TP.HCM', '01658884442', 'thangviet1206@gmail.com'); -- 4
 
 -- ###############################################################################################################
 -- Orders
