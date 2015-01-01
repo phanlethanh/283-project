@@ -9,4 +9,6 @@ public interface CartDao extends Dao<Cart> {
 	List<CartProduct> getProductList(Integer userId);
 	
 	Integer getProductCount(Integer userId);
+	
+	Double getProductPriceSum(Integer userId);
 }

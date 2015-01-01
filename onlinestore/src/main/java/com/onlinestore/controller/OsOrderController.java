@@ -73,9 +73,9 @@ public class OsOrderController extends OsController {
 	public void createOrderFromCart(HttpServletRequest request,
 			HttpServletResponse response) {
 		// double minPayment = Double.parseDouble(getConfigService().getConfig(
-		//		Variable.ID_MIN_PAYMENT).getValue());
+		// Variable.ID_MIN_PAYMENT).getValue());
 		// double maxPayment = Double.parseDouble(getConfigService().getConfig(
-		//		Variable.ID_MAX_PAYMENT).getValue());
+		// Variable.ID_MAX_PAYMENT).getValue());
 		HttpSession session = request.getSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
@@ -112,16 +112,20 @@ public class OsOrderController extends OsController {
 			int cartProductSize = cartProducts.size();
 			for (int i = 0; i < cartProductSize; i++) {
 				CartProduct cp = cartProducts.get(i);
+				int cpId = cp.getId();
 				Product product = cp.getProduct();
 				OsOrderDetail orderDetail = new OsOrderDetail();
 				orderDetail.setOsOrder(order);
 				orderDetail.setProduct(product);
-				orderDetail.setQuantity(cp.getQuantity());
+				// orderDetail.setQuantity(cp.getQuantity());
+				Integer quantity = Integer.valueOf(request
+						.getParameter("quantity_" + cpId));
+				orderDetail.setQuantity(quantity);
 				orderDetail.setPrice(product.getPrice().getPrice());
 				// Insert OsOrderDetail into database
 				getOsOrderDetailService().createOsOrderDetail(orderDetail);
 				// Delete cart product from cart
-				getCartProductService().deleteCartProduct(cp.getId());
+				getCartProductService().deleteCartProduct(cpId);
 			}
 			map.put("code", 1);
 		}

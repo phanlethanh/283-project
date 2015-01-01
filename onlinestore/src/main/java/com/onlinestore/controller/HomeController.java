@@ -50,25 +50,35 @@ public class HomeController extends OsController {
 		session.setAttribute(Variable.SESSION_CATEGORY, categoryMapList);
 		// Number product in cart
 		Integer cartNumber = 0;
+		Double cartPrice = 0.0;
 		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
 			// Not login
 			if (null == session
 					.getAttribute(Variable.SESSION_CART_PRODUCT_MAP_LIST)) {
 				cartNumber = 0;
+				cartPrice = 0.0;
 			} else {
 				Object obj = session
 						.getAttribute(Variable.SESSION_CART_PRODUCT_MAP_LIST);
 				List<HashMap<String, Object>> cpMapList = (List<HashMap<String, Object>>) obj;
 				cartNumber = cpMapList.size();
+				cartPrice = 0.0;
+				int mapListSize = cpMapList.size();
+				for (int i = 0; i < mapListSize; i++) {
+					cartPrice += Double.valueOf(cpMapList.get(i).get("price")
+							.toString().replace(",", ""));
+				}
 			}
 		} else {
 			// Login
 			Integer userId = Integer.valueOf(session.getAttribute(
 					Variable.SESSION_USER_ID).toString());
 			cartNumber = getCartService().getProductCount(userId);
-			System.out.println("CARTNUMBER: " + cartNumber);
+			cartPrice = getCartService().getProductPriceSum(userId);
 		}
 		session.setAttribute(Variable.SESSION_CART_NUMBER, cartNumber);
+		session.setAttribute(Variable.SESSION_CART_PRICE,
+				String.format(Variable.CURRENCY_FORMAT, cartPrice));
 		view.setViewName(viewName);
 		return view;
 	}
@@ -77,7 +87,6 @@ public class HomeController extends OsController {
 	public ModelAndView searchProduct(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		String viewName = "home";
-		HttpSession session = request.getSession();
 		List<Product> resultProductList = new ArrayList<Product>();
 		List<HashMap<String, Object>> productMapList = new ArrayList<HashMap<String, Object>>();
 		Integer categoryId = Integer.valueOf(request
@@ -110,7 +119,6 @@ public class HomeController extends OsController {
 		}
 		view.addObject("productMapList", productMapList);
 		view.addObject("keyword", keyword);
-		// session.setAttribute(Variable.SESSION_CATEGORY_SELECTED, categoryId);
 		view.setViewName(viewName);
 		return view;
 	}

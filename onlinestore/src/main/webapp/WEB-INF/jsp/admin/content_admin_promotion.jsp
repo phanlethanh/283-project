@@ -163,24 +163,24 @@
 				</div>
 				<div class=admin_promotion_item>
 					<span>Khuyến mãi</span><input class="edit_promotion_name"
-						type="text" name="promotion_name">
+						type="text" name="promotion_name" required>
 				</div>
 				<div class=admin_promotion_item>
 					<span>Loại</span><input class="edit_promotion_type" type="text"
-						name="promotion_type">
+						name="promotion_type" required>
 				</div>
 				<div class=admin_promotion_item>
 					<span>Ngày bắt đầu</span><input class="edit_promotion_start_date"
-						type="text" name="promotion_start_date">
+						type="date" name="promotion_start_date" required>
 				</div>
 				<div class=admin_promotion_item>
 					<span>Ngày kết thúc</span><input class="edit_promotion_end_date"
-						type="text" name="promotion_end_date">
+						type="date" name="promotion_end_date" required>
 				</div>
 				<div class=admin_promotion_item>
 					<span>Mô tả</span>
 					<textarea name="promotion_description" cols="40" rows="3"
-						class="edit_promotion_description"></textarea>
+						class="edit_promotion_description" required></textarea>
 				</div>
 			</div>
 			<div class="groupFormButton">
@@ -207,24 +207,24 @@
 				</div>
 				<div class=admin_promotion_item>
 					<span>Khuyến mãi</span><input class="edit_promotion_name"
-						type="text" name="promotion_name">
+						type="text" name="promotion_name" required>
 				</div>
 				<div class=admin_promotion_item>
 					<span>Loại</span><input class="edit_promotion_type" type="text"
-						name="promotion_type">
+						name="promotion_type" required>
 				</div>
 				<div class=admin_promotion_item>
 					<span>Ngày bắt đầu</span><input class="edit_promotion_start_date"
-						type="text" name="promotion_start_date">
+						type="date" name="promotion_start_date" required>
 				</div>
 				<div class=admin_promotion_item>
 					<span>Ngày kết thúc</span><input class="edit_promotion_end_date"
-						type="text" name="promotion_end_date">
+						type="date" name="promotion_end_date" required>
 				</div>
 				<div class=admin_promotion_item>
 					<span>Mô tả</span>
 					<textarea name="promotion_description" cols="40" rows="3"
-						class="edit_promotion_description"></textarea>
+						class="edit_promotion_description" required></textarea>
 				</div>
 			</div>
 			<div class="groupFormButton">

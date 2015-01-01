@@ -3,4 +3,5 @@
 
 <div>
 	<h2>ERROR</h2>
+	<p>Bạn chưa đăng nhập.</p>
 </div>
