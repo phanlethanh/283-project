@@ -2,25 +2,14 @@
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type="text/css">
-.cart {
-	background-color: white;
-	padding: 20px;
-	border: 1px solid;
-}
-
-.cart_product_list {
-	border-bottom: 1px;
-	border-top: 1px;
-	text-align: right;
-}
-
-.cart_product_table {
-	
-}
 
 .cart_summary {
 	text-align: right;
 	padding-right: 100px;
+}
+.cart{
+	margin-left:10px;
+	width:100%;
 }
 </style>
 
@@ -71,7 +60,7 @@
 	});
 </script>
 <div class="cart">
-	<div class="cart_product_list">
+	<span class="ctgh_p">Chi tiết giỏ hàng</span></br>
 		<table class="cart_product_table">
 			<tr>
 				<td></td>
@@ -90,7 +79,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-	</div>
 	<div class="cart_summary">
 		<p>
 			Tổng tiền: <span id="total_money">${totalMoney}</span> đ

@@ -1,10 +1,6 @@
-<%@page import="antlr.CppCodeGenerator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.List"%>
-<%@ page import="java.util.HashMap"%>
-
 <script>
 	function searchOnClick() {
 		var keyword = document.getElementById("keyword").value;
@@ -13,117 +9,70 @@
 				+ categoryId + '&keyword=' + keyword;
 	}
 </script>
-<% 
-	String cartNumber = "0";
-	cartNumber = session.getAttribute("cartNumber").toString();
-	List<HashMap<String, Object>> categoryMapList 
-		= (List<HashMap<String, Object>>) session.getAttribute("categoryMapList");
-%>
 <div class="header_content">
-	<div class="search_box">
-		<div class="search_select">
-			<span class="index_select"><select id="category_select">
-				<!--  <c:forEach var="category" items="${categoryMapList}">
-					<c:choose>
-						<c:when test="${category['categoryId'] == categorySelected}">
-							<option selected="selected" value="${category['categoryId']}">
-							${category['categoryName']}</option>
-						</c:when>
-						<c:otherwise>
-							<option value="${category['categoryId']}">
-							${category['categoryName']}</option>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach> -->
-				 <%
-				 String categorySelected;
-				 if (null == request.getParameter("category_id")) {
-					 categorySelected = "0";
-				 } else {
-					 categorySelected = request.getParameter("category_id");
-				 }
-				 int size = categoryMapList.size();
-				 for (int i = 0; i < size; i++) {
-					 HashMap<String, Object> map = categoryMapList.get(i);
-					 String tempId = map.get("categoryId").toString();
-					 String tempName = map.get("categoryName").toString();
-					 if (categorySelected.compareTo(tempId) == 0) {
-					 %>
-					 <option selected="selected" value="<%=tempId%>"><%=tempName%></option>
-					 <% } else {
-						 %>
-						 <option value="<%=tempId%>"><%=tempName%></option>
-						 <%
-					 }
-				 }
-				 %>
-			</select></span>
-		</div>
-		<div class="search_keyword">
-			<input id="keyword" placeholder="Nhập tên sản phẩm cần tìm kiếm"
-				value="${keyword}" />
-		</div>
-		<div class="search_button">
-			<input id="search_submit" type="button" value="Tìm"
-				onclick="searchOnClick()" />
-		</div>
-		<div class="clear_left"></div>
-	</div>
-	<div class="extend_block">
-		<div id="mycart" class="cart_box">
-			<a href="viewCart.html" id=cart_detail>Giỏ hàng (<span
-				class="cart_number"><%=cartNumber%></span>)
-			</a>
-		</div>
-		<div class="info_user">
-			<%
-				//chưa sử dụng synchronized ở đây
-				/*String os_username = null;
-				synchronized(session){
-					os_username=session.getAttribute("os_username").toString();
-				}*/
+	<div id="header">
+	    <div id="logo"> <a href="#"><img src="image/image_template/logo.png" alt="" border="0" width="237" height="140" /></a> </div>
+	    <div class="oferte_content">
+	      <div class="top_divider"><img src="image/image_template/header_divider.png" alt="" width="1" height="164" /></div>
+	      <div class="oferta">
+	        <div class="oferta_content"> <img src="image/image_template/laptop.png" width="94" height="92" alt="" border="0" class="oferta_img" />
+	          <div class="oferta_details">
+	            <div class="oferta_title">Samsung GX 2004 LM</div>
+	            <div class="oferta_text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </div>
+	            <a href="details.html" class="details">details</a> </div>
+	        </div>
+	        <div class="oferta_pagination"> <span class="current">1</span> <a href="http://all-free-download.com/free-website-templates/">2</a> <a href="http://all-free-download.com/free-website-templates/">3</a> <a href="http://all-free-download.com/free-website-templates/">4</a> <a href="http://all-free-download.com/free-website-templates/">5</a> </div>
+	      </div>
+	      <div class="top_divider"><img src="image/image_template/header_divider.png" alt="" width="1" height="164" /></div>
+	    </div>
+	    <!-- end of oferte_content-->
+  	</div>
+	
+	<div id="main_content">
+		<div id="menu_tab">
+	      <div class="left_menu_corner"></div>
+	      <ul class="menu">
+	        <li><a href="homes.html" class="nav1"> Trang chủ</a></li>
+	        <li class="divider"></li>
+	        <li><a href="#" class="nav2">Sản phẩm</a></li>
+	        <li class="divider"></li>
+	        <li><a href="#" class="nav3">Đặc biệt</a></li>
+	        <li class="divider"></li>
+	       
+	        
+	        <li><a href="#" class="nav5">Vận chuyển</a></li>
+	        <li class="divider"></li>
+	        <li><a href="contact.html" class="nav6">Liên hệ</a></li>
+	        <li class="divider"></li>
+	         <%
 				if (session.getAttribute("os_username") != null) {
 			%>
-			<div id="myorder" class="order_box">
-				<a href="viewOrderList.html" id=order_list><span>Đơn hàng</span></a>
-			</div>
-			<div class="os_username">
-				<a href="userDetail.html"><span><%=session.getAttribute("os_username")%>
-				</span></a>
-			</div>
-			<div class="logout">
-				<a href="logout.html">Đăng xuất</a>
-			</div>
+			<li><a href="userDetail.html" class="nav4"><%=session.getAttribute("os_username")%></a></li>
+	        <li class="divider"></li>
+	        <li><a href="logout.html" class="nav4">Đăng xuất</a></li>
+	        <li class="divider"></li>
 			<%
 				} else {
 			%>
-			<div class="login">
-				<a href="#">Đăng nhập</a>
-			</div>
-			<div class="register">
-				<a href="#">Đăng ký</a>
-			</div>
+			<li><a href="#" class="nav4 login">Đăng nhập</a></li>
+	        <li class="divider"></li>
+	        <li><a href="#" class="nav4 register">Đăng kí</a></li>
+	        <li class="divider"></li>
 			<%
 				}
 			%>
-
-		</div>
-		<div class="clear_left"></div>
+	        <li class="currencies">Đơn vị
+	          <select>
+	            <option>VND</option>
+	            <option>Đô la Mỹ</option>
+	          </select>
+	        </li>
+	      </ul>
+	      <div class="right_menu_corner"></div>
+	    </div>
 	</div>
-</div>
-<div class="header_menu">
-	<div class="vertical_menu">
-		<div class="vt_title">DANH MỤC SẢN PHẨM</div>
-	</div>
-	<ul class="menu_top">
-		<li><a href="newProducts.html" class="menu_item">SẢN PHẨM MỚI</a></li>
-		<li><a href="hotProducts.html" class="menu_item">SẢN PHẨM ĐANG HOT</a></li>
-		<li><a href="waitingProducts.html" class="menu_item">SẢN PHẨM SẮP RA MẮT</a></li>
-		<li><a href="promotionProducts.html" class="menu_item">KHUYẾN MÃI</a></li>
-		<li class="clear_left"></li>
-	</ul>
-	<div class="clear_left"></div>
-</div>
+	
+	
 <div id="form_login" class="reveal-modallogin">
 	<h4>Đăng Nhập</h4>
 	<form action="" class="form_login" method="post"

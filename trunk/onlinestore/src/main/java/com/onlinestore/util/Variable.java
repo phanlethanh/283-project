@@ -15,7 +15,7 @@ public class Variable {
 	public static final String REQUEST_KEYWORD = "keyword";
 	public static final String REQUEST_CATEGORY_ID = "category_id";
 	
-	public static final Integer pageSize = 10;
+	public static final Integer pageSize = 9;
 	public static final Integer homePageSize = 8;
 
 	// Product detail host

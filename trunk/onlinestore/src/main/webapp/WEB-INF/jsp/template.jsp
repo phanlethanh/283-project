@@ -1,5 +1,7 @@
 <%@taglib  prefix="tiles"  uri="http://tiles.apache.org/tags-tiles"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -92,9 +94,34 @@
 	});
 </script>
 <body>
-	<div id="">
+	<div id="main_container">
 		<div class="banner_top">
+		<div class="top_bar">
 		
+	    <div class="top_search">
+	      <div class="search_text"><a href="#">Tìm kiếm</a></div>
+	      <input type="text" class="search_input" name="search"  id="keyword" placeholder="Nhập tên sản phẩm cần tìm kiếm" value="${keyword}"/>
+	      <input type="image" src="image/image_template/search.gif" class="search_bt" id="search_submit" onclick="searchOnClick()"/>
+	    </div>
+	    <div class="search_box">
+		<div class="search_select">
+			<span class="index_select"><select id="category_select">
+				<c:forEach var="category" items="${categoryMapList}">
+					<c:choose>
+						<c:when test="${category['categoryId'] == categorySelected}">
+							<option selected="selected" value="${category['categoryId']}">
+							${category['categoryName']}</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${category['categoryId']}">
+							${category['categoryName']}</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select></span>
+		</div>
+		<div class="clear_left"></div>
+	</div>
 		</div>
 	    <div class="header">
 	    	<tiles:insertAttribute name="header"/>

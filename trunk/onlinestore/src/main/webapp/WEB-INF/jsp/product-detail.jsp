@@ -59,7 +59,7 @@
 </script>
 <!-- End Twitter plugin javascript -->
 
-<div class="product_detail">
+<div class="center_content">
 	<form action="" method="get">
 		<h2>
 			<c:out value="${product['name']}" />
@@ -123,7 +123,7 @@
 	<br />
 	<!-- Gallery -->
 	<c:forEach var="image" items="${product['images']}">
-		<div>
+		<div class="dt_product_image">
 			<img src="${image['imageName']}" width="900">
 		</div>
 		<p>${image['imageDescription']}</p>
