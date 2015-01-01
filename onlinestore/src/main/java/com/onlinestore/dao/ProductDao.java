@@ -8,5 +8,8 @@ public interface ProductDao extends Dao<Product>{
 	List<Product> getHomeProducts();
 	
 	List<Product> search(String keyword);
+	
 	Product getLastInsertId();
+	
+	List<Product> searchByCategory(String keyword, Integer categoryId);
 }

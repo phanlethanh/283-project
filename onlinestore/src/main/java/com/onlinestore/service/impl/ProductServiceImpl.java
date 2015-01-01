@@ -52,4 +52,9 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getLastInsertId();
 	}
 
+	@Override
+	public List<Product> searchByCategory(String keyword, Integer categoryId) {
+		return productDao.searchByCategory(keyword, categoryId);
+	}
+
 }

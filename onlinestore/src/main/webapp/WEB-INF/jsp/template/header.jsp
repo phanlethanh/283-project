@@ -4,20 +4,35 @@
 <script>
 	function searchOnClick() {
 		var keyword = document.getElementById("keyword").value;
-		window.location.href = 'searchProduct.html?keyword=' + keyword;
+		var categoryId = document.getElementById("category_select").value;
+		window.location.href = 'searchProduct.html?category_id=' 
+				+ categoryId + '&keyword=' + keyword;
 	}
 </script>
 <div class="header_content">
 	<div class="search_box">
 		<div class="search_select">
-			<span class="index_select">Tất cả danh mục</span>
+			<span class="index_select"><select id="category_select">
+				<c:forEach var="category" items="${categoryMapList}">
+					<c:choose>
+						<c:when test="${category['categoryId'] == categorySelected}">
+							<option selected="selected" value="${category['categoryId']}">
+							${category['categoryName']}</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${category['categoryId']}">
+							${category['categoryName']}</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select></span>
 		</div>
 		<div class="search_keyword">
 			<input id="keyword" placeholder="Nhập tên sản phẩm cần tìm kiếm"
 				value="${keyword}" />
 		</div>
 		<div class="search_button">
-			<input id="search_submit" type="button" value="Tim"
+			<input id="search_submit" type="button" value="Tìm"
 				onclick="searchOnClick()" />
 		</div>
 		<div class="clear_left"></div>
@@ -37,6 +52,9 @@
 				}*/
 				if (session.getAttribute("os_username") != null) {
 			%>
+			<div id="myorder" class="order_box">
+				<a href="viewOrderList.html" id=order_list><span>Đơn hàng</span></a>
+			</div>
 			<div class="os_username">
 				<a href="userDetail.html"><span><%=session.getAttribute("os_username")%>
 				</span></a>
@@ -48,10 +66,10 @@
 				} else {
 			%>
 			<div class="login">
-				<a href="#">Login</a>
+				<a href="#">Đăng nhập</a>
 			</div>
 			<div class="register">
-				<a href="#">Register</a>
+				<a href="#">Đăng ký</a>
 			</div>
 			<%
 				}
@@ -85,7 +103,7 @@
 			id="login_user_name" title="Name"> <span>Mật khẩu</span> <input
 			name="password" type="password" id="login_user_password"
 			title="Password"> <input type="checkbox" id="login_save"
-			name="login_save"> <span>Ghi nhớ mật khẩu</span> <input
+			name="login_save"> <span>Ghi nhớ đăng nhập</span> <input
 			type="button" id="login_submit" value="Đăng nhập">
 	</form>
 

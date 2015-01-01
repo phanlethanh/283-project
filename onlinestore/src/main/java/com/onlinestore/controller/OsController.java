@@ -5,6 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.onlinestore.service.CartProductService;
 import com.onlinestore.service.CartService;
+import com.onlinestore.service.CategoryService;
 import com.onlinestore.service.ConfigService;
 import com.onlinestore.service.OsOrderDetailService;
 import com.onlinestore.service.OsOrderService;
@@ -74,6 +75,15 @@ public abstract class OsController {
 		CartProductService cartProductService = (CartProductService) appCtx
 				.getBean("cartProductService");
 		return cartProductService;
+	}
+	
+	protected CategoryService getCategoryService()
+	{
+		ApplicationContext appCtx = 
+	    		new ClassPathXmlApplicationContext("beans-service.xml");
+		CategoryService categoryService = 
+	    		(CategoryService)appCtx.getBean("categoryService");
+	    return categoryService;
 	}
 
 }
