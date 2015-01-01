@@ -86,7 +86,7 @@ $(document).ready(
 		});
 </script>
 
-<h3 align="center">Thông tin tài khoản</h3>
+<span class="ctgh_p">Thông tin tài khoản</span>
 
 <div class="user_detail">
 	<table>
@@ -122,7 +122,7 @@ $(document).ready(
 </div>
 
 <div id="editUserInfo" class="reveal-editrecordmodalwindow">
-	<h4>Thông tin tài khoản</h4>
+	<span class="ctgh_p">Thông tin tài khoản</span>
 	<div class="in-progress"></div>
 	<div class="modalAddCategoryCentreContent">
 		<div class="modalMess"></div>

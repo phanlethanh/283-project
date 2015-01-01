@@ -584,8 +584,7 @@
 </script>
 <div class="right_max_width">
 <div class="form-message"></div>
-	
-	<h2 class="group_title">List Product</h2>
+	<span class="ctgh_p">List Product</span>
 	<div class="clear"></div>
 	
 	<div class="hidden_info">
@@ -620,7 +619,7 @@
 	<h4>Chi tiết sản phẩm</h4>
 	<input type="hidden" id="dt_product_id">
 	<div class="in-progress"></div>
-	<div class="modalAddCategoryCentreContent">
+	<div class="modalDetailCategoryCentreContent">
 		<div class="modalMess"></div>
 		<form action="" id="form_admin_detail_product" method="post" modelAttribute="Product">
 			<div class="in-progress"></div>
@@ -678,7 +677,7 @@
 	<h4>Cập nhập sản phẩm</h4>
 	<input type="hidden" id=edit_product_id>
 	<div class="in-progress"></div>
-	<div class="modalAddCategoryCentreContent">
+	<div class="modalEditCategoryCentreContent">
 		<div class="modalMess"></div>
 		
 			<div class="in-progress"></div>
@@ -868,8 +867,8 @@
 	</div>
 	<a class="close-reveal-modal close-reveal-all"></a>
 </div>
-<div id="adminAddProduct" class="reveal-editrecordmodalwindow">
-	<h4>Cập nhập sản phẩm</h4>
+<div id="adminAddProduct" class="reveal-modallogin">
+	<h4>Thêm sản phẩm</h4>
 	<input type="hidden" id=edit_product_id>
 	<div class="in-progress"></div>
 	<div class="modalAddProductCentreContent">

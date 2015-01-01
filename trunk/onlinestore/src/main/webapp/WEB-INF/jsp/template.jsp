@@ -19,7 +19,7 @@
 <script type="text/javascript" src="/onlinestore/script/ebanhang.min.js" ></script>
 
 <link rel="stylesheet" type="text/css" href="/onlinestore/css/style_template.css">
-<script type="text/javascript" src="/onlinestore/script/boxOver.js" ></script>
+
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
