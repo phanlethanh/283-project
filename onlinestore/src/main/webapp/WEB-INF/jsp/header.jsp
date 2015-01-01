@@ -50,21 +50,6 @@
       <div class="header_menu">
           <div class="vertical_menu">
               <div class="vt_title">DANH MỤC SẢN PHẨM</div>
-              
-              <ul class="vt_list_item">
-                  <li class="vt_item">
-                      <p><span>Thời Trang Nữ</span><a class="vt_item_detail" href="#" ><img src="image/arrow-right.png" /></a></p>
-                  </li> 
-                  <li class="vt_item">
-                      <p><span>Thời Trang Nam</span><a class="vt_item_detail" href="#" ><img src="image/arrow-right.png" /></a></p>
-                  </li>
-                  <li class="vt_item">
-                      <p><span>Điện Thoại - Phu Kiện</span><a class="vt_item_detail" href="#" ><img src="image/arrow-right.png" /></a></p>
-                  </li>
-                  <li class="vt_item">
-                      <p><span>Máy Tính</span><a class="vt_item_detail" href="#" ><img src="image/arrow-right.png" /></a></p>
-                  </li>
-              </ul>
           </div>
             <ul class="menu_top">
                   <li><a href="#" class="menu_item">BỘ SƯU TẬP</a>

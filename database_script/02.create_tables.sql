@@ -5,7 +5,7 @@
 CREATE TABLE datas_fields_product
 (
   id serial NOT NULL,
-  serial_data character varying[],
+  serial_data character(1000),
   create_date timestamp without time zone,
   write_date timestamp without time zone,
   active boolean,

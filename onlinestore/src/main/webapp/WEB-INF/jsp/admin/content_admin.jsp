@@ -23,6 +23,7 @@
 					$(".detail_price").val(data.price);
 					$(".detail_promotion").val(data.name_promotion);
 					$(".detail_status").val(data.name_status);
+					$(".detail_stock").val(data.stock);
 					$(".icon_content").append('<img alt="" src="'+data.icon+'" id="icon_content">');
 					for(var i = 0; i < data.images.length; i++)
 					{
@@ -55,7 +56,7 @@
 					$(".edit_name").val(data.name);
 					$(".edit_description").val(data.description);
 					$(".edit_price").val(data.price);
-					
+					$(".edit_stock").val(data.stock);
 					$(".icon_content").append('<img alt="" src="'+data.icon+'" id="icon_content">');
 					for(var i = 0; i < data.images.length; i++)
 					{
@@ -538,6 +539,46 @@
 			    }
 			});
 		});
+		
+		$("#import_product").live('click', function(){
+			var category_id = $("#category_id").val();
+			$.ajax({
+				url:"importProductLoadCategory.html",
+				type:"POST",
+				data:{category_id:category_id},
+				success:function(data){
+					$("#importProduct").reveal();
+					var cbb_category = document.getElementById("import_product_category");
+					$("#import_product_category").empty();
+					for(var j=0; j<data.sub_category.length; j++)
+					{
+						var option = document.createElement('option');
+						option.text = data.sub_category[j]["name"];
+						option.value = data.sub_category[j]["id"];
+						cbb_category.add(option,0);
+					}
+				}
+			});
+			
+		});
+		$(".save_import").live('click', function(){
+			$("#import_category_id").val($("#import_product_category").val());
+			var formData = new FormData($('#importForm')[0]);
+			$.ajax({
+			    url: "importProduct.html",
+			    type: "POST",
+			    contentType: false,
+			    processData: false,
+			    cache: false,
+			    data: formData,
+			    success: function(data) {
+			    	$("#importProduct").trigger('reveal:close');
+			    },
+			    error: function() {
+			        alert("unable to create the record");
+			    }
+			});
+		});
 	});
 	
 </script>
@@ -551,6 +592,7 @@
 		<input type="hidden" class="category_id" id="category_id">
 	</div>
 	<div class="admin_action">
+		<input type="button" id="import_product" value="Import" class="config_field">
 		<input type="button" id="add_product" value="Thêm sản phẩm" class="config_field">
 		<input type="button" id="config_field" value="Cài đặt thuộc tính" class="config_field">
 	</div>
@@ -598,11 +640,14 @@
 					<div class=admin_detail_product_item>
 						<span class="dt_name_discription">Mô tả</span><textarea name="description" cols="40" rows="3" class="detail_description"></textarea>
 					</div>
-					<div class="admin_detail_product_icon">
-						<span>Icon</span><div class="icon_content"></div>
+					<div class="admin_dt_product_item_discript">
+						<span class="dt_name_discription">Icon</span><div class="icon_content"></div>
 					</div>
 					<div class=admin_detail_product_item>
 						<span class="dt_name_field">Giá</span><input class="detail_price" type="text"name="">
+					</div>
+					<div class=admin_detail_product_item>
+						<span class="dt_name_field">Số lượng</span><input class="detail_stock" type="text"name="">
 					</div>
 					<div class=admin_detail_product_item>
 						<span>Trạng thái</span><input class="detail_status" type="text">
@@ -662,6 +707,9 @@
 				<div class=admin_detail_product_item>
 					<span>Giá</span><input class="edit_price" type="text" name="price">
 				</div>
+				<div class=admin_detail_product_item>
+						<span class="dt_name_field">Số lượng</span><input class="edit_stock" type="text"name="">
+					</div>
 				<div class=admin_detail_product_promotion>
 					<span>Trạng thái</span><select id="edit_status"></select>
 				</div>
@@ -718,6 +766,26 @@
 				<input class="formButton cancel_change_icon" type="button" value="Thoát"/>
 			</div>
 	</div>
+</div>
+<div id="importProduct" class="reveal-recordmodalwindow medium">
+	<h4>Import</h4>
+	<div class="in-progress"></div>
+	<div class="modalImportProductCentreContent">
+		<div class="modalMess"></div>
+			<div class="in-progress"></div>
+			<div class="modalContent">							
+				<form id="importForm">
+				     <input type="file" name="myFile" id="file_import" accept=".csv" /></br>
+				     <span>Danh mục</span><select id="import_product_category"></select>
+				     <input type="hidden" name="category_id" id="import_category_id">			     
+				</form>
+			</div>
+			<div class="groupFormButton">
+				<input class="formButton save_import" type="button" value="Lưu"/>
+				<input class="formButton cancel_import" type="button" value="Thoát"/>
+			</div>
+	</div>
+	<a class="close-reveal-modal close-reveal-all"></a>
 </div>
 <div id="addIconProduct" class="reveal-recordmodalwindow medium">
 	<h4>Chọn icon sản phẩm</h4>

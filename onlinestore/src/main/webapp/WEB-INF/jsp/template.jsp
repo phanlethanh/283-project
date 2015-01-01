@@ -15,6 +15,9 @@
 <link rel="stylesheet" type="text/css" href="/onlinestore/css/ui.fancytree.css">
 <link rel="stylesheet" type="text/css" href="/onlinestore/css/jquery-ui.min.css">
 <script type="text/javascript" src="/onlinestore/script/ebanhang.min.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="/onlinestore/css/style_template.css">
+<script type="text/javascript" src="/onlinestore/script/boxOver.js" ></script>
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -89,24 +92,29 @@
 	});
 </script>
 <body>
-	<div class="banner_top"></div>
-    <div class="header">
-    	<tiles:insertAttribute name="header"/>
-    </div>
-    <div class="content">
-    	<div class="content_left">
-    		<tiles:insertAttribute name="left_content" />
-    	</div>
-    	<div class="main_content">
-    		
-    		<tiles:insertAttribute name="content"/>
-    	</div>
-    	
-    	
-    </div>
-    <div class="footer">
-    	<tiles:insertAttribute name="footer"/>
-    </div>
-    <div id="test"></div>
+	<div id="">
+		<div class="banner_top">
+		
+		</div>
+	    <div class="header">
+	    	<tiles:insertAttribute name="header"/>
+	    </div>
+	    <div class="content">
+	    	<div class="content_left">
+	    		<tiles:insertAttribute name="left_content" />
+	    	</div>
+	    	<div class="main_content">
+	    		
+	    		<tiles:insertAttribute name="content"/>
+	    	</div>
+	    	
+	    	
+	    </div>
+	    <div class="footer">
+	    	<tiles:insertAttribute name="footer"/>
+	    </div>
+	    <div id="test"></div>
+	</div>
+	
 </body>
 </html>
