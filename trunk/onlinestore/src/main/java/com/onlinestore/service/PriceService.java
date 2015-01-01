@@ -14,4 +14,5 @@ public interface PriceService {
 	void updatePrice(Price price);
 	
 	void deletePrice(Integer id);
+	Price getLastPriceInsert();
 }

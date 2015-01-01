@@ -37,4 +37,10 @@ public class ProducerServiceImpl implements ProducerService {
 		producerDao.deleteById(id);
 	}
 
+	@Override
+	public Producer findProducerWithName(String name) {
+		// TODO Auto-generated method stub
+		return producerDao.findProducerWithName(name);
+	}
+
 }

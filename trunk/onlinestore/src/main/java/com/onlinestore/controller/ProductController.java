@@ -3,14 +3,23 @@ package com.onlinestore.controller;
 import java.awt.image.BufferedImage;
 import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -23,26 +32,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import org.postgresql.util.Base64;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -54,6 +43,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+
+
+
 
 import com.google.gson.Gson;
 import com.onlinestore.model.Category;
@@ -222,6 +215,7 @@ public class ProductController {
 		productMap.put("producerDescription", product.getProducer()
 				.getDescription());
 		productMap.put("name_promotion", product.getPromotion().getName());
+		productMap.put("stock", product.getStockQuantity());
 		// Images of gallery
 		List<HashMap<String, Object>> imageMapList = new ArrayList<HashMap<String, Object>>();
 		List<Image> images = new ArrayList<Image>(product.getGallery()
@@ -593,6 +587,7 @@ public class ProductController {
 		price.setPrice(Double.parseDouble(request.getParameter("price")));
 		getPriceService().updatePrice(price);
 		product.setDescription(request.getParameter("description"));
+		product.setStockQuantity(Integer.parseInt(request.getParameter("stock")));
 		if(request.getParameter("icon") != "")
 			product.setIcon(request.getParameter("icon"));
 		//product.getPromotion().set;
@@ -785,4 +780,112 @@ public class ProductController {
 		return list_parent;
 	}
 	
+	@RequestMapping (value="/importProductLoadCategory", method=RequestMethod.POST)
+	public void importProductLoadCategory(HttpServletRequest request, HttpServletResponse response)
+	{
+		int category_id = Integer.parseInt(request.getParameter("category_id"));
+		HashMap<String,Object> data = new HashMap<String,Object>();
+		List<Category> list_sub_category = new ArrayList<Category>();
+		List<HashMap<String, Object>> subCategoryMapList = new ArrayList<HashMap<String, Object>>();
+		list_sub_category = getCategoryService().getSubCategory(category_id);
+		if(list_sub_category.isEmpty())
+		{
+			list_sub_category.add(getCategoryService().getCategory(category_id));
+		}
+		
+		for(int i = 0; i<list_sub_category.size(); i++)
+		{
+			HashMap<String, Object> subCategoryMap = new HashMap<String, Object>();
+			subCategoryMap.put("name", list_sub_category.get(i).getName());
+			subCategoryMap.put("id", list_sub_category.get(i).getId());
+			subCategoryMapList.add(subCategoryMap);
+		}
+		data.put("sub_category", subCategoryMapList);
+		String json = new Gson().toJson(data);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping (value="/importProduct", method=RequestMethod.POST)
+	public void importProduct(@RequestParam("myFile")MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		String fileName = file.getName();
+		int category_id = Integer.parseInt(request.getParameter("category_id"));
+		List<Category> list_parent_category = findListParentCategory(category_id);
+		
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new InputStreamReader(file.getInputStream()));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String line;
+		try { 
+			br.readLine();
+			while ((line = br.readLine()) != null) {
+				String[] fields = line.split(",");
+				Product product = new Product();
+				product.setName(fields[0]);
+				double iPrice = Double.parseDouble(fields[2]);
+				Price price = new Price();
+				price.setPrice(iPrice);
+				getPriceService().createPrice(price);
+				Price newPriceInsert = getPriceService().getLastPriceInsert();
+				product.setPrice(newPriceInsert);
+				product.setDescription(fields[1]);
+				int stockQuantity = Integer.parseInt(fields[3]);
+				product.setStockQuantity(stockQuantity);
+				Promotion promotion = getPromotionService().getPromotion(6);
+				product.setPromotion(promotion);
+				Status status = getStatusService().getStatus(1);
+				product.setStatus(status);
+				Producer producer = getProducerService().findProducerWithName(fields[4]);
+				if(producer != null)
+					product.setProducer(producer);
+				if(fields.length >= 6 && fields[5] != "")
+					product.setIcon(fields[5]);
+				else
+					product.setIcon("");
+				Gallery gallery = new Gallery();
+				gallery.setName(fields[0]);
+				getGalleryService().createGallery(gallery);
+				product.setGallery(getGalleryService().getLastInsertId());
+				getProductService().createProduct(product);
+				Product product_new = getProductService().getLastInsertId();
+				Set set_category_product = new HashSet();
+				for(int i = 0; i< list_parent_category.size(); i++)
+				{
+					CategoryProduct category_product_item = new CategoryProduct();
+					category_product_item.setCategory(list_parent_category.get(i));
+					category_product_item.setProduct(product_new);
+					getCategoryProductService().createCategoryProduct(category_product_item);
+					CategoryProduct new_insert = getCategoryProductService().getLastInsertId();
+					set_category_product.add(new_insert);
+				}
+				product_new.setCategoryProducts(set_category_product);
+				getProductService().updateProduct(product_new);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		br.close();
+		HashMap<String,Object> meta = new HashMap<String,Object>();
+		String json = new Gson().toJson(meta);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

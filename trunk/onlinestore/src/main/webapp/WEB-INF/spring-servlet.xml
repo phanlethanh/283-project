@@ -101,6 +101,8 @@
 				<prop key="saveEditProduct.html">productController</prop>
 				<prop key="addProduct.html">productController</prop>
 				<prop key="saveAddProduct.html">productController</prop>
+				<prop key="importProduct.html">productController</prop>
+				<prop key="importProductLoadCategory.html">productController</prop>
 				<prop key="/viewCart.html">cartController</prop>
 				<prop key="/addToCart.html">cartController</prop>
 				<prop key="/removeProductFromCart.html">cartController</prop>

@@ -14,4 +14,5 @@ public interface ProducerService {
 	void updateProducer(Producer producer);
 	
 	void deleteProducer(Integer id);
+	Producer findProducerWithName(String name);
 }

@@ -179,7 +179,7 @@
 .admin_detail_product_item textarea {width:65%; display:inline-block; margin-left:5%; padding:5px}
 .icon_content {width:100px; height:100px;}
 .icon_content img {width:100px; height:100px;}
-admin_detail_product_icon{width:90%; margin-left:20px; height:30px; margin-bottom:10px}
+.admin_detail_product_icon{width:90%; margin-left:20px; height:30px; margin-bottom:10px}
 .admin_detail_product_icon span {width:20%; display:inline-block; margin-left:20px}
 .admin_detail_product_gallery {width:90%; margin-left:20px; height:200px; margin-bottom:10px; overflow:scroll}
 .gallery_title {width:25%; float:left; height:200px; line-height:200px}
@@ -280,7 +280,7 @@ admin_detail_product_icon{width:90%; margin-left:20px; height:30px; margin-botto
 .admin_detail_product_promotion{width:100%; height:30px}
 .admin_detail_product_promotion span {width:25%; display:inline-block}
 .admin_action{
-	margin-left:733px;
+	margin-left:667px;
 	
 }
 .admin_add_product_name span{

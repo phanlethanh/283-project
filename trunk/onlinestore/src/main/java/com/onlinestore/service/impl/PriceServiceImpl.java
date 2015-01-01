@@ -37,4 +37,10 @@ public class PriceServiceImpl implements PriceService {
 		priceDao.deleteById(id);
 	}
 
+	@Override
+	public Price getLastPriceInsert() {
+		// TODO Auto-generated method stub
+		return priceDao.getLastPriceInsert();
+	}
+
 }
