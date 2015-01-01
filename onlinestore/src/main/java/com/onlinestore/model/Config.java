@@ -20,6 +20,10 @@ import javax.persistence.TemporalType;
 @Table(name = "config", schema = "public")
 public class Config implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1646752486588658488L;
 	private int id;
 	private String name;
 	private String dataType;

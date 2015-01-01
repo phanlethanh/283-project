@@ -36,4 +36,9 @@ public class StatusServiceImpl implements StatusService {
 	public void deleteStatus(Integer id) {
 		statusDao.deleteById(id);
 	}
+
+	@Override
+	public List<Status> getProductStatuses() {
+		return statusDao.getProductStatuses();
+	}
 }

@@ -1,7 +1,6 @@
 package com.onlinestore.service;
 
 import com.onlinestore.model.DatasFieldsProduct;
-import com.onlinestore.model.FieldsProduct;
 
 public interface DatasFieldsProductService {
 	

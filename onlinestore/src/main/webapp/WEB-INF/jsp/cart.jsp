@@ -101,7 +101,7 @@
 		<p>
 			Thanh toán: <span id="total_payment">${totalPayment}</span> đ
 		</p>
-		<input type="button" value="Lập hóa đơn" class="create_order_button"
+		<input type="button" value="Lập đơn hàng" class="create_order_button"
 			id="create_order_button">
 	</div>
 </div>
@@ -117,7 +117,7 @@
 			<div class="modalContent">
 				<div class=terms_and_conditions_item>
 					<textarea class="terms_and_conditions" readonly
-						name="terms_and_conditions" cols="90" rows="25">						
+						name="terms_and_conditions" cols="90" rows="20">						
 ĐIỀU KHOẢN MUA BÁN HÀNG HÓA TẠI ONLINE STORE
 
 # Điều 1: Xác nhận đơn hàng

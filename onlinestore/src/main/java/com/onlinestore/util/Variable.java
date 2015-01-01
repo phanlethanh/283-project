@@ -19,8 +19,10 @@ public class Variable {
 	// Format
 	public static final String CURRENCY_FORMAT = "%1$,.0f";
 	
-	// Constant ID
+	// Constant ID in database
 	public static final Integer ID_NEW_ORDER_STATUS = 6;
 	public static final Integer ID_ZERO_TRANSPORT_FEE = 1;
 	public static final Integer ID_VAT_TAX = 1;
+	public static final Integer ID_MIN_PAYMENT = 1;
+	public static final Integer ID_MAX_PAYMENT = 2;
 }

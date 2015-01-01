@@ -6,4 +6,6 @@ import com.onlinestore.model.OsOrderDetail;
 
 public interface OsOrderDetailDao extends Dao<OsOrderDetail>{
 	List<OsOrderDetail> getOrderDetailListByOrderId(Integer orderId);
+	
+	void deleteByOrderId(Integer orderId);
 }

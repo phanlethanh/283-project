@@ -2,7 +2,6 @@ package com.onlinestore.model;
 
 // Generated Dec 18, 2014 12:06:36 PM by Hibernate Tools 3.4.0.CR1
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +24,10 @@ import javax.persistence.TemporalType;
 @Table(name = "datas_fields_product", schema = "public")
 public class DatasFieldsProduct implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 427090479057435680L;
 	private int id;
 	private String serialData;
 	private Date createDate;

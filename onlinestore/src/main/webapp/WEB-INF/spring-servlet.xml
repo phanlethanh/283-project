@@ -122,6 +122,15 @@
 				<prop key="getTermsAndConditions.html">cartController</prop>
 				<prop key="deleteCartProductFromCart.html">cartController</prop>
 				<prop key="createOrderFromCart.html">osOrderController</prop>
+				<prop key="orderDetail.html">osOrderController</prop>
+				<prop key="editOrder.html">osOrderController</prop>
+				<prop key="deleteOrder.html">osOrderController</prop>
+				<prop key="confirmOrder.html">osOrderController</prop>
+				<prop key="deleteOrderDetailItem.html">osOrderDetailController</prop>
+				<prop key="/userDetail.html">osUserController</prop>
+				<prop key="userDetailForEdit.html">osUserController</prop>
+				<prop key="editUserInfo.html">osUserController</prop>
+				<prop key="changeUserPassword.html">osUserController</prop>
 			</props>
 		</property>
 	</bean>

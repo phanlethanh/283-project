@@ -26,6 +26,10 @@ import javax.persistence.TemporalType;
 @Table(name = "category", schema = "public")
 public class Category implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9213510449858970812L;
 	private int id;
 	private FieldsProduct fieldsProduct;
 	private Integer parentId;

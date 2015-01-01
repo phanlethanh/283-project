@@ -16,4 +16,6 @@ public interface OsOrderDetailService {
 	void deleteOsOrderDetail(Integer id);
 	
 	List<OsOrderDetail> getOrderDetailListByOrderId(Integer orderId);
+	
+	void deleteByOrderId(Integer orderId);
 }

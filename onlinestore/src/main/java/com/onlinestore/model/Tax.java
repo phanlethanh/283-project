@@ -24,6 +24,10 @@ import javax.persistence.TemporalType;
 @Table(name = "tax", schema = "public")
 public class Tax implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4320836531402542840L;
 	private int id;
 	private String name;
 	private Double value;

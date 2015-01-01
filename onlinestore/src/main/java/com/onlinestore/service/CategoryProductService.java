@@ -3,7 +3,6 @@ package com.onlinestore.service;
 import java.util.List;
 
 import com.onlinestore.model.CategoryProduct;
-import com.onlinestore.model.Product;
 
 public interface CategoryProductService {
 	Integer createCategoryProduct(CategoryProduct categoryProduct);

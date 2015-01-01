@@ -14,4 +14,6 @@ public interface StatusService {
 	void updateStatus(Status status);
 
 	void deleteStatus(Integer id);
+	
+	List<Status> getProductStatuses();
 }

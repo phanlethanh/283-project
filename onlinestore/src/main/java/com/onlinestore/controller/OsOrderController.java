@@ -1,10 +1,11 @@
 package com.onlinestore.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,11 +49,13 @@ public class OsOrderController extends OsController {
 			// Get orderList from user id
 			orderList = getOsOrderService().getOrderListByUserId(userId);
 			// Set orderList to orderMapList
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			for (int i = 0; i < orderList.size(); i++) {
 				OsOrder order = orderList.get(i);
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("id", order.getId());
 				map.put("status", order.getStatus().getName());
+				map.put("createDate", df.format(order.getCreateDate()));
 				map.put("transportFee", order.getTransportFee().getPrice());
 				map.put("taxName", order.getTax().getName());
 				map.put("taxValue", order.getTax().getValue());
@@ -69,12 +72,16 @@ public class OsOrderController extends OsController {
 	@RequestMapping(value = "/createOrderFromCart", method = RequestMethod.POST)
 	public void createOrderFromCart(HttpServletRequest request,
 			HttpServletResponse response) {
+		// double minPayment = Double.parseDouble(getConfigService().getConfig(
+		//		Variable.ID_MIN_PAYMENT).getValue());
+		// double maxPayment = Double.parseDouble(getConfigService().getConfig(
+		//		Variable.ID_MAX_PAYMENT).getValue());
 		HttpSession session = request.getSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
 			// Not login
 			// Redirect to login
-			map.put("code", 0);
+			map.put("code", 0); // not login
 		} else {
 			// Logged in
 			Integer userId = Integer.valueOf(session.getAttribute(
@@ -118,6 +125,91 @@ public class OsOrderController extends OsController {
 			}
 			map.put("code", 1);
 		}
+		String json = new Gson().toJson(map);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/orderDetail", method = RequestMethod.POST)
+	public void orderDetail(HttpServletRequest request,
+			HttpServletResponse response) {
+		String orderId = request.getParameter("id");
+		OsOrder order = getOsOrderService().getOsOrder(
+				Integer.parseInt(orderId));
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", orderId);
+		map.put("status", order.getStatus().getName());
+		map.put("create_date", df.format(order.getCreateDate()));
+		map.put("address", order.getAddress());
+		map.put("phone", order.getPhone());
+		String json = new Gson().toJson(map);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/editOrder", method = RequestMethod.POST)
+	public void editOrder(HttpServletRequest request,
+			HttpServletResponse response) {
+		String orderId = request.getParameter("order_id");
+		String address = request.getParameter("order_address");
+		String phone = request.getParameter("order_phone");
+		// Get order
+		OsOrder order = getOsOrderService().getOsOrder(
+				Integer.parseInt(orderId));
+		order.setAddress(address);
+		order.setPhone(phone);
+		// Update
+		getOsOrderService().updateOsOrder(order);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("code", 1);
+		map.put("id", orderId);
+		map.put("address", address);
+		map.put("phone", phone);
+		String json = new Gson().toJson(map);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/deleteOrder", method = RequestMethod.POST)
+	public void deleteOrder(HttpServletRequest request,
+			HttpServletResponse response) {
+		int orderId = Integer.parseInt(request.getParameter("id"));
+		// Delete order detail
+		getOsOrderDetailService().deleteByOrderId(orderId);
+		// Delete order
+		getOsOrderService().deleteOsOrder(orderId);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", orderId);
+		String json = new Gson().toJson(map);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/confirmOrder", method = RequestMethod.POST)
+	public void confirmOrder(HttpServletRequest request,
+			HttpServletResponse response) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		String json = new Gson().toJson(map);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

@@ -23,6 +23,10 @@ import javax.persistence.TemporalType;
 @Table(name = "image", schema = "public")
 public class Image implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3880648189458406256L;
 	private int id;
 	private Gallery gallery;
 	private String name;

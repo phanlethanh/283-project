@@ -23,6 +23,10 @@ import javax.persistence.TemporalType;
 @Table(name = "os_order_detail", schema = "public")
 public class OsOrderDetail implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3702991862321273647L;
 	private int id;
 	private OsOrder osOrder;
 	private Product product;
@@ -63,7 +67,7 @@ public class OsOrderDetail implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id")
 	public OsOrder getOsOrder() {
 		return this.osOrder;
