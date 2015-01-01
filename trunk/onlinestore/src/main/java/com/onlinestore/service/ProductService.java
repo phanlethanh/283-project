@@ -22,4 +22,12 @@ public interface ProductService {
 	List<Product> searchByCategory(String keyword, Integer categoryId);
 	
 	Product getLastInsertId();
+	
+	List<Product> getNewProducts();
+	
+	List<Product> getHotProducts();
+	
+	List<Product> getWaitingProducts();
+	
+	List<Product> getPromotionProducts();
 }

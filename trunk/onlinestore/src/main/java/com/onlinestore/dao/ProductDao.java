@@ -12,4 +12,12 @@ public interface ProductDao extends Dao<Product>{
 	Product getLastInsertId();
 	
 	List<Product> searchByCategory(String keyword, Integer categoryId);
+	
+	List<Product> getNewProducts();
+	
+	List<Product> getHotProducts();
+	
+	List<Product> getWaitingProducts();
+	
+	List<Product> getPromotionProducts();
 }

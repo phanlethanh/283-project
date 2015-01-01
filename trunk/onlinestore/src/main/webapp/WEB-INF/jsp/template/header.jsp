@@ -1,6 +1,10 @@
+<%@page import="antlr.CppCodeGenerator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.HashMap"%>
+
 <script>
 	function searchOnClick() {
 		var keyword = document.getElementById("keyword").value;
@@ -9,11 +13,17 @@
 				+ categoryId + '&keyword=' + keyword;
 	}
 </script>
+<% 
+	String cartNumber = "0";
+	cartNumber = session.getAttribute("cartNumber").toString();
+	List<HashMap<String, Object>> categoryMapList 
+		= (List<HashMap<String, Object>>) session.getAttribute("categoryMapList");
+%>
 <div class="header_content">
 	<div class="search_box">
 		<div class="search_select">
 			<span class="index_select"><select id="category_select">
-				<c:forEach var="category" items="${categoryMapList}">
+				<!--  <c:forEach var="category" items="${categoryMapList}">
 					<c:choose>
 						<c:when test="${category['categoryId'] == categorySelected}">
 							<option selected="selected" value="${category['categoryId']}">
@@ -24,7 +34,29 @@
 							${category['categoryName']}</option>
 						</c:otherwise>
 					</c:choose>
-				</c:forEach>
+				</c:forEach> -->
+				 <%
+				 String categorySelected;
+				 if (null == request.getParameter("category_id")) {
+					 categorySelected = "0";
+				 } else {
+					 categorySelected = request.getParameter("category_id");
+				 }
+				 int size = categoryMapList.size();
+				 for (int i = 0; i < size; i++) {
+					 HashMap<String, Object> map = categoryMapList.get(i);
+					 String tempId = map.get("categoryId").toString();
+					 String tempName = map.get("categoryName").toString();
+					 if (categorySelected.compareTo(tempId) == 0) {
+					 %>
+					 <option selected="selected" value="<%=tempId%>"><%=tempName%></option>
+					 <% } else {
+						 %>
+						 <option value="<%=tempId%>"><%=tempName%></option>
+						 <%
+					 }
+				 }
+				 %>
 			</select></span>
 		</div>
 		<div class="search_keyword">
@@ -40,7 +72,7 @@
 	<div class="extend_block">
 		<div id="mycart" class="cart_box">
 			<a href="viewCart.html" id=cart_detail>Giỏ hàng (<span
-				class="order_cart">0</span>)
+				class="cart_number"><%=cartNumber%></span>)
 			</a>
 		</div>
 		<div class="info_user">
@@ -84,10 +116,10 @@
 		<div class="vt_title">DANH MỤC SẢN PHẨM</div>
 	</div>
 	<ul class="menu_top">
-		<li><a href="#" class="menu_item">BỘ SƯU TẬP</a></li>
-		<li><a href="#" class="menu_item">KHUYẾN MÃI</a></li>
-		<li><a href="#" class="menu_item">HOT TRONG TUẦN</a></li>
-		<li><a href="#" class="menu_item">SẢN PHẨM SHOP VIP</a></li>
+		<li><a href="newProducts.html" class="menu_item">SẢN PHẨM MỚI</a></li>
+		<li><a href="hotProducts.html" class="menu_item">SẢN PHẨM ĐANG HOT</a></li>
+		<li><a href="waitingProducts.html" class="menu_item">SẢN PHẨM SẮP RA MẮT</a></li>
+		<li><a href="promotionProducts.html" class="menu_item">KHUYẾN MÃI</a></li>
 		<li class="clear_left"></li>
 	</ul>
 	<div class="clear_left"></div>

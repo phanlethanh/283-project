@@ -19,10 +19,14 @@ import com.onlinestore.util.Variable;
 @Controller
 public class HomeController extends OsController {
 
+	private List<Category> categories = new ArrayList<Category>();
+	private List<HashMap<String, Object>> categoryMapList = new ArrayList<HashMap<String, Object>>();
+
 	@RequestMapping(value = "/homes")
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		String viewName = "home";
+		HttpSession session = request.getSession();
 		Cookie[] cookie = request.getCookies();
 		String ck_user = null;
 		String ck_userId = null;
@@ -31,7 +35,6 @@ public class HomeController extends OsController {
 		if (ck_user != null) {
 			if (ck_user.equals("admin"))
 				viewName = "admin";
-			HttpSession session = request.getSession();
 			synchronized (session) {
 				session.setAttribute("os_username", ck_user);
 				session.setAttribute("os_userid", ck_userId);
@@ -39,40 +42,33 @@ public class HomeController extends OsController {
 		}
 		// Select 'hot' and 'new' product to display in home page
 		List<Product> homeProducts = getProductService().getHomeProducts();
-		// List<Product> homeProducts = getProductService().getProducts();
-		List<HashMap<String, Object>> mapList = new ArrayList<HashMap<String, Object>>();
-
-		request.setAttribute("message", "message");
-		for (int i = 0; i < homeProducts.size(); i++) {
-			HashMap<String, Object> meta = new HashMap<String, Object>();
-			Product product = (Product) homeProducts.get(i);
-			meta.put("id", product.getId());
-			meta.put("name", product.getName());
-			meta.put("icon", product.getIcon());
-			meta.put("status", product.getStatus().getName());
-			double price = product.getPrice().getPrice();
-			meta.put("price", String.format(Variable.CURRENCY_FORMAT, price));
-			meta.put("description", product.getDescription());
-			mapList.add(meta);
-		}
+		List<HashMap<String, Object>> mapList = convertToHashMap(homeProducts);
 		view.addObject("productMapList", mapList);
-		// Set categories for searching product
-		List<Category> categories = getCategoryService().getSubCategory(0);
-		List<HashMap<String, Object>> categoryMapList = new ArrayList<HashMap<String, Object>>();
-		// Add first category: Tat ca danh muc
-		HashMap<String, Object> firstCategoryMap = new HashMap<String, Object>();
-		firstCategoryMap.put("categoryId", 0);
-		firstCategoryMap.put("categoryName", "Tất cả danh mục");
-		categoryMapList.add(firstCategoryMap);
-		// Add category list
-		int categorySize = categories.size();
-		for (int i = 0; i < categorySize; i++) {
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("categoryId", categories.get(i).getId());
-			map.put("categoryName", categories.get(i).getName());
-			categoryMapList.add(map);
+		// Get category list first
+		this.categories = getCategoryService().getSubCategory(0);
+		this.categoryMapList = getCategoryMapList(categories);
+		session.setAttribute(Variable.SESSION_CATEGORY, categoryMapList);
+		// Number product in cart
+		Integer cartNumber = 0;
+		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
+			// Not login
+			if (null == session
+					.getAttribute(Variable.SESSION_CART_PRODUCT_MAP_LIST)) {
+				cartNumber = 0;
+			} else {
+				Object obj = session
+						.getAttribute(Variable.SESSION_CART_PRODUCT_MAP_LIST);
+				List<HashMap<String, Object>> cpMapList = (List<HashMap<String, Object>>) obj;
+				cartNumber = cpMapList.size();
+			}
+		} else {
+			// Login
+			Integer userId = Integer.valueOf(session.getAttribute(
+					Variable.SESSION_USER_ID).toString());
+			cartNumber = getCartService().getProductCount(userId);
+			System.out.println("CARTNUMBER: " + cartNumber);
 		}
-		view.addObject("categoryMapList", categoryMapList);
+		session.setAttribute(Variable.SESSION_CART_NUMBER, cartNumber);
 		view.setViewName(viewName);
 		return view;
 	}
@@ -81,6 +77,7 @@ public class HomeController extends OsController {
 	public ModelAndView searchProduct(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		String viewName = "home";
+		HttpSession session = request.getSession();
 		List<Product> resultProductList = new ArrayList<Product>();
 		List<HashMap<String, Object>> productMapList = new ArrayList<HashMap<String, Object>>();
 		Integer categoryId = Integer.valueOf(request
@@ -112,28 +109,8 @@ public class HomeController extends OsController {
 			productMapList.add(meta);
 		}
 		view.addObject("productMapList", productMapList);
-
-		// Set categories for searching product
-		List<Category> categories = getCategoryService().getSubCategory(0);
-		List<HashMap<String, Object>> categoryMapList = new ArrayList<HashMap<String, Object>>();
-		// Add first category: Tat ca danh muc
-		HashMap<String, Object> firstCategoryMap = new HashMap<String, Object>();
-		firstCategoryMap.put("categoryId", 0);
-		firstCategoryMap.put("categoryName", "Tất cả danh mục");
-		categoryMapList.add(firstCategoryMap);
-		// Add category list
-		int categorySize = categories.size();
-		for (int i = 0; i < categorySize; i++) {
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("categoryId", categories.get(i).getId());
-			map.put("categoryName", categories.get(i).getName());
-			categoryMapList.add(map);
-		}
-		view.addObject("categoryMapList", categoryMapList);
-		
 		view.addObject("keyword", keyword);
-		view.addObject("categorySelected", categoryId);
-
+		// session.setAttribute(Variable.SESSION_CATEGORY_SELECTED, categoryId);
 		view.setViewName(viewName);
 		return view;
 	}
@@ -143,6 +120,52 @@ public class HomeController extends OsController {
 		HashMap<String, Object> meta = new HashMap<String, Object>();
 		meta.put("message", "admin");
 		return new ModelAndView("admin", "message", meta);
+	}
+
+	@RequestMapping(value = "/newProducts")
+	public ModelAndView getNewProducts(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		String viewName = "home";
+		List<Product> newProducts = getProductService().getNewProducts();
+		List<HashMap<String, Object>> mapList = convertToHashMap(newProducts);
+		view.addObject("productMapList", mapList);
+		view.setViewName(viewName);
+		return view;
+	}
+
+	@RequestMapping(value = "/hotProducts")
+	public ModelAndView getHotProducts(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		String viewName = "home";
+		List<Product> hotProducts = getProductService().getHotProducts();
+		List<HashMap<String, Object>> mapList = convertToHashMap(hotProducts);
+		view.addObject("productMapList", mapList);
+		view.setViewName(viewName);
+		return view;
+	}
+
+	@RequestMapping(value = "/waitingProducts")
+	public ModelAndView getWaitingProducts(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		String viewName = "home";
+		List<Product> waitingProducts = getProductService()
+				.getWaitingProducts();
+		List<HashMap<String, Object>> mapList = convertToHashMap(waitingProducts);
+		view.addObject("productMapList", mapList);
+		view.setViewName(viewName);
+		return view;
+	}
+
+	@RequestMapping(value = "/promotionProducts")
+	public ModelAndView getPromotionProducts(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		String viewName = "home";
+		List<Product> promotionProducts = getProductService()
+				.getPromotionProducts();
+		List<HashMap<String, Object>> mapList = convertToHashMap(promotionProducts);
+		view.addObject("productMapList", mapList);
+		view.setViewName(viewName);
+		return view;
 	}
 
 	private String getItemCookies(Cookie[] list, String key) {
@@ -155,4 +178,43 @@ public class HomeController extends OsController {
 		return null;
 	}
 
+	// Convert List<Product> to List<HashMap>
+	private List<HashMap<String, Object>> convertToHashMap(
+			List<Product> productList) {
+		List<HashMap<String, Object>> mapList = new ArrayList<HashMap<String, Object>>();
+		for (int i = 0; i < productList.size(); i++) {
+			HashMap<String, Object> meta = new HashMap<String, Object>();
+			Product product = (Product) productList.get(i);
+			meta.put("id", product.getId());
+			meta.put("name", product.getName());
+			meta.put("icon", product.getIcon());
+			meta.put("status", product.getStatus().getName());
+			double price = product.getPrice().getPrice();
+			meta.put("price", String.format(Variable.CURRENCY_FORMAT, price));
+			meta.put("description", product.getDescription());
+			mapList.add(meta);
+		}
+		return mapList;
+	}
+
+	// Get category list to show on search box of home page
+	private List<HashMap<String, Object>> getCategoryMapList(
+			List<Category> categoryList) {
+		// Set categories for searching product
+		List<HashMap<String, Object>> categoryMapList = new ArrayList<HashMap<String, Object>>();
+		// Add first category: Tat ca danh muc
+		HashMap<String, Object> firstCategoryMap = new HashMap<String, Object>();
+		firstCategoryMap.put("categoryId", 0);
+		firstCategoryMap.put("categoryName", "Tất cả danh mục");
+		categoryMapList.add(firstCategoryMap);
+		// Add category list
+		int categorySize = categoryList.size();
+		for (int i = 0; i < categorySize; i++) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("categoryId", categoryList.get(i).getId());
+			map.put("categoryName", categoryList.get(i).getName());
+			categoryMapList.add(map);
+		}
+		return categoryMapList;
+	}
 }

@@ -22,4 +22,13 @@ public class HbnCartDaoImpl extends AbstractHbnDao<Cart> implements CartDao {
 		return query.list();
 	}
 
+	@Override
+	public Integer getProductCount(Integer userId) {
+		String sql = "select count(cp) from CartProduct cp, Cart c, OsUser u "
+				+ " where u.cart.id = c.id and cp.cart.id = u.cart.id and u.id = :uid";
+		Query query = getSession().createQuery(sql);
+		query.setParameter("uid", userId);
+		return Integer.valueOf(query.list().get(0).toString());
+	}
+
 }
