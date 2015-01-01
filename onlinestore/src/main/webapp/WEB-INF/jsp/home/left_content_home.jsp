@@ -109,16 +109,17 @@
 							url:"loadHomeProductOfCategory.html",
 							type:"POST",
 							data:{idCategory:data.id,page_number:pageNumber},
-							success:function(data1)
+							success:function(data)
 							{
-								var length = data1.length;
-								var total_rows = data1[length - 1]["total_rows"];
-								var page_size = data1[length-1]["page_size"];
+								var length = data.length;
+								var total_rows = data[length - 1]["total_rows"];
+								var page_size = data[length-1]["page_size"];
 								$("#home_total_rows").val(total_rows);
 								$(".content_home").empty();
-								for(var i = 0; i < data1.length - 1; i++)
+								for(var i = 0; i < data.length - 1; i++)
 								{
-									$(".content_home").append('<div class="product_box"><img src="'+data1[i]["icon"]+'" width="150" height="150"> <inputname="product_id" type="hidden" value="'+data1[i]["id"]+'" /><div>'+data1[i]["status"]+'<br />'+data1[i]["price"]+'<br />'+data1[i]["name"]+'<br /> <a href="productDetail.html?product_id='+data1[i]["id"]+'">Chi tiết</a></div></div>');
+									//$(".content_home").append('<div class="product_box"><img src="'+data1[i]["icon"]+'" width="150" height="150"> <inputname="product_id" type="hidden" value="'+data1[i]["id"]+'" /><div>'+data1[i]["status"]+'<br />'+data1[i]["price"]+'<br />'+data1[i]["name"]+'<br /> <a href="productDetail.html?product_id='+data1[i]["id"]+'">Chi tiết</a></div></div>');
+									$(".content_home").append('<div class="prod_box"><div class="top_prod_box"></div><div class="center_prod_box"><div class="product_title"><a href="productDetail.html?product_id='+data[i]["id"]+'">'+data[i]["name"]+'</a></div><div class="product_img"><a href="productDetail.html?product_id='+data[i]["id"]+'"><img src="'+data[i]["icon"]+'" alt="" border="0" /></a></div><input name="product_id" type="hidden" value="'+data[i]["id"]+'" /><div class="prod_price"><span class="">'+data[i]["price"]+'</span> <span class="price">'+data[i]["status"]+'</span></div></div><div class="bottom_prod_box"></div><div class="prod_details_tab"> <a href="#" title="header=[Add to cart] body=[&nbsp;] fade=[on]"><img src="image/image_template/cart.gif" alt="" border="0" class="left_bt" /></a> <a href="productDetail.html?product_id='+data[i]["id"]+'" class="prod_details">Chi tiết</a> </div></div>');
 								}
 								home_paging(page_size);
 							}
@@ -194,8 +195,9 @@
 	});
 	
 </script>
-
-<div id="home_category_tree">
+    <div class="left_content">
+      <div class="title_box">Danh mục</div>
+      <div id="home_category_tree">
 		<ul>
 			<li class="categorys expanded">Danh Mục Sản Phẩm
 				<ul>
@@ -223,3 +225,15 @@
 			</li>
 		</ul>
 	</div>
+      <div class="title_box">Sản phẩm đặc sắc</div>
+      <div class="border_box">
+        <div class="product_title"><a href="details.html">Motorola 156 MX-VL</a></div>
+        <div class="product_img"><a href="details.html"><img src="image/image_template/laptop.png" alt="" border="0" /></a></div>
+        <div class="prod_price"><span class="reduce">350$</span> <span class="price">270$</span></div>
+      </div>
+      <div class="title_box">Đăng ký nhận tin</div>
+      <div class="border_box">
+        <input type="text" name="newsletter" class="newsletter_input" value="your email"/>
+        <a href="#" class="join">Tham gia</a> </div>
+      <div class="banner_adds"> <a href="#"><img src="images/bann2.jpg" alt="" border="0" /></a> </div>
+    </div>
