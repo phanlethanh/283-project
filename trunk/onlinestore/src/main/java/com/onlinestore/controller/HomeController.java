@@ -35,13 +35,16 @@ public class HomeController {
 		String viewName = "home";
 		Cookie[] cookie = request.getCookies();
 		String ck_user = null;
+		String ck_userId = null;
 		ck_user = getItemCookies(cookie, "os_username");
+		ck_userId = getItemCookies(cookie, "os_userid");
 		if (ck_user != null) {
 			if (ck_user.equals("admin"))
 				viewName = "admin";
 			HttpSession session = request.getSession();
 			synchronized (session) {
 				session.setAttribute("os_username", ck_user);
+				session.setAttribute("os_userid", ck_userId);
 			}
 		}
 

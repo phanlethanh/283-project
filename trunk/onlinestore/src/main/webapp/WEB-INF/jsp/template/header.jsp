@@ -38,8 +38,8 @@
 				if (session.getAttribute("os_username") != null) {
 			%>
 			<div class="os_username">
-				<span><%=session.getAttribute("os_username")%></span>
-
+				<a href="userDetail.html"><span><%=session.getAttribute("os_username")%>
+				</span></a>
 			</div>
 			<div class="logout">
 				<a href="logout.html">Đăng xuất</a>
