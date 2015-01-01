@@ -63,13 +63,16 @@ public class OsUserController {
 				{
 					Cookie cookie_user = new Cookie("os_username",list_user.get(i).getUsername());
 					Cookie cookie_pass = new Cookie("os_password",list_user.get(i).getPassword());
+					Cookie cookie_uid = new Cookie("os_userid",String.valueOf(list_user.get(i).getId()));
 					cookie_user.setMaxAge(60*60*60);
 					cookie_pass.setMaxAge(60*60*60);
+					cookie_uid.setMaxAge(60*60*60);
 					cookie_user.setPath("/");
 					cookie_pass.setPath("/");
+					cookie_uid.setPath("/");
 					respose.addCookie(cookie_user);
 					respose.addCookie(cookie_pass);
-					
+					respose.addCookie(cookie_uid);
 				}
 				HttpSession session = request.getSession();
 				synchronized(session){
@@ -125,7 +128,8 @@ public class OsUserController {
 		Cookie[] cookie = request.getCookies();
 		for(int i = 0; i < cookie.length; i++)
 		{
-			if(cookie[i].getName().equals("os_username") || cookie[i].getName().equals("os_password"))
+			if(cookie[i].getName().equals("os_username") || cookie[i].getName().equals("os_password") 
+					|| cookie[i].getName().equals("os_userid"))
 			{
 				cookie[i].setMaxAge(0);
 				cookie[i].setPath("/");
@@ -242,9 +246,28 @@ public class OsUserController {
 	@RequestMapping(value = "/changeUserPassword", method = RequestMethod.POST)
 	public void changeUserPassword(HttpServletRequest request,
 			HttpServletResponse response) {
-		
+		String oldPassword = request.getParameter("user_old_password");
+		String newPassword = request.getParameter("user_new_password");
+		HttpSession session = request.getSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("code", 1);
+		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
+			// Not login
+			map.put("code", 0);
+		} else {
+			// Logged in
+			Integer userId = Integer.valueOf(session.getAttribute(
+					Variable.SESSION_USER_ID).toString());
+			OsUser user = getUserService().getOsUser(userId);
+			if (oldPassword.compareTo(user.getPassword()) == 0) {
+				user.setPassword(newPassword);
+				// Update
+				getUserService().updateOsUser(user);
+				map.put("code", 1);
+			} else { 
+				// Wrong old password
+				map.put("code", 2);
+			}
+		}
 		String json = new Gson().toJson(map);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

@@ -66,7 +66,7 @@
 		</h2>
 		<!-- Begin Facebook like plugin -->
 		<div class="fb-like"
-			data-href="http://localhost:8080/onlinestore/productDetail.html?product_id=${product['id']}"
+			data-href="productDetail.html?product_id=${product['id']}"
 			data-layout="button_count" data-action="like" data-show-faces="true"
 			data-share="true"></div>
 		<!-- End Facebook like plugin -->
@@ -79,7 +79,7 @@
 		<!-- Begin Google+ add plugin -->
 		<!-- <div class="g-plusone" data-annotation="inline" data-width="200"></div> -->
 		<div class="g-plus" data-action="share"
-			data-href="http://localhost:8080/onlinestore/productDetail.html?product_id=${product['id']}"></div>
+			data-href="productDetail.html?product_id=${product['id']}"></div>
 		<!-- End Google+ add plugin -->
 		<br>
 		<table>
