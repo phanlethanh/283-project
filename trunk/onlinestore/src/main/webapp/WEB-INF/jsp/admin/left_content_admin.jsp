@@ -349,6 +349,18 @@
 		</ul>
 	</div>
 </div>
+
+<div class="admin_menu">
+	<br>
+	<div class="admin_menu_promotion">
+		<a href="viewPromotionList.html">Quản lý khuyến mãi</a>
+	</div>
+	<br>
+	<div class="admin_menu_config">
+		<a href="viewConfigInfo.html">Quản lý cấu hình</a>
+	</div>
+</div>
+
 <div id="addCategoryCentreModal" class="reveal-modaladd medium">
 	<h4>Add Category Centre</h4>
 	<div class="in-progress"></div>

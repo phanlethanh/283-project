@@ -132,7 +132,7 @@
 	<br>
 	<!-- Begin Facebook comment plugin -->
 	<div class="fb-comments"
-		data-href="https://www.facebook.com/onlinestore.fanpage"
+		data-href="productDetail.html?product_id=${product['id']}"
 		data-numposts="5" data-colorscheme="light"></div>
 	<!-- End Facebook comment plugin -->
 </div>

@@ -38,4 +38,15 @@ public class HbnProductDao extends AbstractHbnDao<Product> implements
 		return product;
 	}
 
+	@Override
+	public List<Product> searchByCategory(String keyword, Integer categoryId) {
+		String sql = "select p from Product p, CategoryProduct cp " 
+				+ " where lower(name) like lower(:keyword) and p.id = cp.product.id" 
+				+ " and cp.category.id = :cid";
+		Query query = getSession().createQuery(sql);
+		query.setParameter("keyword", "%" + keyword + "%");
+		query.setParameter("cid", categoryId);
+		return query.list();
+	}
+
 }

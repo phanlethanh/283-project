@@ -18,5 +18,8 @@ public interface ProductService {
 	List<Product> getHomeProducts();
 	
 	List<Product> search(String keyword);
+	
+	List<Product> searchByCategory(String keyword, Integer categoryId);
+	
 	Product getLastInsertId();
 }

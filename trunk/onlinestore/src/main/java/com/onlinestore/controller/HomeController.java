@@ -8,26 +8,16 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.onlinestore.model.Category;
 import com.onlinestore.model.Product;
-import com.onlinestore.service.ProductService;
 import com.onlinestore.util.Variable;
 
 @Controller
-public class HomeController {
-
-	private ProductService getProductService() {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
-				"beans-service.xml");
-		ProductService productService = (ProductService) appCtx
-				.getBean("productService");
-		return productService;
-	}
+public class HomeController extends OsController {
 
 	@RequestMapping(value = "/homes")
 	public ModelAndView index(HttpServletRequest request) {
@@ -47,10 +37,9 @@ public class HomeController {
 				session.setAttribute("os_userid", ck_userId);
 			}
 		}
-
 		// Select 'hot' and 'new' product to display in home page
-		// List<Product> homeProducts = getProductService().getHomeProducts();
-		List<Product> homeProducts = getProductService().getProducts();
+		List<Product> homeProducts = getProductService().getHomeProducts();
+		// List<Product> homeProducts = getProductService().getProducts();
 		List<HashMap<String, Object>> mapList = new ArrayList<HashMap<String, Object>>();
 
 		request.setAttribute("message", "message");
@@ -67,6 +56,23 @@ public class HomeController {
 			mapList.add(meta);
 		}
 		view.addObject("productMapList", mapList);
+		// Set categories for searching product
+		List<Category> categories = getCategoryService().getSubCategory(0);
+		List<HashMap<String, Object>> categoryMapList = new ArrayList<HashMap<String, Object>>();
+		// Add first category: Tat ca danh muc
+		HashMap<String, Object> firstCategoryMap = new HashMap<String, Object>();
+		firstCategoryMap.put("categoryId", 0);
+		firstCategoryMap.put("categoryName", "Tất cả danh mục");
+		categoryMapList.add(firstCategoryMap);
+		// Add category list
+		int categorySize = categories.size();
+		for (int i = 0; i < categorySize; i++) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("categoryId", categories.get(i).getId());
+			map.put("categoryName", categories.get(i).getName());
+			categoryMapList.add(map);
+		}
+		view.addObject("categoryMapList", categoryMapList);
 		view.setViewName(viewName);
 		return view;
 	}
@@ -77,13 +83,21 @@ public class HomeController {
 		String viewName = "home";
 		List<Product> resultProductList = new ArrayList<Product>();
 		List<HashMap<String, Object>> productMapList = new ArrayList<HashMap<String, Object>>();
+		Integer categoryId = Integer.valueOf(request
+				.getParameter(Variable.REQUEST_CATEGORY_ID));
 		String keyword = request.getParameter(Variable.REQUEST_KEYWORD);
 		if (keyword.equals("")) {
-			// Get hot & new product
-			resultProductList = getProductService().getHomeProducts();
+			// Get all product
+			resultProductList = getProductService().getProducts();
 		} else {
-			// Get product following keyword
-			resultProductList = getProductService().search(keyword);
+			if (categoryId == 0) {
+				// Get product following keyword
+				resultProductList = getProductService().search(keyword);
+			} else {
+				// Get product following keyword and category
+				resultProductList = getProductService().searchByCategory(
+						keyword, categoryId);
+			}
 		}
 		for (int i = 0; i < resultProductList.size(); i++) {
 			HashMap<String, Object> meta = new HashMap<String, Object>();
@@ -98,7 +112,28 @@ public class HomeController {
 			productMapList.add(meta);
 		}
 		view.addObject("productMapList", productMapList);
+
+		// Set categories for searching product
+		List<Category> categories = getCategoryService().getSubCategory(0);
+		List<HashMap<String, Object>> categoryMapList = new ArrayList<HashMap<String, Object>>();
+		// Add first category: Tat ca danh muc
+		HashMap<String, Object> firstCategoryMap = new HashMap<String, Object>();
+		firstCategoryMap.put("categoryId", 0);
+		firstCategoryMap.put("categoryName", "Tất cả danh mục");
+		categoryMapList.add(firstCategoryMap);
+		// Add category list
+		int categorySize = categories.size();
+		for (int i = 0; i < categorySize; i++) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("categoryId", categories.get(i).getId());
+			map.put("categoryName", categories.get(i).getName());
+			categoryMapList.add(map);
+		}
+		view.addObject("categoryMapList", categoryMapList);
+		
 		view.addObject("keyword", keyword);
+		view.addObject("categorySelected", categoryId);
+
 		view.setViewName(viewName);
 		return view;
 	}
