@@ -919,10 +919,10 @@ INSERT INTO os_user(group_id, cart_id, username, password, full_name, address, p
 
 -- ###############################################################################################################
 -- Orders
-INSERT INTO os_order(user_id, status_id, transport_fee_id, tax_id, address, phone)
-    VALUES (3, 7, 1, 1, '181 An Binh, P.7, Q.5, TP.HCM', '01657776661'); -- 1
-INSERT INTO os_order(user_id, status_id, transport_fee_id, tax_id, address, phone)
-    VALUES (4, 7, 1, 1, '302/126C Nguyen Duy, P.9, Q.8, TP.HCM', '01658884442'); -- 2
+INSERT INTO os_order(user_id, status_id, transport_fee_id, tax_id, total_price, address, phone)
+    VALUES (3, 7, 1, 1, 48580000, '181 An Binh, P.7, Q.5, TP.HCM', '01657776661'); -- 1
+INSERT INTO os_order(user_id, status_id, transport_fee_id, tax_id, total_price, address, phone)
+    VALUES (4, 7, 1, 1, 24380000, '302/126C Nguyen Duy, P.9, Q.8, TP.HCM', '01658884442'); -- 2
 
 -- ###############################################################################################################
 -- Order details

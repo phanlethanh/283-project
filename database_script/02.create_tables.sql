@@ -403,6 +403,7 @@ CREATE TABLE os_order
   status_id integer,
   transport_fee_id integer,
   tax_id integer,
+  total_price double precision,
   address character varying(256),
   phone character varying(16),
   create_date timestamp without time zone,
