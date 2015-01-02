@@ -3,16 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style type="text/css">
-.order_detail {
-	background-color: white;
-	padding: 20px;
-	border: 1px solid;
-}
 
-.order_list_summary {
-	text-align: right;
-	padding-right: 100px;
-}
 </style>
 
 <script type="text/javascript">
@@ -41,6 +32,7 @@ $(document).ready(
 		});
 </script>
 <div class="order_detail">
+	<span class="ctgh_p">Chi tiết đơn hàng</span>
 	<div>
 	<table>
 		<tr>

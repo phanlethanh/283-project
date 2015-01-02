@@ -276,6 +276,12 @@ font-weight:bold;
 color:#fff;
 line-height:30px;
 }
+.title_box a{
+	font-size:13px;
+	font-weight:bold;
+	color:#fff;
+	text-decoration: none;
+}
 /*--------left menu---------*/
 ul.left_menu{
 width:196px;
@@ -394,15 +400,19 @@ height:84px;
 text-align:center;
 background:url(../image/image_template/cart_bg.gif) no-repeat center;
 }
-.cart_title{
-font-size:12px;
-font-size:12px;
-color:#847676;
-font-weight:bold;
-padding:8px 0 0 0;
+.cart_title a{
+color: #847676;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+    text-decoration: none;
+}
+.cart_details ui-sortable-handle span{
+	font-size:12px;
 }
 .cart_details{
-width:170px;
+width:113px;
 float:left;
 padding:5px 0 0 15px;
 text-align:left;

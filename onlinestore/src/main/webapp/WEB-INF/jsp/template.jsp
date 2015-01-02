@@ -19,6 +19,7 @@
 <link rel="stylesheet" type="text/css" href="/onlinestore/css/ui.fancytree.css">
 <link rel="stylesheet" type="text/css" href="/onlinestore/css/jquery-ui.min.css">
 <script type="text/javascript" src="/onlinestore/script/ebanhang.min.js" ></script>
+<script type="text/javascript" src="/onlinestore/script/jquery-ui-timepicker-addon.js" ></script>
 
 <link rel="stylesheet" type="text/css" href="/onlinestore/css/style_template.css">
 
@@ -93,6 +94,8 @@
 			
 			
 		});
+		  //$( ".content_home" ).accordion();
+	   
 	});
 </script>
 <body>

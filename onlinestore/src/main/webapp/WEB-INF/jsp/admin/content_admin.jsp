@@ -707,7 +707,7 @@
 					<span>Giá</span><input class="edit_price" type="text" name="price">
 				</div>
 				<div class=admin_detail_product_item>
-						<span class="dt_name_field">Số lượng</span><input class="edit_stock" type="text"name="">
+						<span class="dt_name_field">Số lượng</span><input class="edit_stock" type="text"name="stock">
 					</div>
 				<div class=admin_detail_product_promotion>
 					<span>Trạng thái</span><select id="edit_status"></select>

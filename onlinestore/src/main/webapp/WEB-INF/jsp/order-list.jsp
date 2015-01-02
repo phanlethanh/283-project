@@ -67,7 +67,8 @@ $(document).ready(
 });
 </script>
 <div>
-	<div>
+	<span class="ctgh_p">Danh sách đơn hàng</span>
+	<div class="order_list">
 	<table>
 		<tr>
 			<td>#</td>
@@ -122,7 +123,7 @@ $(document).ready(
 				</div>
 				<div class=order_list_item>
 					<span>Địa chỉ giao hàng</span><textarea class="edit_order_address"
-					name="order_address" cols="50" rows="3"></textarea>
+					name="order_address" cols="50" rows="1"></textarea>
 				</div>
 				<div class=order_list_item>
 					<span>SĐT liên hệ</span><input class="edit_order_phone" type="text"
