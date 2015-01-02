@@ -137,6 +137,7 @@
 				<prop key="hotProducts.html">homeController</prop>
 				<prop key="waitingProducts.html">homeController</prop>
 				<prop key="promotionProducts.html">homeController</prop>
+				<prop key="createOrderFromProduct.html">osOrderController</prop>
 			</props>
 		</property>
 	</bean>

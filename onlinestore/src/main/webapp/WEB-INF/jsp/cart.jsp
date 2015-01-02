@@ -36,7 +36,9 @@
 								$("#termsAndConditions").trigger('reveal:close');
 								alert("Lập hóa đơn thành công.");
 								window.location.href = 'viewOrderList.html';
-							} else {
+							} else if (data.code == 2){
+								alert("Lập hóa đơn thất bại. Vui lòng đăng nhập trước khi lập hóa đơn.");
+							} else{
 								alert("Lập hóa đơn thất bại.");
 							}
 						}
