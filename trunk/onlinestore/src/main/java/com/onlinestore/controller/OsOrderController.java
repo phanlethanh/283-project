@@ -94,8 +94,25 @@ public class OsOrderController extends OsController {
 			// Logged in
 			Integer userId = Integer.valueOf(session.getAttribute(
 					Variable.SESSION_USER_ID).toString());
-			// create order
+
+			// Get product id list from cart
 			OsUser user = getUserService().getOsUser(userId);
+			Cart cart = user.getCart();
+			List<CartProduct> cartProducts = getCartProductService()
+					.getCartProductsByCartId(cart.getId());
+			int cartProductSize = cartProducts.size();
+			// create order
+			double totalPrice = 0.0;
+			for (int i = 0; i < cartProductSize; i++) {
+				CartProduct cp = cartProducts.get(i);
+				Product product = cp.getProduct();
+				int cpId = cp.getId();
+				Integer quantity = Integer.valueOf(request
+						.getParameter("quantity_" + cpId));
+				double productPrice = product.getPrice().getPrice();
+				totalPrice += productPrice * quantity;
+			}
+
 			Status status = new Status();
 			status.setId(Variable.ID_NEW_ORDER_STATUS); // New Status
 			TransportFee tfee = new TransportFee();
@@ -109,15 +126,13 @@ public class OsOrderController extends OsController {
 			order.setTax(tax);
 			order.setAddress(user.getAddress());
 			order.setPhone(user.getPhone());
+			// Update total_price of order
+			order.setTotalPrice(totalPrice);
 			// Insert into database
 			Integer orderId = getOsOrderService().createOsOrder(order);
 			order.setId(orderId);
 			// Create order detail
-			// Get product id list from cart
-			Cart cart = user.getCart();
-			List<CartProduct> cartProducts = getCartProductService()
-					.getCartProductsByCartId(cart.getId());
-			int cartProductSize = cartProducts.size();
+
 			for (int i = 0; i < cartProductSize; i++) {
 				CartProduct cp = cartProducts.get(i);
 				int cpId = cp.getId();
@@ -129,16 +144,17 @@ public class OsOrderController extends OsController {
 				Integer quantity = Integer.valueOf(request
 						.getParameter("quantity_" + cpId));
 				orderDetail.setQuantity(quantity);
-				orderDetail.setPrice(product.getPrice().getPrice());
+				double productPrice = product.getPrice().getPrice();
+				orderDetail.setPrice(productPrice);
 				// Insert OsOrderDetail into database
 				getOsOrderDetailService().createOsOrderDetail(orderDetail);
 				// Delete cart product from cart
 				getCartProductService().deleteCartProduct(cpId);
 			}
-			sendEmail(user,order.getId());
+			sendEmail(user, order.getId());
 			map.put("code", 1);
 		}
-		
+
 		String json = new Gson().toJson(map);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
@@ -179,6 +195,9 @@ public class OsOrderController extends OsController {
 			order.setTax(tax);
 			order.setAddress(user.getAddress());
 			order.setPhone(user.getPhone());
+			double productPrice = product.getPrice().getPrice();
+			order.setTotalPrice(productPrice); // Only 1
+												// product=>productPrice==totalPrice
 			// Insert into database
 			Integer orderId = getOsOrderService().createOsOrder(order);
 			order.setId(orderId);
@@ -187,9 +206,12 @@ public class OsOrderController extends OsController {
 			orderDetail.setOsOrder(order);
 			orderDetail.setProduct(product);
 			orderDetail.setQuantity(1); // Default quantity = 1
-			orderDetail.setPrice(product.getPrice().getPrice());
+
+			orderDetail.setPrice(productPrice);
 			// Insert OsOrderDetail into database
 			getOsOrderDetailService().createOsOrderDetail(orderDetail);
+			// Update total_price of order
+
 			map.put("code", 1);
 		}
 		String json = new Gson().toJson(map);
@@ -286,68 +308,72 @@ public class OsOrderController extends OsController {
 			e.printStackTrace();
 		}
 	}
-	public void sendEmail(OsUser user, int orderId)
-	{
-		 String to = user.getEmail();//change accordingly
 
-	      // Sender's email ID needs to be mentioned
-	      String from = "thangviet1206@gmail.com";//change accordingly
-	      final String username = "thangviet1206@gmail.com";//change accordingly
-	      final String password = "trongphuc";//change accordingly
+	public void sendEmail(OsUser user, int orderId) {
+		String to = user.getEmail();// change accordingly
 
-	      // Assuming you are sending email through relay.jangosmtp.net
-	      String host = "smtp.gmail.com";
+		// Sender's email ID needs to be mentioned
+		String from = "thangviet1206@gmail.com";// change accordingly
+		final String username = "thangviet1206@gmail.com";// change accordingly
+		final String password = "trongphuc";// change accordingly
 
-	      Properties props = new Properties();
-	      props.put("mail.smtp.auth", "true");
-	      props.put("mail.smtp.starttls.enable", "true");
-	      props.put("mail.smtp.host", host);
-	      props.put("mail.smtp.port", "587");
+		// Assuming you are sending email through relay.jangosmtp.net
+		String host = "smtp.gmail.com";
 
-	      // Get the Session object.
-	      Session session = Session.getInstance(props,
-	      new javax.mail.Authenticator() {
-	         protected PasswordAuthentication getPasswordAuthentication() {
-	            return new PasswordAuthentication(username, password);
-	         }
-	      });
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", "587");
 
-	      try {
-	         // Create a default MimeMessage object.
-	         Message message = new MimeMessage(session);
+		// Get the Session object.
+		Session session = Session.getInstance(props,
+				new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(username, password);
+					}
+				});
 
-	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(from));
+		try {
+			// Create a default MimeMessage object.
+			Message message = new MimeMessage(session);
 
-	         // Set To: header field of the header.
-	         message.setRecipients(Message.RecipientType.TO,
-	         InternetAddress.parse(to));
+			// Set From: header field of the header.
+			message.setFrom(new InternetAddress(from));
 
-	         // Set Subject: header field
-	         message.setSubject("Testing Subject");
+			// Set To: header field of the header.
+			message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(to));
 
-	         // Now set the actual message
-	         String hello="Chào "+user.getFullName()+". Bạn vừa đặt thành công một đơn hàng trên OnlineStore. Vui lòng truy cập địa chỉ phái dưới để xác nhận!";
-	         String linkComfirm ="http://localhost:8080/onlinestore/comfirmOrderFromEmail.html?order_id="+orderId;
-	         message.setText(hello+linkComfirm);
+			// Set Subject: header field
+			message.setSubject("Testing Subject");
 
-	         // Send message
-	         Transport.send(message);
+			// Now set the actual message
+			String hello = "Chào "
+					+ user.getFullName()
+					+ ". Bạn vừa đặt thành công một đơn hàng trên OnlineStore. Vui lòng truy cập địa chỉ phái dưới để xác nhận!";
+			String linkComfirm = "http://localhost:8080/onlinestore/comfirmOrderFromEmail.html?order_id="
+					+ orderId;
+			message.setText(hello + linkComfirm);
 
-	         System.out.println("Sent message successfully....");
+			// Send message
+			Transport.send(message);
 
-	      } catch (MessagingException e) {
-	            throw new RuntimeException(e);
-	      }
+			System.out.println("Sent message successfully....");
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
 	}
-	@RequestMapping (value="/comfirmOrderFromEmail")
-	public ModelAndView comfirmOrder(HttpServletRequest request, HttpServletResponse response)
-	{
+
+	@RequestMapping(value = "/comfirmOrderFromEmail")
+	public ModelAndView comfirmOrder(HttpServletRequest request,
+			HttpServletResponse response) {
 		ModelAndView view = new ModelAndView();
 		int order_id = Integer.parseInt(request.getParameter("order_id"));
 		OsOrder order = getOsOrderService().getOsOrder(order_id);
 		Status status = getStatusService().getStatus(7);
-		if(order != null)
+		if (order != null)
 			order.setStatus(status);
 		getOsOrderService().updateOsOrder(order);
 		view.setViewName("comfirmOrder");

@@ -91,7 +91,7 @@ public abstract class OsController {
 		ApplicationContext appCtx = 
 	    		new ClassPathXmlApplicationContext("beans-service.xml");
 		StatusService statusService = 
-	    		(StatusService)appCtx.getBean("categoryService");
+	    		(StatusService)appCtx.getBean("statusService");
 	    return statusService;
 	}
 

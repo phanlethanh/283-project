@@ -35,6 +35,7 @@ public class OsOrder implements java.io.Serializable {
 	private TransportFee transportFee;
 	private Status status;
 	private Tax tax;
+	private Double totalPrice;
 	private String address;
 	private String phone;
 	private Date createDate;
@@ -117,6 +118,15 @@ public class OsOrder implements java.io.Serializable {
 		this.tax = tax;
 	}
 
+	@Column(name = "total_price", precision = 17, scale = 17)
+	public Double getTotalPrice() {
+		return this.totalPrice;
+	}
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	
 	@Column(name = "address", length = 256)
 	public String getAddress() {
 		return this.address;

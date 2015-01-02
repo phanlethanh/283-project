@@ -94,7 +94,13 @@ public class HomeController extends OsController {
 		String keyword = request.getParameter(Variable.REQUEST_KEYWORD);
 		if (keyword.equals("")) {
 			// Get all product
-			resultProductList = getProductService().getProducts();
+			if (categoryId == 0) {
+				// Get product following keyword
+				resultProductList = getProductService().getProducts();
+			} else {
+				resultProductList = getProductService().searchByCategory("",
+						categoryId);
+			}
 		} else {
 			if (categoryId == 0) {
 				// Get product following keyword
