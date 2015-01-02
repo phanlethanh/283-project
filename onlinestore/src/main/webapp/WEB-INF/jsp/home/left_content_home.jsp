@@ -256,7 +256,7 @@
       </div>
       <div class="title_box">Đăng ký nhận tin</div>
       <div class="border_box">
-        <input type="text" name="newsletter" class="newsletter_input" value="your email"/>
+        <input type="text" name="newsletter" class="newsletter_input" value="email"/>
         <a href="#" class="join">Tham gia</a> </div>
       <div class="banner_adds"> <a href="#"><img src="images/bann2.jpg" alt="" border="0" /></a> </div>
     </div>

@@ -92,7 +92,7 @@ public class OsOrderDetailController extends OsController {
 	}
 
 	@RequestMapping(value = "/deleteOrderDetailItem", method = RequestMethod.POST)
-	public void confirmOrder(HttpServletRequest request,
+	public void deleteOrderDetailItem(HttpServletRequest request,
 			HttpServletResponse response) {
 		int orderDetailId = Integer.parseInt(request.getParameter("id"));
 		// Get order id from order detail
@@ -122,6 +122,19 @@ public class OsOrderDetailController extends OsController {
 			totalMoney += price * tempQuantity;
 			totalQuantity += tempQuantity;
 		}
+		// Update total_price of order after deleting order_detail
+		order.setOsUser(order.getOsUser());
+		order.setStatus(order.getStatus());
+		order.setTax(order.getTax());
+		order.setTransportFee(order.getTransportFee());
+		order.setTotalPrice(totalMoney);
+		order.setAddress(order.getAddress());
+		order.setPhone(order.getPhone());
+		order.setCreateDate(order.getCreateDate());
+		order.setActive(order.getActive());
+		
+		getOsOrderService().updateOsOrder(order);
+		
 		transportFee = order.getTransportFee().getPrice();
 		totalPayment = totalMoney + transportFee; // thanh toan
 		tax = order.getTax().getValue();
