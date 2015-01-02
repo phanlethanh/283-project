@@ -33,11 +33,16 @@ public class HbnCartDaoImpl extends AbstractHbnDao<Cart> implements CartDao {
 
 	@Override
 	public Double getProductPriceSum(Integer userId) {
+		double result = 0;
 		String sql = "select sum(pr.price) from Price pr, Product p, CartProduct cp, Cart c, OsUser u where u.cart.id = c.id "
 				+ " and cp.cart.id = u.cart.id and u.id = :uid and cp.product.id = p.id and p.price.id = pr.id";
 		Query query = getSession().createQuery(sql);
 		query.setParameter("uid", userId);
-		return Double.valueOf(query.list().get(0).toString());
+		if (null == query.list().get(0)) {
+			return result;
+		} else {
+			return Double.valueOf(query.list().get(0).toString());
+		}
 	}
 
 }
