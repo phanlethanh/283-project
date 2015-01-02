@@ -6,7 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -127,8 +135,10 @@ public class OsOrderController extends OsController {
 				// Delete cart product from cart
 				getCartProductService().deleteCartProduct(cpId);
 			}
+			sendEmail(user,order.getId());
 			map.put("code", 1);
 		}
+		
 		String json = new Gson().toJson(map);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
@@ -275,5 +285,72 @@ public class OsOrderController extends OsController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	public void sendEmail(OsUser user, int orderId)
+	{
+		 String to = user.getEmail();//change accordingly
+
+	      // Sender's email ID needs to be mentioned
+	      String from = "thangviet1206@gmail.com";//change accordingly
+	      final String username = "thangviet1206@gmail.com";//change accordingly
+	      final String password = "trongphuc";//change accordingly
+
+	      // Assuming you are sending email through relay.jangosmtp.net
+	      String host = "smtp.gmail.com";
+
+	      Properties props = new Properties();
+	      props.put("mail.smtp.auth", "true");
+	      props.put("mail.smtp.starttls.enable", "true");
+	      props.put("mail.smtp.host", host);
+	      props.put("mail.smtp.port", "587");
+
+	      // Get the Session object.
+	      Session session = Session.getInstance(props,
+	      new javax.mail.Authenticator() {
+	         protected PasswordAuthentication getPasswordAuthentication() {
+	            return new PasswordAuthentication(username, password);
+	         }
+	      });
+
+	      try {
+	         // Create a default MimeMessage object.
+	         Message message = new MimeMessage(session);
+
+	         // Set From: header field of the header.
+	         message.setFrom(new InternetAddress(from));
+
+	         // Set To: header field of the header.
+	         message.setRecipients(Message.RecipientType.TO,
+	         InternetAddress.parse(to));
+
+	         // Set Subject: header field
+	         message.setSubject("Testing Subject");
+
+	         // Now set the actual message
+	         String hello="Chào "+user.getFullName()+". Bạn vừa đặt thành công một đơn hàng trên OnlineStore. Vui lòng truy cập địa chỉ phái dưới để xác nhận!";
+	         String linkComfirm ="http://localhost:8080/onlinestore/comfirmOrderFromEmail.html?order_id="+orderId;
+	         message.setText(hello+linkComfirm);
+
+	         // Send message
+	         Transport.send(message);
+
+	         System.out.println("Sent message successfully....");
+
+	      } catch (MessagingException e) {
+	            throw new RuntimeException(e);
+	      }
+	}
+	@RequestMapping (value="/comfirmOrderFromEmail")
+	public ModelAndView comfirmOrder(HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView view = new ModelAndView();
+		int order_id = Integer.parseInt(request.getParameter("order_id"));
+		OsOrder order = getOsOrderService().getOsOrder(order_id);
+		Status status = getStatusService().getStatus(7);
+		if(order != null)
+			order.setStatus(status);
+		getOsOrderService().updateOsOrder(order);
+		view.setViewName("comfirmOrder");
+		return view;
 	}
 }

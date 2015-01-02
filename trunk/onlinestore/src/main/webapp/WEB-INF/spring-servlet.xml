@@ -74,6 +74,9 @@
         <property name="maxUploadSize" value="500000" />
  
     </bean>
+    
+     
+      
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="alwaysUseFullPath" value="true" />
@@ -128,6 +131,8 @@
 				<prop key="editOrder.html">osOrderController</prop>
 				<prop key="deleteOrder.html">osOrderController</prop>
 				<prop key="confirmOrder.html">osOrderController</prop>
+				<prop key="comfirmOrderFromEmail.html*">osOrderController</prop>
+				
 				<prop key="deleteOrderDetailItem.html">osOrderDetailController</prop>
 				<prop key="/userDetail.html">osUserController</prop>
 				<prop key="userDetailForEdit.html">osUserController</prop>
@@ -156,6 +161,7 @@
 	<context:component-scan base-package="com.onlinestore.dao" />
 	<context:component-scan base-package="com.onlinestore.dao.impl" />
 	<context:component-scan base-package="com.onlinestore.service.impl" />
-
+	
 	<context:component-scan base-package="com.onlinestore.controller" />
+	
 </beans>

@@ -13,15 +13,28 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.postgresql.util.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.SerializationUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +70,7 @@ import com.onlinestore.util.Variable;
 
 @Controller
 public class ProductController {
+	
 	private ProductService getProductService() {
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
 				"beans-service.xml");
@@ -144,9 +158,10 @@ public class ProductController {
 				.getBean("categoryProductService");
 		return categoryProductService;
 	}
-
+	
 	@RequestMapping(value = "/productDetail")
 	public ModelAndView index(HttpServletRequest request) {
+		
 		ModelAndView view = new ModelAndView();
 		String viewName = "product";
 		Product product = null;
@@ -169,7 +184,7 @@ public class ProductController {
 		productMap.put("producerDescription", product.getProducer()
 				.getDescription());
 		if (null == product.getPromotion()) {
-			productMap.put("promotion", "Không");
+			productMap.put("promotion", "KhÃ´ng");
 		} else {
 			productMap.put("promotion", product.getPromotion().getName());
 		}
@@ -906,4 +921,5 @@ public class ProductController {
 			e.printStackTrace();
 		}
 	}
+	
 }

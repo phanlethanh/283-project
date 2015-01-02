@@ -12,6 +12,7 @@ import com.onlinestore.service.OsOrderService;
 import com.onlinestore.service.OsUserService;
 import com.onlinestore.service.ProductService;
 import com.onlinestore.service.PromotionService;
+import com.onlinestore.service.StatusService;
 
 public abstract class OsController {
 	protected PromotionService getPromotionService() {
@@ -84,6 +85,14 @@ public abstract class OsController {
 		CategoryService categoryService = 
 	    		(CategoryService)appCtx.getBean("categoryService");
 	    return categoryService;
+	}
+	protected StatusService getStatusService()
+	{
+		ApplicationContext appCtx = 
+	    		new ClassPathXmlApplicationContext("beans-service.xml");
+		StatusService statusService = 
+	    		(StatusService)appCtx.getBean("categoryService");
+	    return statusService;
 	}
 
 }

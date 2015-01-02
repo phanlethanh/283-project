@@ -57,6 +57,10 @@
     	<put-attribute name="left_content" value="/WEB-INF/jsp/home/left_content_home.jsp"/>
         <put-attribute name="content" value="/WEB-INF/jsp/user_detail.jsp" />
     </definition>
+    <definition name="comfirmOrder" extends=".mainTemplate">
+    	<put-attribute name="left_content" value="/WEB-INF/jsp/home/left_content_home.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/comfirm_order.jsp" />
+    </definition>
     
 </tiles-definitions>
                 
