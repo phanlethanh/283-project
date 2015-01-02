@@ -97,9 +97,15 @@
 
 /*header*/
 .dt_product_image img{
-	width:525px;
-	height:315px;
-	margin-left:20px;
+	width:135%;
+	margin-left:10px;
+}
+.dt_product_content p{
+	display: inline-block;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-top: 5px;
+    width: 134%;
 }
 .home_paging{
 	margin-left:20px;
@@ -208,6 +214,38 @@
 .user_detail table{
 	display: inline-block;
     width: 792px;
+}
+.order_list table{
+	display: inline-block;
+    width: 792px;
+}
+.order_detail table{
+	display: inline-block;
+    width: 792px;
+}
+.dt_product_content{
+	width:585px;
+float:left;
+}
+.dt_product_content table
+{
+	display: inline-block;
+    width: 792px;
+}
+.dt_product_content table tr th{
+	 background: linear-gradient(#FFFFFF, #EFEFEF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 1px 0 0 #FFFFFF inset;
+    color: #359588;
+    font-size: 12px;
+    padding: 6px;
+    text-shadow: 0 1px 0 #EEEEEE;
+	position: relative;
+	
+	}
+.link_social_network{
+	width:120%;
+	margin-left:10px;
+	margin-top:10px;
 }
 .main_content table tr th {
     background: linear-gradient(#FFFFFF, #EFEFEF) repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -355,4 +393,46 @@
 }
 .cart_number {
 	color:#ea2222;
+}
+.product_title a{
+	display:inline-block;
+	width:100%;
+	overflow:hidden;
+	height:13px;
+}
+.order_list_item span{
+	display:inline-block;
+	width:200px;
+}
+.order_detail {
+	background-color: white;
+	
+}
+.admin_promotion_item span
+{
+	display:inline-block;
+	width:200px;
+}
+.admin_promotion_item input
+{
+	display:inline-block;
+	width:300px;
+}
+.admin_promotion_item{
+	margin-top:5px;
+}
+.order_list_summary {
+	text-align: right;
+	padding-right: 100px;
+}
+.admin_config_info_item span{
+	display:inline-block;
+	width:200px;
+}
+.admin_config_info_item input{
+	display:inline-block;
+	width:300px;
+}
+.admin_config_info_item{
+	margin-top:5px;
 }

@@ -122,9 +122,10 @@
 								for(var i = 0; i < data.length - 1; i++)
 								{
 									//$(".content_home").append('<div class="product_box"><img src="'+data1[i]["icon"]+'" width="150" height="150"> <inputname="product_id" type="hidden" value="'+data1[i]["id"]+'" /><div>'+data1[i]["status"]+'<br />'+data1[i]["price"]+'<br />'+data1[i]["name"]+'<br /> <a href="productDetail.html?product_id='+data1[i]["id"]+'">Chi tiết</a></div></div>');
-									$(".content_home").append('<div class="prod_box"><div class="top_prod_box"></div><div class="center_prod_box"><div class="product_title"><a href="productDetail.html?product_id='+data[i]["id"]+'">'+data[i]["name"]+'</a></div><div class="product_img"><a href="productDetail.html?product_id='+data[i]["id"]+'"><img src="'+data[i]["icon"]+'" alt="" border="0" /></a></div><input name="product_id" type="hidden" value="'+data[i]["id"]+'" /><div class="prod_price"><span class="">'+data[i]["price"]+'</span> <span class="price">'+data[i]["status"]+'</span></div></div><div class="bottom_prod_box"></div><div class="prod_details_tab"> <a href="#" title="header=[Add to cart] body=[&nbsp;] fade=[on]"><img src="image/image_template/cart.gif" alt="" border="0" class="left_bt" /></a> <a href="productDetail.html?product_id='+data[i]["id"]+'" class="prod_details">Chi tiết</a> </div></div>');
+									$(".content_home").append('<div class="prod_box" product_id="'+data[i]["id"]+'"><div class="top_prod_box"></div><div class="center_prod_box"><div class="product_title"><a href="productDetail.html?product_id='+data[i]["id"]+'">'+data[i]["name"]+'</a></div><div class="product_img"><a href="productDetail.html?product_id='+data[i]["id"]+'"><img src="'+data[i]["icon"]+'" alt="" border="0" /></a></div><input name="product_id" type="hidden" value="'+data[i]["id"]+'" /><div class="prod_price"><span class="">'+data[i]["price"]+'</span> <span class="price">'+data[i]["status"]+'</span></div></div><div class="bottom_prod_box"></div><div class="prod_details_tab"> <a href="#" title="header=[Add to cart] body=[&nbsp;] fade=[on]"><img src="image/image_template/cart.gif" alt="" border="0" class="left_bt" /></a> <a href="productDetail.html?product_id='+data[i]["id"]+'" class="prod_details">Chi tiết</a> </div></div>');
 								}
 								home_paging(page_size);
+								dragProduct();
 							}
 						});
 						
@@ -195,7 +196,26 @@
 			},
 		
 		});
+		dragProduct();
 	});
+	function dragProduct(){
+		$( ".prod_box" ).draggable({
+		      appendTo: "body",
+		      helper: "clone"
+		    });
+	    $( ".shopping_cart" ).droppable({
+	      activeClass: "",
+	      hoverClass: "",
+	      accept: ":not(.ui-sortable-helper)",
+	      drop: function( event, ui ) {  
+	        //$( this ).find( ".placeholder" ).remove();
+	        //alert( ui.draggable.attr("product_id"));
+	        window.location.href = 'addToCart.html?product_id=' + ui.draggable.attr("product_id");
+	      }
+	    }).sortable({
+	      
+	    });
+	}
 	
 </script>
     <div class="left_content">

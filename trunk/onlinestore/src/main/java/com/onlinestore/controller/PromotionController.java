@@ -155,6 +155,8 @@ public class PromotionController extends OsController {
 		Promotion promotion = new Promotion();
 		promotion.setName(name);
 		promotion.setTypePromotion(typePromotion);
+		
+		
 		promotion.setStartDate(Date.valueOf(startDate));
 		promotion.setEndDate(Date.valueOf(endDate));
 		promotion.setDescription(description);

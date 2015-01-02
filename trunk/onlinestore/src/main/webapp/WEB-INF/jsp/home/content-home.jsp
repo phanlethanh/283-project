@@ -1,7 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<head>
 
+</head>
 <style>
 .product_box {
 	background-color: white;
@@ -19,6 +21,7 @@
 		window.location.href = 'searchProduct.html?category_id=' 
 				+ categoryId + '&keyword=' + keyword;
 	}
+	
 </script>
 <% 
 	String cartNumber = "0";
@@ -30,12 +33,12 @@
       <div class="center_title_bar">Danh sách sản phẩm</div>
       <div class="content_home">
 	      <c:forEach var="product" items="${productMapList}">
-			<div class="prod_box">
+			<div class="prod_box"  product_id="${product['id']}">
 	        <div class="top_prod_box"></div>
 	        <div class="center_prod_box">
 	          <div class="product_title"><a href="productDetail.html?product_id=${product['id']}">${product['name']}</a></div>
 	          <div class="product_img"><a href="productDetail.html?product_id=${product['id']}"><img src="${product['icon']}" alt="" border="0" /></a></div>
-	          <input name="product_id" type="hidden" value="${product['id']}" />
+	          <input name="product_id" type="hidden" value="${product['id']}"/>
 	          <div class="prod_price"><span class="">${product['price']}</span> <span class="price">${product['status']}</span></div>
 	        </div>
 	        <div class="bottom_prod_box"></div>
@@ -62,7 +65,7 @@
         <div class="cart_title"><a href="viewCart.html" id=cart_detail>Giỏ hàng </a></div>
         <div class="cart_details "><span> Số lượng: </span><span class="cart_number"><%=cartNumber%></span><br />
           <span class="border_cart"></span> Tổng tiền: <span class="price"><%=cartPrice%></span> đ</div>
-        <div class="cart_icon"><a href="#" title="header=[Checkout] body=[&nbsp;] fade=[on]"><img src="images/shoppingcart.png" alt="" width="48" height="48" border="0" /></a></div>
+        <div class="cart_icon"><a href="#" title="header=[Checkout] body=[&nbsp;] fade=[on]"><img src="image/image_template/shoppingcart.png" alt="" width="48" height="48" border="0" /></a></div>
       </div>
       
       <div class="title_box">Mới nhất</div>

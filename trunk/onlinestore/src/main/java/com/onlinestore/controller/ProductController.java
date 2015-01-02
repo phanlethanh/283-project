@@ -174,7 +174,10 @@ public class ProductController {
 			productMap.put("promotion", product.getPromotion().getName());
 		}
 		if (product.getDatasFieldsProduct() != null)
+		{
 			productMap.put("datasFields", product.getDatasFieldsProduct());
+			
+		}
 		// Images of gallery
 		List<HashMap<String, Object>> imageMapList = new ArrayList<HashMap<String, Object>>();
 		List<Image> images = new ArrayList<Image>(product.getGallery()
@@ -185,8 +188,24 @@ public class ProductController {
 			imageMap.put("imageDescription", images.get(i).getDescription());
 			imageMapList.add(imageMap);
 		}
+		HashMap<String, Object> fieldsData = new HashMap<String,Object>();
+		List<String> list_field_name = new ArrayList<String>();
+		List<String> list_field_data = new ArrayList<String>();
+		if (product.getDatasFieldsProduct() != null)
+		{
+			DatasFieldsProduct datasFields = product.getDatasFieldsProduct();
+			byte[] data_fields = Base64.decode(datasFields.getSerialData());
+			fieldsData = (HashMap<String, Object>) SerializationUtils.deserialize(data_fields);
+			
+			for (Entry<String, Object> entry : fieldsData.entrySet()) {
+				list_field_name.add(entry.getKey());
+				list_field_data.add(entry.getValue().toString());
+			}
+		}
 		productMap.put("images", imageMapList);
+		productMap.put("fieldsData", fieldsData);
 		view.addObject("product", productMap);
+		view.addObject("fieldsName",list_field_name);
 		view.setViewName(viewName);
 		return view;
 	}
@@ -245,7 +264,7 @@ public class ProductController {
 			statusMapList.add(statusMap);
 		}
 		productMap.put("status", statusMapList);
-
+		
 		String json = new Gson().toJson(productMap);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
@@ -595,30 +614,38 @@ public class ProductController {
 			arr_list_add = list_image.split("\\|", -1);
 		}
 		Gallery gallery = product.getGallery();
-		for (int i = 0; i < arr_list_add.length; i++) {
-			if (arr_list_add[i] != "") {
-				Image image = getImageService().getImage(
-						Integer.parseInt(arr_list_add[i]));
-				image.setGallery(gallery);
-				if (image != null)
-					getImageService().update(image);
-			}
+		if(arr_list_add != null)
+		{
+			for (int i = 0; i < arr_list_add.length; i++) {
+				if (arr_list_add[i] != "") {
+					Image image = getImageService().getImage(
+							Integer.parseInt(arr_list_add[i]));
+					image.setGallery(gallery);
+					if (image != null)
+						getImageService().update(image);
+				}
 
+			}
 		}
+		
 		String[] arr_list_delete = null;
 		if (request.getParameter("list_image_delete") != "") {
 			String list_image = request.getParameter("list_image_delete");
 			arr_list_delete = list_image.split("\\|", -1);
 		}
-		for (int i = 0; i < arr_list_delete.length; i++) {
-			if (arr_list_delete[i] != "") {
-				Image image = getImageService().getImage(
-						Integer.parseInt(arr_list_delete[i]));
-				if (image != null)
-					getImageService().deleteImage(image);
-			}
+		if(arr_list_delete != null)
+		{
+			for (int i = 0; i < arr_list_delete.length; i++) {
+				if (arr_list_delete[i] != "") {
+					Image image = getImageService().getImage(
+							Integer.parseInt(arr_list_delete[i]));
+					if (image != null)
+						getImageService().deleteImage(image);
+				}
 
+			}
 		}
+		
 		getProductService().updateProduct(product);
 
 		HashMap<String, Object> meta = new HashMap<String, Object>();

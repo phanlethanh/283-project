@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.List"%>
 <style>
 .product_detail {
 	background-color: white;
@@ -59,29 +60,32 @@
 </script>
 <!-- End Twitter plugin javascript -->
 
-<div class="center_content">
+<div class="dt_product_content">
 	<form action="" method="get">
-		<h2>
+		<span class="ctgh_p">
 			<c:out value="${product['name']}" />
-		</h2>
+		</span>
 		<!-- Begin Facebook like plugin -->
-		<div class="fb-like"
-			data-href="productDetail.html?product_id=${product['id']}"
-			data-layout="button_count" data-action="like" data-show-faces="true"
-			data-share="true"></div>
-		<!-- End Facebook like plugin -->
-
-		<!-- Begin Tweet plugin -->
-		<a class="twitter-share-button"
-			href="https://twitter.com/share"> Tweet </a>
-		<!-- End Tweet plugin -->
-
-		<!-- Begin Google+ add plugin -->
-		<!-- <div class="g-plusone" data-annotation="inline" data-width="200"></div> -->
-		<div class="g-plus" data-action="share"
-			data-href="productDetail.html?product_id=${product['id']}"></div>
-		<!-- End Google+ add plugin -->
-		<br>
+		<div class="link_social_network">
+			<div class="fb-like"
+				data-href="productDetail.html?product_id=${product['id']}"
+				data-layout="button_count" data-action="like" data-show-faces="true"
+				data-share="true"></div>
+			<!-- End Facebook like plugin -->
+	
+			<!-- Begin Tweet plugin -->
+			<a class="twitter-share-button"
+				href="https://twitter.com/share"> Tweet </a>
+			<!-- End Tweet plugin -->
+	
+			<!-- Begin Google+ add plugin -->
+			<!-- <div class="g-plusone" data-annotation="inline" data-width="200"></div> -->
+			<div class="g-plus" data-action="share"
+				data-href="productDetail.html?product_id=${product['id']}"></div>
+			<!-- End Google+ add plugin -->
+			<br>
+		</div>
+		
 		<table>
 			<tr>
 				<td><img src="${product['icon']}" width="150" height="150"></td>
@@ -105,7 +109,20 @@
 		<input type="hidden" id="product_id" value="${product['id']}">
 	</form>
 	<br />
-	<h3>Thông tin chi tiết</h3>
+	<span class="ctgh_p">Thuộc tính</span>
+	<table>
+		<tr>
+			<th>Tên thuộc tính</th>
+			<th>Mô tả</th>
+		</tr>
+		 <c:forEach var="item" items="${product['fieldsData']}">
+		 <tr>
+		 	<th><span >${item.key}</span></th>
+			<td><span >${item.value}</span></td>
+		</tr>
+		 </c:forEach>
+	</table>
+	<span class="ctgh_p">Thông tin chi tiết</span>
 	<table>
 		<tr>
 			<th align="left">Nhà sản xuất:</th>

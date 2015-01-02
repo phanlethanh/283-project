@@ -5,6 +5,18 @@
 <script>
 	$(document).ready(
 		function() {
+			$( "#add_promotion_end_date" ).datepicker({
+				dateFormat: 'yy-mm-dd'
+			    });
+			$( "#add_promotion_start_date" ).datepicker({
+				dateFormat: 'yy-mm-dd'
+			    });
+			$( "#edit_promotion_end_date" ).datepicker({
+				dateFormat: 'yy-mm-dd'
+			    });
+			$( "#edit_promotion_start_date" ).datepicker({
+				dateFormat: 'yy-mm-dd'
+			    });
 			$('.admin_edit_promotion').live('click',
 				function(e) {
 					var id = $(this).attr("promotionid");
@@ -150,7 +162,7 @@
 </div>
 
 <div id="adminEditPromotion" class="reveal-editrecordmodalwindow">
-	<h4>Chi tiết khuyến mãi</h4>
+	<h4>Cập nhập khuyến mãi</h4>
 	<div class="in-progress"></div>
 	<div class="modalAddCategoryCentreContent">
 		<div class="modalMess"></div>
@@ -170,11 +182,11 @@
 						name="promotion_type" required>
 				</div>
 				<div class=admin_promotion_item>
-					<span>Ngày bắt đầu</span><input class="edit_promotion_start_date"
+					<span>Ngày bắt đầu</span><input class="edit_promotion_start_date" id="edit_promotion_start_date"
 						type="date" name="promotion_start_date" required>
 				</div>
 				<div class=admin_promotion_item>
-					<span>Ngày kết thúc</span><input class="edit_promotion_end_date"
+					<span>Ngày kết thúc</span><input class="edit_promotion_end_date" id="edit_promotion_end_date"
 						type="date" name="promotion_end_date" required>
 				</div>
 				<div class=admin_promotion_item>
@@ -194,7 +206,7 @@
 </div>
 
 <div id="adminAddPromotion" class="reveal-editrecordmodalwindow">
-	<h4>Chi tiết khuyến mãi</h4>
+	<h4>Thêm khuyến mãi</h4>
 	<div class="in-progress"></div>
 	<div class="modalAddCategoryCentreContent">
 		<div class="modalMess"></div>
@@ -214,11 +226,11 @@
 						name="promotion_type" required>
 				</div>
 				<div class=admin_promotion_item>
-					<span>Ngày bắt đầu</span><input class="edit_promotion_start_date"
+					<span>Ngày bắt đầu</span><input class="edit_promotion_start_date" id="add_promotion_start_date"
 						type="date" name="promotion_start_date" required>
 				</div>
 				<div class=admin_promotion_item>
-					<span>Ngày kết thúc</span><input class="edit_promotion_end_date"
+					<span>Ngày kết thúc</span><input class="edit_promotion_end_date" id="add_promotion_end_date"
 						type="date" name="promotion_end_date" required>
 				</div>
 				<div class=admin_promotion_item>
