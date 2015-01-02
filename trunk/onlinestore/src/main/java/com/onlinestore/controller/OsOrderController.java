@@ -81,7 +81,7 @@ public class OsOrderController extends OsController {
 		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
 			// Not login
 			// Redirect to login
-			map.put("code", 0); // not login
+			map.put("code", 2); // not login
 		} else {
 			// Logged in
 			Integer userId = Integer.valueOf(session.getAttribute(
@@ -127,6 +127,59 @@ public class OsOrderController extends OsController {
 				// Delete cart product from cart
 				getCartProductService().deleteCartProduct(cpId);
 			}
+			map.put("code", 1);
+		}
+		String json = new Gson().toJson(map);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/createOrderFromProduct", method = RequestMethod.POST)
+	public void createOrderFromProduct(HttpServletRequest request,
+			HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Integer productId = Integer.valueOf(request.getParameter("product_id"));
+		Product product = getProductService().getProduct(productId);
+		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
+			// Not login
+			// Redirect to login
+			map.put("code", 2); // not login
+		} else {
+			// Logged in
+			Integer userId = Integer.valueOf(session.getAttribute(
+					Variable.SESSION_USER_ID).toString());
+			// create order
+			OsUser user = getUserService().getOsUser(userId);
+			Status status = new Status();
+			status.setId(Variable.ID_NEW_ORDER_STATUS); // New Status
+			TransportFee tfee = new TransportFee();
+			tfee.setId(Variable.ID_ZERO_TRANSPORT_FEE); // 0
+			Tax tax = new Tax();
+			tax.setId(Variable.ID_VAT_TAX);
+			OsOrder order = new OsOrder();
+			order.setOsUser(user);
+			order.setStatus(status);
+			order.setTransportFee(tfee);
+			order.setTax(tax);
+			order.setAddress(user.getAddress());
+			order.setPhone(user.getPhone());
+			// Insert into database
+			Integer orderId = getOsOrderService().createOsOrder(order);
+			order.setId(orderId);
+			// Create order detail
+			OsOrderDetail orderDetail = new OsOrderDetail();
+			orderDetail.setOsOrder(order);
+			orderDetail.setProduct(product);
+			orderDetail.setQuantity(1); // Default quantity = 1
+			orderDetail.setPrice(product.getPrice().getPrice());
+			// Insert OsOrderDetail into database
+			getOsOrderDetailService().createOsOrderDetail(orderDetail);
 			map.put("code", 1);
 		}
 		String json = new Gson().toJson(map);
