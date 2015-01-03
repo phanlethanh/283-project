@@ -704,101 +704,101 @@ INSERT INTO image(gallery_id, name, description)
 	
 -- ###############################################################################################################
 -- Product
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (1, 2, 1, 1, 1, 'Iphone 6 Plus 128GB', 'image/product_icon/iphone-6-plus.jpg', 100, 'Điện thoại thông minh cao cấp.'); -- 1
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (1, 2, 1, 2, 2, 'Iphone 6 128GB', 'image/product_icon/iphone-6.jpg', 100, 'Điện thoại thông minh cao cấp.'); -- 2
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (1, 4, 1, 3, 3, 'Iphone 5s 32GB', 'image/product_icon/iphone-5s.jpg', 100, 'Điện thoại thông minh cao cấp.'); -- 3
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (1, 4, 1, 4, 4, 'Iphone 4s 8GB', 'image/product_icon/iphone-4.jpg', 100, 'Điện thoại thông minh cao cấp.'); -- 4
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (1, 2, 1, 1, 1, 'Iphone 6 Plus 128GB', 'image/product_icon/iphone-6-plus.jpg', 200, 1, 'Điện thoại thông minh cao cấp.'); -- 1
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (1, 2, 1, 2, 2, 'Iphone 6 128GB', 'image/product_icon/iphone-6.jpg', 500, 1, 'Điện thoại thông minh cao cấp.'); -- 2
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (1, 4, 1, 3, 3, 'Iphone 5s 32GB', 'image/product_icon/iphone-5s.jpg', 1000, 1, 'Điện thoại thông minh cao cấp.'); -- 3
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (1, 4, 1, 4, 4, 'Iphone 4s 8GB', 'image/product_icon/iphone-4.jpg', 150, 1, 'Điện thoại thông minh cao cấp.'); -- 4
 
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (2, 1, 12, 5, 5, 'SS Galaxy Note 4', 'image/product_icon/samsung-galaxy-note-4-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Samsung.'); -- 5
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (2, 4, 12, 6, 6, 'Samsung Galaxy S5', 'image/product_icon/samsung-galaxy-s5-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Samsung.'); -- 6
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (2, 4, 12, 7, 7, 'SS Galaxy Note 3', 'image/product_icon/samsung-galaxy-note-3-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Samsung.'); -- 7
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (2, 2, 11, 8, 8, 'Samsung Galaxy V', 'image/product_icon/samsung-galaxy-v-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Samsung.'); -- 8
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (2, 4, 11, 9, 9, 'SS GLX Trend Plus', 'image/product_icon/samsung-galaxy-trend-s7560-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Samsung.'); -- 9
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (2, 4, 11, 10, 10, 'SS GLX Grand Prime', 'image/product_icon/samsung-galaxy-grand-prime-g530-icon.jpg', 100, 'Điện thoại thông minh tầm trung của Samsung.'); -- 10
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (2, 4, 11, 11, 11, 'Samsung Galaxy S4', 'image/product_icon/Samsung-Galaxy-S4-I9500-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Samsung.'); -- 11
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (2, 4, 11, 12, 12, 'Samsung Galaxy Core 2', 'image/product_icon/samsung-galaxy-core-2-icon.jpg', 100, 'Điện thoại thông minh tầm trung của Samsung.'); -- 12
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (2, 4, 11, 13, 13, 'Samsung Galaxy Win', 'image/product_icon/samsung-galaxy-win-i8552-icon.jpg', 100, 'Điện thoại thông minh tầm trung của Samsung.'); -- 13
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (2, 1, 12, 5, 5, 'SS Galaxy Note 4', 'image/product_icon/samsung-galaxy-note-4-icon.jpg', 100, 1, 'Điện thoại thông minh cao cấp của Samsung.'); -- 5
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (2, 4, 12, 6, 6, 'Samsung Galaxy S5', 'image/product_icon/samsung-galaxy-s5-icon.jpg', 140, 2, 'Điện thoại thông minh cao cấp của Samsung.'); -- 6
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (2, 4, 12, 7, 7, 'SS Galaxy Note 3', 'image/product_icon/samsung-galaxy-note-3-icon.jpg', 1000, 1, 'Điện thoại thông minh cao cấp của Samsung.'); -- 7
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (2, 2, 11, 8, 8, 'Samsung Galaxy V', 'image/product_icon/samsung-galaxy-v-icon.jpg', 1004, 1, 'Điện thoại thông minh giá rẻ của Samsung.'); -- 8
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (2, 4, 11, 9, 9, 'SS GLX Trend Plus', 'image/product_icon/samsung-galaxy-trend-s7560-icon.jpg', 1300, 2, 'Điện thoại thông minh giá rẻ của Samsung.'); -- 9
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (2, 4, 11, 10, 10, 'SS GLX Grand Prime', 'image/product_icon/samsung-galaxy-grand-prime-g530-icon.jpg', 1500, 1, 'Điện thoại thông minh tầm trung của Samsung.'); -- 10
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (2, 4, 11, 11, 11, 'Samsung Galaxy S4', 'image/product_icon/Samsung-Galaxy-S4-I9500-icon.jpg', 400, 1, 'Điện thoại thông minh cao cấp của Samsung.'); -- 11
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (2, 4, 11, 12, 12, 'Samsung Galaxy Core 2', 'image/product_icon/samsung-galaxy-core-2-icon.jpg', 1040, 2, 'Điện thoại thông minh tầm trung của Samsung.'); -- 12
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (2, 4, 11, 13, 13, 'Samsung Galaxy Win', 'image/product_icon/samsung-galaxy-win-i8552-icon.jpg', 1100, 1, 'Điện thoại thông minh tầm trung của Samsung.'); -- 13
 
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (3, 1, 6, 14, 14, 'Sony Xperia Z3', 'image/product_icon/sony-xperia-z3-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Sony.'); -- 14
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (3, 4, 6, 15, 15, 'Sony Xperia Z2', 'image/product_icon/sony-xperia-z2-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Sony.'); -- 15
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (3, 4, 6, 16, 16, 'Sony Xperia Z1', 'image/product_icon/sony-xperia-z1-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Sony.'); -- 16
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (3, 1, 6, 17, 17, 'Sony Xperia Z3 Compact', 'image/product_icon/sony-xperia-z3-compact-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Sony.'); -- 17
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (3, 4, 6, 18, 18, 'Sony Xperia Z Ultra', 'image/product_icon/sony-xperia-z-ultra-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Sony.'); -- 18
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (3, 4, 6, 19, 19, 'Sony Xperia T2 Ultra', 'image/product_icon/sony-xperia-t2-ultra-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Sony.'); -- 19
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (3, 4, 6, 20, 20, 'Sony Xperia M2 Aqua', 'image/product_icon/sony-xperia-m2-aqua-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Sony.'); -- 20
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (3, 4, 6, 21, 21, 'Sony Xperia M2', 'image/product_icon/sony-xpreia-m2-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Sony.'); -- 21
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (3, 4, 6, 22, 22, 'Sony Xperia C3', 'image/product_icon/sony-xperia-c3-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Sony.'); -- 22
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (3, 4, 6, 23, 23, 'Sony Xperia E1', 'image/product_icon/sony-xperia-e1-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Sony.'); -- 23
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (3, 4, 6, 24, 24, 'Sony Xperia E3', 'image/product_icon/sony-xperia-e3-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Sony.'); -- 24
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (3, 1, 6, 14, 14, 'Sony Xperia Z3', 'image/product_icon/sony-xperia-z3-icon.jpg', 104, 1, 'Điện thoại thông minh cao cấp của Sony.'); -- 14
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (3, 4, 6, 15, 15, 'Sony Xperia Z2', 'image/product_icon/sony-xperia-z2-icon.jpg', 107, 1, 'Điện thoại thông minh cao cấp của Sony.'); -- 15
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (3, 4, 6, 16, 16, 'Sony Xperia Z1', 'image/product_icon/sony-xperia-z1-icon.jpg', 1008, 1, 'Điện thoại thông minh cao cấp của Sony.'); -- 16
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (3, 1, 6, 17, 17, 'Sony Xperia Z3 Compact', 'image/product_icon/sony-xperia-z3-compact-icon.jpg', 2100, 1, 'Điện thoại thông minh cao cấp của Sony.'); -- 17
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (3, 4, 6, 18, 18, 'Sony Xperia Z Ultra', 'image/product_icon/sony-xperia-z-ultra-icon.jpg', 1100, 1, 'Điện thoại thông minh cao cấp của Sony.'); -- 18
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (3, 4, 6, 19, 19, 'Sony Xperia T2 Ultra', 'image/product_icon/sony-xperia-t2-ultra-icon.jpg', 100, 1, 'Điện thoại thông minh cao cấp của Sony.'); -- 19
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (3, 4, 6, 20, 20, 'Sony Xperia M2 Aqua', 'image/product_icon/sony-xperia-m2-aqua-icon.jpg', 100, 1, 'Điện thoại thông minh cao cấp của Sony.'); -- 20
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (3, 4, 6, 21, 21, 'Sony Xperia M2', 'image/product_icon/sony-xpreia-m2-icon.jpg', 109, 1, 'Điện thoại thông minh cao cấp của Sony.'); -- 21
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (3, 4, 6, 22, 22, 'Sony Xperia C3', 'image/product_icon/sony-xperia-c3-icon.jpg', 90, 1, 'Điện thoại thông minh cao cấp của Sony.'); -- 22
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (3, 4, 6, 23, 23, 'Sony Xperia E1', 'image/product_icon/sony-xperia-e1-icon.jpg', 980, 1, 'Điện thoại thông minh giá rẻ của Sony.'); -- 23
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (3, 4, 6, 24, 24, 'Sony Xperia E3', 'image/product_icon/sony-xperia-e3-icon.jpg', 100, 1, 'Điện thoại thông minh giá rẻ của Sony.'); -- 24
 
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (4, 4, 6, 25, 25, 'Nokia Lumia 930', 'image/product_icon/nokia-lumia-930-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Nokia.'); -- 25
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (4, 4, 6, 26, 26, 'Nokia Lumia 1520', 'image/product_icon/nokia-lumia-1520-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Nokia.'); -- 26
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (4, 4, 6, 27, 27, 'Nokia Lumia 830', 'image/product_icon/nokia-lumia-830-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Nokia.'); -- 27
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (4, 4, 6, 28, 28, 'Nokia Lumia 730', 'image/product_icon/nokia-lumia-730-dual-sim-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Nokia.'); -- 28
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (4, 4, 6, 29, 29, 'Nokia Lumia 625', 'image/product_icon/nokia-lumia-625-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Nokia.'); -- 29
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (4, 4, 6, 30, 30, 'Nokia Lumia 1320', 'image/product_icon/nokia-lumia-1320-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Nokia.'); -- 30
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (4, 4, 6, 31, 31, 'Nokia Lumia 630', 'image/product_icon/nokia-lumia-630-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Nokia.'); -- 31
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (4, 2, 6, 32, 32, 'Nokia Lumia 530', 'image/product_icon/nokia-lumia-530-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Nokia.'); -- 32
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (4, 4, 6, 25, 25, 'Nokia Lumia 930', 'image/product_icon/nokia-lumia-930-icon.jpg', 100, 1, 'Điện thoại thông minh cao cấp của Nokia.'); -- 25
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (4, 4, 6, 26, 26, 'Nokia Lumia 1520', 'image/product_icon/nokia-lumia-1520-icon.jpg', 100, 1, 'Điện thoại thông minh cao cấp của Nokia.'); -- 26
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (4, 4, 6, 27, 27, 'Nokia Lumia 830', 'image/product_icon/nokia-lumia-830-icon.jpg', 400, 0, 'Điện thoại thông minh cao cấp của Nokia.'); -- 27
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (4, 4, 6, 28, 28, 'Nokia Lumia 730', 'image/product_icon/nokia-lumia-730-dual-sim-icon.jpg', 100, 1, 'Điện thoại thông minh cao cấp của Nokia.'); -- 28
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (4, 4, 6, 29, 29, 'Nokia Lumia 625', 'image/product_icon/nokia-lumia-625-icon.jpg', 130, 10, 'Điện thoại thông minh cao cấp của Nokia.'); -- 29
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (4, 4, 6, 30, 30, 'Nokia Lumia 1320', 'image/product_icon/nokia-lumia-1320-icon.jpg', 134, 1, 'Điện thoại thông minh cao cấp của Nokia.'); -- 30
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (4, 4, 6, 31, 31, 'Nokia Lumia 630', 'image/product_icon/nokia-lumia-630-icon.jpg', 105, 1, 'Điện thoại thông minh giá rẻ của Nokia.'); -- 31
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (4, 2, 6, 32, 32, 'Nokia Lumia 530', 'image/product_icon/nokia-lumia-530-icon.jpg', 100, 1, 'Điện thoại thông minh giá rẻ của Nokia.'); -- 32
 	
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (5, 1, 6, 33, 33, 'Microsoft Lumia 535', 'image/product_icon/microsoft-lumia-535-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Microsoft.'); -- 33
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (5, 1, 6, 33, 33, 'Microsoft Lumia 535', 'image/product_icon/microsoft-lumia-535-icon.jpg', 100, 1, 'Điện thoại thông minh giá rẻ của Microsoft.'); -- 33
 	
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (17, 4, 6, 34, 34, 'Asus Zenfone 6', 'image/product_icon/asus-zenfone-6-a601-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Asus.'); -- 34
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (17, 4, 6, 35, 35, 'Asus Zenfone 5', 'image/product_icon/asus-zenfone-5-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Asus.'); -- 35
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (17, 4, 6, 36, 36, 'Asus Zenfone 4 A450', 'image/product_icon/asus-zenfone-4-45-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Asus.'); -- 36
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (17, 4, 6, 37, 37, 'Asus Zenfone 4', 'image/product_icon/asus-zenfone-4-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Asus.'); -- 37
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (17, 4, 6, 34, 34, 'Asus Zenfone 6', 'image/product_icon/asus-zenfone-6-a601-icon.jpg', 135, 1, 'Điện thoại thông minh giá rẻ của Asus.'); -- 34
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (17, 4, 6, 35, 35, 'Asus Zenfone 5', 'image/product_icon/asus-zenfone-5-icon.jpg', 123, 1, 'Điện thoại thông minh giá rẻ của Asus.'); -- 35
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (17, 4, 6, 36, 36, 'Asus Zenfone 4 A450', 'image/product_icon/asus-zenfone-4-45-icon.jpg', 1104, 1, 'Điện thoại thông minh giá rẻ của Asus.'); -- 36
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (17, 4, 6, 37, 37, 'Asus Zenfone 4', 'image/product_icon/asus-zenfone-4-icon.jpg', 304, 1, 'Điện thoại thông minh giá rẻ của Asus.'); -- 37
 	
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (8, 4, 6, 38, 38, 'Philips i928', 'image/product_icon/philips-i928-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Philips.'); -- 38
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (8, 4, 6, 39, 39, 'Philips i908', 'image/product_icon/philips-i908-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Philips.'); -- 39
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (8, 4, 6, 40, 40, 'Philips Xenium W6610', 'image/product_icon/philips-xenium-w6610-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Philips.'); -- 40	
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (8, 4, 6, 41, 41, 'Philips S388', 'image/product_icon/philips-s388-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Philips.'); -- 41
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (8, 4, 6, 42, 42, 'Philips S308', 'image/product_icon/philips-s308-icon.jpg', 100, 'Điện thoại thông minh giá rẻ của Philips.'); -- 42
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (8, 4, 6, 38, 38, 'Philips i928', 'image/product_icon/philips-i928-icon.jpg', 203, 1, 'Điện thoại thông minh cao cấp của Philips.'); -- 38
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (8, 4, 6, 39, 39, 'Philips i908', 'image/product_icon/philips-i908-icon.jpg', 100, 1, 'Điện thoại thông minh cao cấp của Philips.'); -- 39
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (8, 4, 6, 40, 40, 'Philips Xenium W6610', 'image/product_icon/philips-xenium-w6610-icon.jpg', 241, 1, 'Điện thoại thông minh cao cấp của Philips.'); -- 40	
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (8, 4, 6, 41, 41, 'Philips S388', 'image/product_icon/philips-s388-icon.jpg', 112, 1, 'Điện thoại thông minh giá rẻ của Philips.'); -- 41
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (8, 4, 6, 42, 42, 'Philips S308', 'image/product_icon/philips-s308-icon.jpg', 100, 1, 'Điện thoại thông minh giá rẻ của Philips.'); -- 42
 	
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (14, 4, 6, 43, 43, 'Pantech Vega Iron', 'image/product_icon/pantech-vega-iron-a870s-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Pantech.'); -- 43
-INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, description)
-    VALUES (14, 4, 6, 44, 44, 'Pantech Vega Iron 2', 'image/product_icon/pantech-vega-iron-2-a910s-icon.jpg', 100, 'Điện thoại thông minh cao cấp của Pantech.'); -- 44
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (14, 4, 6, 43, 43, 'Pantech Vega Iron', 'image/product_icon/pantech-vega-iron-a870s-icon.jpg', 100, 1, 'Điện thoại thông minh cao cấp của Pantech.'); -- 43
+INSERT INTO product(producer_id, status_id, promotion_id, price_id, gallery_id, name, icon, stock_quantity, error_quantity, description)
+    VALUES (14, 4, 6, 44, 44, 'Pantech Vega Iron 2', 'image/product_icon/pantech-vega-iron-2-a910s-icon.jpg', 350, 1, 'Điện thoại thông minh cao cấp của Pantech.'); -- 44
 	
 -- ###############################################################################################################
 -- Category products
