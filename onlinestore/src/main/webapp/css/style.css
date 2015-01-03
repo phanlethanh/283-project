@@ -436,3 +436,40 @@ float:left;
 .admin_config_info_item{
 	margin-top:5px;
 }
+.report_dashboard table {
+    display: inline-block;
+    width: 792px;
+}
+.date_input_item {
+	margin-top:5px;
+}
+.date_input_item span {
+	display:inline-block;
+	width:100px;
+}
+.date_input_item input{
+	display:inline-block;
+	width:150px;
+}
+.user_item {
+	margin-top:5px;
+}
+.user_item span {
+	display:inline-block;
+	width:100px;
+}
+.user_item input {
+	display:inline-block;
+	width:220px;
+}
+.password_item {
+	margin-top:5px;
+}
+.password_item span {
+	display:inline-block;
+	width:100px;
+}
+.password_item input {
+	display:inline-block;
+	width:200px;
+}

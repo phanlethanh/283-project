@@ -36,6 +36,8 @@ public class OsOrderDetailController extends OsController {
 			viewName = "error";
 		} else {
 			// Logged in
+			Integer userId = Integer.valueOf(session.getAttribute(
+					Variable.SESSION_USER_ID).toString());
 			// Get orderList from order id
 			Integer orderId = Integer.valueOf(request
 					.getParameter(Variable.REQUEST_ORDER_ID));
@@ -85,6 +87,9 @@ public class OsOrderDetailController extends OsController {
 					String.format(Variable.CURRENCY_FORMAT, taxPayment));
 			view.addObject("totalPayment",
 					String.format(Variable.CURRENCY_FORMAT, totalPayment));
+
+			view.addObject("orderId", orderId);
+			view.addObject("userId", userId);
 		}
 		view.addObject("orderDetailMapList", orderDetailMapList);
 		view.setViewName(viewName);
@@ -132,15 +137,15 @@ public class OsOrderDetailController extends OsController {
 		order.setPhone(order.getPhone());
 		order.setCreateDate(order.getCreateDate());
 		order.setActive(order.getActive());
-		
+
 		getOsOrderService().updateOsOrder(order);
-		
+
 		transportFee = order.getTransportFee().getPrice();
 		totalPayment = totalMoney + transportFee; // thanh toan
 		tax = order.getTax().getValue();
 		taxPayment = (totalPayment * tax) / 100;
 		totalPayment += taxPayment; // thue
-		
+
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("id", orderDetailId);
 		map.put("transport_fee",
@@ -152,7 +157,7 @@ public class OsOrderDetailController extends OsController {
 				String.format(Variable.CURRENCY_FORMAT, taxPayment));
 		map.put("total_payment",
 				String.format(Variable.CURRENCY_FORMAT, totalPayment));
-		
+
 		String json = new Gson().toJson(map);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

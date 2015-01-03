@@ -61,6 +61,10 @@
     	<put-attribute name="left_content" value="/WEB-INF/jsp/home/left_content_home.jsp"/>
         <put-attribute name="content" value="/WEB-INF/jsp/comfirm_order.jsp" />
     </definition>
+     <definition name="report" extends=".mainTemplate">
+    	<put-attribute name="left_content" value="/WEB-INF/jsp/admin/left_content_admin.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/content_admin_report.jsp" />
+    </definition>
     
 </tiles-definitions>
                 

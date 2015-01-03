@@ -29,6 +29,19 @@ $(document).ready(
 						});
 					}
 			});
+			
+			$('.export_order_button').live('click', function(e) {
+				if (confirm("Xuất phiếu thông tin hóa đơn?") == true) {
+					var order_id = document.getElementById("order_id_export").value;
+					var user_id = document.getElementById("user_id_export").value;
+					var url = "http://localhost:8080/pentaho/api/repos/%3Aonlinestore%3AHoaDon.prpt/viewer?"
+						+ "uid=" + user_id 
+						+ "&oid=" + order_id
+						+ "&output-type=html";
+					window.open(url, '_blank');
+					window.focus();
+				}
+			});
 		});
 </script>
 <div class="order_detail">
@@ -80,5 +93,10 @@ $(document).ready(
 		<p>
 			Thanh toán: <span id="total_payment">${totalPayment}</span> đ
 		</p>
+		<p>
+			<a class="export_order_button" href="#">Xuất phiếu hóa đơn</a>
+		</p>
 	</div>
+	<input id="order_id_export" value="${orderId}" type="hidden">
+	<input id="user_id_export" value="${userId}" type="hidden">
 </div>
