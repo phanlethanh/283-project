@@ -40,6 +40,7 @@ public class Product implements java.io.Serializable {
 	private String name;
 	private String icon;
 	private Integer stockQuantity;
+	private Integer errorQuantity;
 	private String description;
 	private Date createDate;
 	private Date writeDate;
@@ -176,6 +177,15 @@ public class Product implements java.io.Serializable {
 
 	public void setStockQuantity(Integer stockQuantity) {
 		this.stockQuantity = stockQuantity;
+	}
+	
+	@Column(name = "error_quantity")
+	public Integer getErrorQuantity() {
+		return this.errorQuantity;
+	}
+
+	public void setErrorQuantity(Integer errorQuantity) {
+		this.errorQuantity = errorQuantity;
 	}
 
 	@Column(name = "description", length = 256)
