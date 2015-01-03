@@ -143,6 +143,7 @@
 				<prop key="waitingProducts.html">homeController</prop>
 				<prop key="promotionProducts.html">homeController</prop>
 				<prop key="createOrderFromProduct.html">osOrderController</prop>
+				<prop key="viewReportDashboard.html">reportController</prop>
 			</props>
 		</property>
 	</bean>
@@ -156,6 +157,7 @@
 	<bean id="osOrderDetailController" class="com.onlinestore.controller.OsOrderDetailController" />
 	<bean id="promotionController" class="com.onlinestore.controller.PromotionController" />
 	<bean id="configController" class="com.onlinestore.controller.ConfigController" />
+	<bean id="reportController" class="com.onlinestore.controller.ReportController" />
 	<context:annotation-config />
 	<tx:annotation-driven proxy-target-class="true" />
 	<context:component-scan base-package="com.onlinestore.dao" />
