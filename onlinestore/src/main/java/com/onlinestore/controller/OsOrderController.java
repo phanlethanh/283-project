@@ -352,8 +352,8 @@ public class OsOrderController extends OsController {
 			String hello = "Chào "
 					+ user.getFullName()
 					+ ". Bạn vừa đặt thành công một đơn hàng trên OnlineStore. Vui lòng truy cập địa chỉ phái dưới để xác nhận!";
-			String linkComfirm = "http://localhost:8080/onlinestore/comfirmOrderFromEmail.html?user_id="+user.getId()+"&order_id="
-					+ orderId;
+			String linkComfirm = "http://localhost:8080/onlinestore/comfirmOrderFromEmail.html?user_id="
+					+ user.getId() + "&order_id=" + orderId;
 			message.setText(hello + linkComfirm);
 
 			// Send message
@@ -375,21 +375,38 @@ public class OsOrderController extends OsController {
 		OsOrder order = getOsOrderService().getOsOrder(order_id);
 		Status status = getStatusService().getStatus(7);
 		HttpSession session = request.getSession();
-		if(session.getAttribute(Variable.SESSION_USER_ID) != null && session.getAttribute(Variable.SESSION_USER_ID).equals(user_id))
-		{
+		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
+			// Not login
+			// Ignore because user does not see view-order menu
+			view.setViewName("comfirmOrderNotLogin");
+		} else {
+			// Logged in
+			String userId = session.getAttribute(Variable.SESSION_USER_ID)
+					.toString();
+			if (userId.compareTo(user_id) == 0) {
+				if (order != null)
+					order.setStatus(status);
+				getOsOrderService().updateOsOrder(order);
+				view.setViewName("comfirmOrder");
+			}
+		}
+
+		/*if (session.getAttribute(Variable.SESSION_USER_ID) != null
+				&& session.getAttribute(Variable.SESSION_USER_ID).equals(
+						user_id)) {
 			if (order != null)
 				order.setStatus(status);
 			getOsOrderService().updateOsOrder(order);
 			view.setViewName("comfirmOrder");
-		}
-		else
-			view.setViewName("comfirmOrderNotLogin");
-		
+		} else
+			view.setViewName("comfirmOrderNotLogin");*/
+
 		return view;
 	}
-	@RequestMapping(value="/viewOrdersInfo")
-	public ModelAndView viewOrdersInfo(HttpServletRequest request, HttpServletResponse response)
-	{
+
+	@RequestMapping(value = "/viewOrdersInfo")
+	public ModelAndView viewOrdersInfo(HttpServletRequest request,
+			HttpServletResponse response) {
 		List<HashMap> orderMapList = new ArrayList<HashMap>();
 		List<OsOrder> listOrder = getOsOrderService().getOsOrders();
 		for (int i = 0; i < listOrder.size(); i++) {
@@ -409,17 +426,17 @@ public class OsOrderController extends OsController {
 		view.setViewName("viewOrdersInfo");
 		return view;
 	}
-	
-	@RequestMapping(value="/changeOrderStatus")
-	public void changeOrderStatus(HttpServletRequest request,HttpServletResponse response)
-	{
+
+	@RequestMapping(value = "/changeOrderStatus")
+	public void changeOrderStatus(HttpServletRequest request,
+			HttpServletResponse response) {
 		int status_id = Integer.parseInt(request.getParameter("status_id"));
 		int order_id = Integer.parseInt(request.getParameter("order_id"));
 		OsOrder order = getOsOrderService().getOsOrder(order_id);
 		Status status = getStatusService().getStatus(status_id);
 		order.setStatus(status);
 		getOsOrderService().updateOsOrder(order);
-		HashMap<String,Object> meta = new HashMap<String,Object>();
+		HashMap<String, Object> meta = new HashMap<String, Object>();
 		meta.put("code", 1);
 		String json = new Gson().toJson(meta);
 		response.setContentType("application/json");
@@ -429,6 +446,6 @@ public class OsOrderController extends OsController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 }
