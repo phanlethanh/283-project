@@ -15,6 +15,8 @@
 
 <script>
 	$(document).ready(function() {
+		
+		
 		$('.create_order_button').live('click', function(e) {
 			document.getElementById("form_term_and_conditions").reset();
 			$("#termsAndConditions").reveal();
@@ -99,6 +101,17 @@
 		</p>
 		<input type="button" value="Lập đơn hàng" class="create_order_button"
 			id="create_order_button">
+		<div class="pay_order">
+			<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=BBQK4RE7V6XLU" 
+		    data-button="buynow" 
+		    data-name="My card" 
+		    data-quantity="1" 
+		    data-amount="${totalMoneyUsd}" 
+		    data-shipping="0.5" 
+		    data-tax="1.5" 
+		    data-callback="http://localhost:8080/onlinestore/homes.html"
+		></script>
+		</div>
 	</div>
 </div>
 

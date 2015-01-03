@@ -39,7 +39,16 @@
 	          <div class="product_title"><a href="productDetail.html?product_id=${product['id']}">${product['name']}</a></div>
 	          <div class="product_img"><a href="productDetail.html?product_id=${product['id']}"><img src="${product['icon']}" alt="" border="0" /></a></div>
 	          <input name="product_id" type="hidden" value="${product['id']}"/>
-	          <div class="prod_price"><span class="">${product['price']}</span> <span class="price">${product['status']}</span></div>
+	          <div class="prod_price">
+	          	
+	          	<c:if test="${product['price_seft'] != '0'}">
+	          		<span class="reduce">${product['price']}</span><span class="price"><c:out value="${product['price_seft']}"></c:out></span>
+	          	</c:if>
+	          	<c:if test="${product['price_seft'] == '0'}">
+	          		 <span class="price"><c:out value="${product['price']}"></c:out></span>
+	          	</c:if>
+	          	 <span class="price">${product['status']}</span>
+	          </div>
 	        </div>
 	        <div class="bottom_prod_box"></div>
 	        <div class="prod_details_tab"> <a href="addToCart.html?product_id=${product['id']}" title="header=[Add to cart] body=[&nbsp;] fade=[on]">
@@ -66,6 +75,7 @@
         <div class="cart_details "><span> Số lượng: </span><span class="cart_number"><%=cartNumber%></span><br />
           <span class="border_cart"></span> Tổng tiền: <span class="price"><%=cartPrice%></span> đ</div>
         <div class="cart_icon"><a href="#" title="header=[Checkout] body=[&nbsp;] fade=[on]"><img src="image/image_template/shoppingcart.png" alt="" width="48" height="48" border="0" /></a></div>
+       
       </div>
       
       <div class="title_box">Mới nhất</div>

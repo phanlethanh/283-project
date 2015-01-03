@@ -36,4 +36,5 @@ public class Variable {
 	public static final Integer ID_WAITING_PRODUCT_STATUS = 3;
 	public static final Integer ID_INSTOCK_PRODUCT_STATUS = 4;
 	public static final Integer ID_OUTOFSTOCK_PRODUCT_STATUS = 5;
+	public static final Integer USD_VND = 21387;
 }

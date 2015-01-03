@@ -133,7 +133,15 @@
 			</tr>
 			<tr>
 				<th align="left">Giá bán:</th>
-				<td><c:out value="${product['price']}" /> VNĐ</td>
+				<td>
+					<c:if test="${product['price_self'] != '0'}">
+						<span class="reduce">${product['price']}VNĐ</span><span class="price">${product['price_self']}VNĐ</span>
+					</c:if>
+					<c:if test="${product['price_self'] == '0'}">
+						<span class="price">${product['price']}VNĐ</span>
+					</c:if>
+					
+				</td>
 			</tr>
 			<tr>
 				<th align="left">Khuyến mãi:</th>

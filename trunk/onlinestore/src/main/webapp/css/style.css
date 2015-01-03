@@ -436,6 +436,24 @@ float:left;
 .admin_config_info_item{
 	margin-top:5px;
 }
+.admin_list_orders table
+{
+	display: inline-block;
+    width: 792px;
+}
+.view_order_list table
+{
+	display: inline-block;
+    width: 792px;
+}
+.admin_detail_product
+{
+	margin-right:5px;
+}
+.admin_edit_product
+{
+	margin-right:5px;
+}
 .report_dashboard table {
     display: inline-block;
     width: 792px;
@@ -472,4 +490,8 @@ float:left;
 .password_item input {
 	display:inline-block;
 	width:200px;
+}
+.add_pr_icon_content img{
+	width:100px;
+	height:100px;
 }

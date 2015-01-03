@@ -1,6 +1,8 @@
 package com.onlinestore.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,6 +76,9 @@ public class CartController extends OsController {
 					.toString());
 			totalMoney += price * tempQuantity;
 		}
+		Double totalMoneyUsd = totalMoney/Variable.USD_VND;
+		NumberFormat formatter = new DecimalFormat("#0.00");  
+		totalMoneyUsd = Double.parseDouble(formatter.format(totalMoneyUsd));
 		totalPayment = totalMoney + transportFee; // thanh toan
 		view.addObject("cpMapList", cpMapList);
 		view.addObject("totalMoney",
@@ -82,6 +87,7 @@ public class CartController extends OsController {
 				String.format(Variable.CURRENCY_FORMAT, transportFee));
 		view.addObject("totalPayment",
 				String.format(Variable.CURRENCY_FORMAT, totalPayment));
+		view.addObject("totalMoneyUsd",totalMoneyUsd);
 		session.setAttribute(Variable.SESSION_CART_NUMBER, sizeMap);
 		session.setAttribute(Variable.SESSION_CART_PRICE, totalMoney);
 		view.setViewName(viewName);
