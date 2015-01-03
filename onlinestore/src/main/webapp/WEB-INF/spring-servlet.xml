@@ -132,7 +132,8 @@
 				<prop key="deleteOrder.html">osOrderController</prop>
 				<prop key="confirmOrder.html">osOrderController</prop>
 				<prop key="comfirmOrderFromEmail.html*">osOrderController</prop>
-				
+				<prop key="viewOrdersInfo.html*">osOrderController</prop>
+				<prop key="changeOrderStatus.html*">osOrderController</prop>
 				<prop key="deleteOrderDetailItem.html">osOrderDetailController</prop>
 				<prop key="/userDetail.html">osUserController</prop>
 				<prop key="userDetailForEdit.html">osUserController</prop>

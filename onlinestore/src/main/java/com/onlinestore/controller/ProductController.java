@@ -178,6 +178,7 @@ public class ProductController {
 		productMap.put("icon", product.getIcon());
 		productMap.put("status", product.getStatus().getName());
 		double price = product.getPrice().getPrice();
+		double price_self = 0;
 		productMap.put("price", String.format(Variable.CURRENCY_FORMAT, price));
 		productMap.put("description", product.getDescription());
 		productMap.put("producer", product.getProducer().getName());
@@ -187,7 +188,13 @@ public class ProductController {
 			productMap.put("promotion", "Không");
 		} else {
 			productMap.put("promotion", product.getPromotion().getName());
+			if(product.getPromotion().getTypePromotion().equals("Sale off"))
+			{
+				price_self = price - (price/ 100)* product.getPromotion().getId() * 10;
+				
+			}
 		}
+		productMap.put("price_self",String.format(Variable.CURRENCY_FORMAT, price_self) );
 		if (product.getDatasFieldsProduct() != null)
 		{
 			productMap.put("datasFields", product.getDatasFieldsProduct());
@@ -221,6 +228,8 @@ public class ProductController {
 		productMap.put("fieldsData", fieldsData);
 		view.addObject("product", productMap);
 		view.addObject("fieldsName",list_field_name);
+		view.addObject("price_self",price_self);
+		System.out.print(price_self);
 		view.setViewName(viewName);
 		return view;
 	}

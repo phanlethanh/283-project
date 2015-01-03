@@ -67,7 +67,8 @@ $(document).ready(
 });
 </script>
 <div>
-	<div>
+	<span class="ctgh_p">Danh sách đơn hàng</span>
+	<div class="view_order_list">
 	<table>
 		<tr>
 			<td>#</td>

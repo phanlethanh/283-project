@@ -1,5 +1,7 @@
 package com.onlinestore.controller;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +44,23 @@ public class HomeController extends OsController {
 		}
 		// Select 'hot' and 'new' product to display in home page
 		List<Product> homeProducts = getProductService().getHomeProducts();
+		List<String> list_price = new ArrayList<String>();
+		
+		for(int i = 0; i < homeProducts.size(); i++)
+		{
+			if(homeProducts.get(i).getPromotion().getTypePromotion().equals("Sale off"))
+			{
+				Double price_self = homeProducts.get(i).getPrice().getPrice() - (homeProducts.get(i).getPrice().getPrice()/100)*homeProducts.get(i).getPromotion().getId()*10;
+				list_price.add(String.format(Variable.CURRENCY_FORMAT, price_self));
+			}
+			else
+				list_price.add("0");
+		}
 		List<HashMap<String, Object>> mapList = convertToHashMap(homeProducts);
+		for(int i = 0; i < mapList.size(); i++)
+		{
+			mapList.get(i).put("price_seft",  list_price.get(i));
+		}
 		view.addObject("productMapList", mapList);
 		// Get category list first
 		this.categories = getCategoryService().getSubCategory(0);
@@ -141,7 +159,25 @@ public class HomeController extends OsController {
 		ModelAndView view = new ModelAndView();
 		String viewName = "home";
 		List<Product> newProducts = getProductService().getNewProducts();
+		
 		List<HashMap<String, Object>> mapList = convertToHashMap(newProducts);
+		List<String> list_price = new ArrayList<String>();
+		
+		for(int i = 0; i < newProducts.size(); i++)
+		{
+			if(newProducts.get(i).getPromotion().getTypePromotion().equals("Sale off"))
+			{
+				Double price_self = newProducts.get(i).getPrice().getPrice() - (newProducts.get(i).getPrice().getPrice()/100)*newProducts.get(i).getPromotion().getId()*10;
+				list_price.add(String.format(Variable.CURRENCY_FORMAT, price_self));
+			}
+			else
+				list_price.add("0");
+		}
+		
+		for(int i = 0; i < mapList.size(); i++)
+		{
+			mapList.get(i).put("price_seft",  list_price.get(i));
+		}
 		view.addObject("productMapList", mapList);
 		view.setViewName(viewName);
 		return view;
@@ -153,6 +189,23 @@ public class HomeController extends OsController {
 		String viewName = "home";
 		List<Product> hotProducts = getProductService().getHotProducts();
 		List<HashMap<String, Object>> mapList = convertToHashMap(hotProducts);
+		List<String> list_price = new ArrayList<String>();
+		
+		for(int i = 0; i < hotProducts.size(); i++)
+		{
+			if(hotProducts.get(i).getPromotion().getTypePromotion().equals("Sale off"))
+			{
+				Double price_self = hotProducts.get(i).getPrice().getPrice() - (hotProducts.get(i).getPrice().getPrice()/100)*hotProducts.get(i).getPromotion().getId()*10;
+				list_price.add(String.format(Variable.CURRENCY_FORMAT, price_self));
+			}
+			else
+				list_price.add("0");
+		}
+		
+		for(int i = 0; i < mapList.size(); i++)
+		{
+			mapList.get(i).put("price_seft",  list_price.get(i));
+		}
 		view.addObject("productMapList", mapList);
 		view.setViewName(viewName);
 		return view;
@@ -165,6 +218,23 @@ public class HomeController extends OsController {
 		List<Product> waitingProducts = getProductService()
 				.getWaitingProducts();
 		List<HashMap<String, Object>> mapList = convertToHashMap(waitingProducts);
+		List<String> list_price = new ArrayList<String>();
+		
+		for(int i = 0; i < waitingProducts.size(); i++)
+		{
+			if(waitingProducts.get(i).getPromotion().getTypePromotion().equals("Sale off"))
+			{
+				Double price_self = waitingProducts.get(i).getPrice().getPrice() - (waitingProducts.get(i).getPrice().getPrice()/100)*waitingProducts.get(i).getPromotion().getId()*10;
+				list_price.add(String.format(Variable.CURRENCY_FORMAT, price_self));
+			}
+			else
+				list_price.add("0");
+		}
+		
+		for(int i = 0; i < mapList.size(); i++)
+		{
+			mapList.get(i).put("price_seft",  list_price.get(i));
+		}
 		view.addObject("productMapList", mapList);
 		view.setViewName(viewName);
 		return view;
@@ -177,6 +247,23 @@ public class HomeController extends OsController {
 		List<Product> promotionProducts = getProductService()
 				.getPromotionProducts();
 		List<HashMap<String, Object>> mapList = convertToHashMap(promotionProducts);
+		List<String> list_price = new ArrayList<String>();
+		
+		for(int i = 0; i < promotionProducts.size(); i++)
+		{
+			if(promotionProducts.get(i).getPromotion().getTypePromotion().equals("Sale off"))
+			{
+				Double price_self = promotionProducts.get(i).getPrice().getPrice() - (promotionProducts.get(i).getPrice().getPrice()/100)*promotionProducts.get(i).getPromotion().getId()*10;
+				list_price.add(String.format(Variable.CURRENCY_FORMAT, price_self));
+			}
+			else
+				list_price.add("0");
+		}
+		
+		for(int i = 0; i < mapList.size(); i++)
+		{
+			mapList.get(i).put("price_seft",  list_price.get(i));
+		}
 		view.addObject("productMapList", mapList);
 		view.setViewName(viewName);
 		return view;

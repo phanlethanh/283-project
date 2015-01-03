@@ -354,6 +354,7 @@
 	<div class="title_box"><a href="viewPromotionList.html">Quản lý khuyến mãi</a></div>
 	<div class="title_box"><a href="viewConfigInfo.html">Quản lý cấu hình</a></div>
 	<div class="title_box"><a href="viewReportDashboard.html">Báo cáo</a></div>
+<div class="title_box"><a href="viewOrdersInfo.html">Quản lý đơn hàng</a></div>
 </div>
 
 
