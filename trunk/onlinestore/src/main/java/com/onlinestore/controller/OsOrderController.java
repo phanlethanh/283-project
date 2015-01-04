@@ -80,10 +80,10 @@ public class OsOrderController extends OsController {
 	@RequestMapping(value = "/createOrderFromCart", method = RequestMethod.POST)
 	public void createOrderFromCart(HttpServletRequest request,
 			HttpServletResponse response) {
-		// double minPayment = Double.parseDouble(getConfigService().getConfig(
-		// Variable.ID_MIN_PAYMENT).getValue());
-		// double maxPayment = Double.parseDouble(getConfigService().getConfig(
-		// Variable.ID_MAX_PAYMENT).getValue());
+		double MIN_PAYMENT = Double.parseDouble(getConfigService().getConfig(
+				Variable.ID_MIN_PAYMENT).getValue());
+		double MAX_PAYMENT = Double.parseDouble(getConfigService().getConfig(
+				Variable.ID_MAX_PAYMENT).getValue());
 		HttpSession session = request.getSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (null == session.getAttribute(Variable.SESSION_USER_ID)) {
@@ -112,47 +112,54 @@ public class OsOrderController extends OsController {
 				double productPrice = product.getPrice().getPrice();
 				totalPrice += productPrice * quantity;
 			}
-
-			Status status = new Status();
-			status.setId(Variable.ID_NEW_ORDER_STATUS); // New Status
-			TransportFee tfee = new TransportFee();
-			tfee.setId(Variable.ID_ZERO_TRANSPORT_FEE); // 0
-			Tax tax = new Tax();
-			tax.setId(Variable.ID_VAT_TAX);
-			OsOrder order = new OsOrder();
-			order.setOsUser(user);
-			order.setStatus(status);
-			order.setTransportFee(tfee);
-			order.setTax(tax);
-			order.setAddress(user.getAddress());
-			order.setPhone(user.getPhone());
-			// Update total_price of order
-			order.setTotalPrice(totalPrice);
-			// Insert into database
-			Integer orderId = getOsOrderService().createOsOrder(order);
-			order.setId(orderId);
-			// Create order detail
-
-			for (int i = 0; i < cartProductSize; i++) {
-				CartProduct cp = cartProducts.get(i);
-				int cpId = cp.getId();
-				Product product = cp.getProduct();
-				OsOrderDetail orderDetail = new OsOrderDetail();
-				orderDetail.setOsOrder(order);
-				orderDetail.setProduct(product);
-				// orderDetail.setQuantity(cp.getQuantity());
-				Integer quantity = Integer.valueOf(request
-						.getParameter("quantity_" + cpId));
-				orderDetail.setQuantity(quantity);
-				double productPrice = product.getPrice().getPrice();
-				orderDetail.setPrice(productPrice);
-				// Insert OsOrderDetail into database
-				getOsOrderDetailService().createOsOrderDetail(orderDetail);
-				// Delete cart product from cart
-				getCartProductService().deleteCartProduct(cpId);
+			if (Double.compare(totalPrice, MIN_PAYMENT) < 0) {
+				map.put("code", 3); // nho hon MIN
+			} else if (Double.compare(totalPrice, MAX_PAYMENT) > 0){
+				map.put("code", 4); // lon hon MAX
 			}
-			sendEmail(user, order.getId());
-			map.put("code", 1);
+			 else {
+
+				Status status = new Status();
+				status.setId(Variable.ID_NEW_ORDER_STATUS); // New Status
+				TransportFee tfee = new TransportFee();
+				tfee.setId(Variable.ID_ZERO_TRANSPORT_FEE); // 0
+				Tax tax = new Tax();
+				tax.setId(Variable.ID_VAT_TAX);
+				OsOrder order = new OsOrder();
+				order.setOsUser(user);
+				order.setStatus(status);
+				order.setTransportFee(tfee);
+				order.setTax(tax);
+				order.setAddress(user.getAddress());
+				order.setPhone(user.getPhone());
+				// Update total_price of order
+				order.setTotalPrice(totalPrice);
+				// Insert into database
+				Integer orderId = getOsOrderService().createOsOrder(order);
+				order.setId(orderId);
+				// Create order detail
+
+				for (int i = 0; i < cartProductSize; i++) {
+					CartProduct cp = cartProducts.get(i);
+					int cpId = cp.getId();
+					Product product = cp.getProduct();
+					OsOrderDetail orderDetail = new OsOrderDetail();
+					orderDetail.setOsOrder(order);
+					orderDetail.setProduct(product);
+					// orderDetail.setQuantity(cp.getQuantity());
+					Integer quantity = Integer.valueOf(request
+							.getParameter("quantity_" + cpId));
+					orderDetail.setQuantity(quantity);
+					double productPrice = product.getPrice().getPrice();
+					orderDetail.setPrice(productPrice);
+					// Insert OsOrderDetail into database
+					getOsOrderDetailService().createOsOrderDetail(orderDetail);
+					// Delete cart product from cart
+					getCartProductService().deleteCartProduct(cpId);
+				}
+				sendEmail(user, order.getId());
+				map.put("code", 1);
+			}
 		}
 
 		String json = new Gson().toJson(map);
@@ -391,15 +398,14 @@ public class OsOrderController extends OsController {
 			}
 		}
 
-		/*if (session.getAttribute(Variable.SESSION_USER_ID) != null
-				&& session.getAttribute(Variable.SESSION_USER_ID).equals(
-						user_id)) {
-			if (order != null)
-				order.setStatus(status);
-			getOsOrderService().updateOsOrder(order);
-			view.setViewName("comfirmOrder");
-		} else
-			view.setViewName("comfirmOrderNotLogin");*/
+		/*
+		 * if (session.getAttribute(Variable.SESSION_USER_ID) != null &&
+		 * session.getAttribute(Variable.SESSION_USER_ID).equals( user_id)) { if
+		 * (order != null) order.setStatus(status);
+		 * getOsOrderService().updateOsOrder(order);
+		 * view.setViewName("comfirmOrder"); } else
+		 * view.setViewName("comfirmOrderNotLogin");
+		 */
 
 		return view;
 	}

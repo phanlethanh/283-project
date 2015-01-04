@@ -33,14 +33,18 @@
 						type : "POST",
 						data : data_form,
 						success : function(data) {
+							$("#termsAndConditions").trigger('reveal:close');
 							if(data.code == 1)
 							{
-								$("#termsAndConditions").trigger('reveal:close');
 								alert("Lập hóa đơn thành công.");
 								window.location.href = 'viewOrderList.html';
 							} else if (data.code == 2){
 								alert("Lập hóa đơn thất bại. Vui lòng đăng nhập trước khi lập hóa đơn.");
-							} else{
+							} else if (data.code == 3){
+								alert("Lập hóa đơn thất bại. Tổng tiền nhỏ hơn tối thiểu cho phép.");
+							} else if (data.code == 4){
+								alert("Lập hóa đơn thất bại. Tổng tiền lớn hơn tối đa cho phép.");
+							} else {
 								alert("Lập hóa đơn thất bại.");
 							}
 						}

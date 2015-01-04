@@ -29,9 +29,11 @@ $(document).ready(function() {
 		$("#dateInput").trigger('reveal:close');
 		var start_date = document.getElementById("start_date_input").value;
 		var end_date = document.getElementById("end_date_input").value;
+		var limit = document.getElementById("limit_input").value;
 		var url = "http://localhost:8080/pentaho/api/repos/%3Aonlinestore%3ASoLuongSanPhamBanRa.prpt/viewer?"
 			+ "start_date=" + start_date 
 			+ "&end_date=" + end_date
+			+ "&limit=" + limit
 			+ "&output-type=html";
 		window.open(url, '_blank');
 		window.focus();
@@ -76,6 +78,23 @@ $(document).ready(function() {
 		window.focus();
 	});
 	
+	$('.export_profit_by_year').live('click', function(e) {
+		document.getElementById("form_profit_by_year_input").reset();
+		$("#profitByYearInput").reveal();
+	});
+	
+	$('.export_profit_by_year_button').live('click', function(e) {
+		$("#profitByYearInput").trigger('reveal:close');
+		var start_year = document.getElementById("start_year_profit_by_year").value;
+		var end_year = document.getElementById("end_year_profit_by_year").value;
+		var url = "http://localhost:8080/pentaho/api/repos/%3Aonlinestore%3AThongKeDoanhThuTheoNam.prpt/viewer?"
+			+ "start_year=" + start_year 
+			+ "&end_year=" + end_year
+			+ "&output-type=html";
+		window.open(url, '_blank');
+		window.focus();
+	});
+	
 });
 
 function exportStockReportOnclick() {
@@ -88,7 +107,7 @@ function exportStockReportOnclick() {
 <div class="report_dashboard">
 	<table>
 		<tr>
-			<th align="left">Số lượng sản phẩm đã bán</th>
+			<th align="left">Thống kê số lượng sản phẩm đã bán</th>
 			<td><a class="export_sell_quantity" href="#">Xuất</a></td>
 		</tr>
 		<tr>
@@ -96,12 +115,16 @@ function exportStockReportOnclick() {
 			<td><a class="export_stock_report" href="#">Xuất</a></td>
 		</tr>
 		<tr>
-			<th align="left">Thống kê doanh thu trong năm</th>
+			<th align="left">Thống kê doanh thu trong một năm</th>
 			<td><a class="export_profit_in_year" href="#">Xuất</a></td>
 		</tr>
 		<tr>
 			<th align="left">Thống kê doanh thu theo ngày</th>
 			<td><a class="export_profit_by_date" href="#">Xuất</a></td>
+		</tr>
+		<tr>
+			<th align="left">Thống kê doanh thu qua các năm</th>
+			<td><a class="export_profit_by_year" href="#">Xuất</a></td>
 		</tr>
 	</table>
 </div>
@@ -118,12 +141,17 @@ function exportStockReportOnclick() {
 				<div class="date_input_item">
 					<span>Từ ngày</span>
 					<input id="start_date_input" class="start_date_input" 
-					type="text" name="start_date_input" readonly>
+					type="text" name="start_date_input" readonly required>
 				</div>
 				<div class="date_input_item">
 					<span>Đến ngày</span>
 					<input id="end_date_input" class="end_date_input" 
-					type="text" name="end_date_input" readonly>
+					type="text" name="end_date_input" readonly required>
+				</div>
+				<div class="date_input_item">
+					<span>Top</span>
+					<input id="limit_input" class="limit_input" required
+					type="number" name="limit_input" min="1" max="1000">
 				</div>
 			</div>
 			<div class="groupFormButton">
@@ -146,7 +174,7 @@ function exportStockReportOnclick() {
 				<div class="date_input_item">
 					<span>Năm</span>
 					<input id="in_year_input" class="in_year_input" 
-					type="text" name="in_year_input">
+					type="text" name="in_year_input" required>
 				</div>
 			</div>
 			<div class="groupFormButton">
@@ -171,16 +199,47 @@ function exportStockReportOnclick() {
 				<div class="date_input_item">
 					<span>Từ ngày</span>
 					<input id="start_date_profit_by_date" class="start_date_profit_by_date" 
-					type="text" name="start_date_profit_by_date" readonly>
+					type="text" name="start_date_profit_by_date" readonly required>
 				</div>
 				<div class="date_input_item">
 					<span>Đến ngày</span>
 					<input id="end_date_profit_by_date" class="end_date_profit_by_date" 
-					type="text" name="end_date_profit_by_date" readonly>
+					type="text" name="end_date_profit_by_date" readonly required>
 				</div>
 			</div>
 			<div class="groupFormButton">
 				<input class="formButton export_profit_by_date_button"
+					type="button" value="Xuất" /> <input
+					class="formButton cancel  close-reveal-all" type="button"
+					value="Thoát" />
+			</div>
+		</form>
+	</div>
+	<a class="close-reveal-modal close-reveal-all"></a>
+</div>
+
+<div id="profitByYearInput" class="reveal-editrecordmodalwindow">
+	<h4>Chọn khoảng thời gian</h4>
+	<div class="in-progress"></div>
+	<div class="modalAddCategoryCentreContent">
+		<div class="modalMess"></div>
+		<form id="form_profit_by_year_input" class="form_profit_by_year_input"
+			method="post">
+			<div class="in-progress"></div>
+			<div class="modalContent">
+				<div class="date_input_item">
+					<span>Từ năm</span>
+					<input id="start_year_profit_by_year" class="start_year_profit_by_year" 
+					type="text" name="start_year_profit_by_year" required>
+				</div>
+				<div class="date_input_item">
+					<span>Đến năm</span>
+					<input id="end_year_profit_by_year" class="end_year_profit_by_year" 
+					type="text" name="end_year_profit_by_year" required>
+				</div>
+			</div>
+			<div class="groupFormButton">
+				<input class="formButton export_profit_by_year_button"
 					type="button" value="Xuất" /> <input
 					class="formButton cancel  close-reveal-all" type="button"
 					value="Thoát" />
