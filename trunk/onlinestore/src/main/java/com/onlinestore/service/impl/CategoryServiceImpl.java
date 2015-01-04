@@ -69,4 +69,10 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDao.getFieldsOfCategory(id);
 	}
 
+	@Override
+	public List<Product> getProductOfCategory(Integer idCategory) {
+		// TODO Auto-generated method stub
+		return categoryDao.getProductOfCategory(idCategory);
+	}
+
 }

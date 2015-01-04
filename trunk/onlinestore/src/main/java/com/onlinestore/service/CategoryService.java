@@ -19,4 +19,5 @@ public interface CategoryService {
 	boolean findCategoryWithName(String name);
 	Integer getTotalRow(Integer idCategory);
 	FieldsProduct getFieldsOfCategory(Integer id);
+	List<Product> getProductOfCategory(Integer idCategory);
 }

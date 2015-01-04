@@ -11,6 +11,7 @@ public interface CategoryDao extends Dao<Category> {
 	List<Category> getSubCategory(Integer parent_id);
 	boolean findCategoryWithName(String name);
 	List<Product> getProductOfCategory(Integer idCategory, Integer pageNumber);
+	List<Product> getProductOfCategory(Integer idCategory);
 	Integer getTotalRow(Integer idCategory);
 	FieldsProduct getFieldsOfCategory(Integer id);
 }

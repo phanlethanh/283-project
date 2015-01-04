@@ -1,9 +1,19 @@
 package com.onlinestore.controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import javax.servlet.http.Cookie;
@@ -19,13 +29,21 @@ import org.springframework.util.SerializationUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.onlinestore.model.Category;
+import com.onlinestore.model.CategoryProduct;
 import com.onlinestore.model.FieldsProduct;
+import com.onlinestore.model.Gallery;
 import com.onlinestore.model.OsUser;
+import com.onlinestore.model.Price;
+import com.onlinestore.model.Producer;
 import com.onlinestore.model.Product;
+import com.onlinestore.model.Promotion;
+import com.onlinestore.model.Status;
 import com.onlinestore.service.CategoryService;
 import com.onlinestore.service.FieldsProductService;
 import com.onlinestore.service.impl.CategoryServiceImpl;
@@ -108,7 +126,7 @@ public class CategoryController {
 		if(getCategoryService().findCategoryWithName(category.getName()))
 		{
 			meta.put("code", 0);
-			meta.put("mess", "Not add new category");
+			meta.put("mess", "Tên thư mục đã tồn tại trên hệ thống !" );
 		}
 		else
 		{
@@ -117,7 +135,7 @@ public class CategoryController {
 			getCategoryService().createCategory(newCate);
 			
 			meta.put("code", 1);
-			meta.put("mess", "Successful ddd new category");
+			meta.put("mess", "Thêm thư mục thành công");
 		}
 		
 		String json = new Gson().toJson(meta);
@@ -284,11 +302,10 @@ public class CategoryController {
 			HashMap<String,Object> fieldNew = new HashMap<String,Object>();
 			byte[] data_fields = Base64.decode(fields.getSerialFields());
 			fieldsMap = ( HashMap<String,Object>) SerializationUtils.deserialize(data_fields);
-			System.out.print(fieldsMap);
+			fieldNew.put("field_name", "checked");
 			fieldNew.put("group_name", groupName);
-			fieldNew.put("field_name", fieldName);
 			fieldsMap.put(identity, fieldNew);
-			System.out.print(fieldsMap);
+			
 			byte[] new_data_fields = SerializationUtils.serialize(fieldsMap);
 			String serial_fields = Base64.encodeBytes(new_data_fields);
 			fields.setSerialFields(serial_fields);
@@ -361,10 +378,7 @@ public class CategoryController {
 				
 				if(request.getParameter(""+entry.getKey()) != null)
 				{
-					/*for(Entry<String,Object> subEntry:((HashMap<String,Object>)entry.getValue()).entrySet())
-					{
-						 ((HashMap<String,Object>)subEntry.getValue()).put("field_name",request.getParameter(entry.getKey()));
-					}*/
+					
 					HashMap<String,Object> field = ((HashMap<String,Object>)entry.getValue());
 					field.put("field_name",request.getParameter(""+entry.getKey()) );
 					//System.out.print();
@@ -373,7 +387,8 @@ public class CategoryController {
 				else
 				{
 					HashMap<String,Object> field = ((HashMap<String,Object>)entry.getValue());
-					field.put("field_name","" );
+					if(field.get("group_name").toString().compareTo("General") == 0)
+						field.put("field_name","" );
 				}
 			}System.out.print(fieldsMap);
 			
@@ -398,4 +413,91 @@ public class CategoryController {
 		}
 	}
 	
+	@RequestMapping (value="/importCategory")
+	public void importCategory(@RequestParam("myFile") MultipartFile file,HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		int parent_id;
+		if(request.getParameter("category_id") != "")
+		{
+			parent_id = Integer.parseInt(request.getParameter("category_id"));
+		}
+		else
+			parent_id = 0;
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(
+					new InputStreamReader(file.getInputStream()));
+		} catch (FileNotFoundException e) {
+
+			e.printStackTrace();
+		}
+		String line;
+		try {
+			br.readLine();
+			while ((line = br.readLine()) != null) {
+				String[] fields = line.split(",");
+				if(!getCategoryService().findCategoryWithName(fields[0]))
+				{
+					Category category = new Category();
+					category.setName(fields[0]);
+					category.setParentId(parent_id);
+					getCategoryService().createCategory(category);
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		br.close();
+		HashMap<String,Object> meta = new HashMap<String,Object>();
+		String json = new Gson().toJson(meta);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping (value="/exportCategory")
+	public void exportCategory(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		int category_id = Integer.parseInt(request.getParameter("category_id"));
+		
+		List<Category> list_category = new ArrayList<Category>();
+		list_category = getCategoryService().getSubCategory(category_id);
+		BufferedWriter br = new BufferedWriter(new OutputStreamWriter (new FileOutputStream("danh_sach_danh_muc.csv"),Charset.forName("UTF-8")));
+		byte[] b1, b2,b3;
+		String temp1, temp2,temp3;
+		String sComma = ",";
+		b3 = sComma.getBytes("UTF-8");
+		temp3 = new String( b3);
+		br.write("ID"+temp3);
+		br.write("Name"+"\r\n");
+		//br.write("Price"+"\r\n");
+		for(int i = 0;i<list_category.size() ; i++)
+		{
+			b1=b2=null;
+			temp1=temp2 = null;
+			b1 = list_category.get(i).getName().getBytes("UTF-8");
+			temp1 = new String(b1);
+			br.write(list_category.get(i).getId()+temp3);
+			br.write(temp1+temp3);
+			br.write("\r\n");
+			br.flush();
+		}
+		br.close();
+		HashMap<String, Object> meta = new HashMap<String, Object>();
+		String json = new Gson().toJson(meta);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
 }

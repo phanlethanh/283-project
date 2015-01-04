@@ -93,6 +93,9 @@
 				<prop key="/addSubCategory.html">categoryController</prop>
 				<prop key="/deleteCategory.html">categoryController</prop>
 				<prop key="/loadProductOfCategory.html">categoryController</prop>
+				<prop key="/importCategory.html">categoryController</prop>
+				<prop key="/exportCategory.html">categoryController</prop>
+				
 				<prop key="/productDetail.html">productController</prop>
 				<prop key="adminDetailProduct.html">productController</prop>
 				<prop key="addImageToGallery.html">productController</prop>
@@ -106,6 +109,7 @@
 				<prop key="saveAddProduct.html">productController</prop>
 				<prop key="importProduct.html">productController</prop>
 				<prop key="importProductLoadCategory.html">productController</prop>
+				<prop key="exportProduct.html">productController</prop>
 				<prop key="/viewCart.html">cartController</prop>
 				<prop key="/addToCart.html">cartController</prop>
 				<prop key="/removeProductFromCart.html">cartController</prop>
