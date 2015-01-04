@@ -244,7 +244,7 @@
 		});*/
 		$("#config_field").live('click', function(){
 			var id = $("#category_id").val();
-			var list_field =["memory","camera","media"];
+			var list_field =["memory","camera","media","kich thuot","do day"];
 			$("#fields_product_form .fields_input").empty();
 			if(id != '')
 			{
@@ -539,7 +539,12 @@
 			    }
 			});
 		});
-		
+		$("#import_category").live('click', function(){
+			var category_id = $("#category_id").val();
+			
+			$("#importCategory").reveal();
+			$("#import_category_file_id").val(category_id);
+		});
 		$("#import_product").live('click', function(){
 			var category_id = $("#category_id").val();
 			$.ajax({
@@ -579,6 +584,56 @@
 			    }
 			});
 		});
+		$(".save_category_import").live('click', function(){
+			var formData = new FormData($('#importCategoryForm')[0]);
+			$.ajax({
+			    url: "importCategory.html",
+			    type: "POST",
+			    contentType: false,
+			    processData: false,
+			    cache: false,
+			    data: formData,
+			    success: function(data) {
+			    	$("#importCategory").trigger('reveal:close');
+			    },
+			    error: function() {
+			        alert("unable to create the record");
+			    }
+			});
+		});
+		
+		$("#export_product").live('click', function(){
+			var category_id = $("#category_id").val();
+			if(category_id == "")
+			{
+				category_id=0;
+			}
+			$.ajax({
+				url:"exportProduct.html",
+				type:"POST",
+				data:{category_id:category_id},
+				success:function(){
+					$("#category_id").val("");
+					alert("Đã export thành công !");
+				}
+			});
+		});
+		$("#export_category").live('click', function(){
+			var category_id = $("#category_id").val();
+			if(category_id == "")
+			{
+				category_id=0;
+			}
+			$.ajax({
+				url:"exportCategory.html",
+				type:"POST",
+				data:{category_id:category_id},
+				success:function(){
+					$("#category_id").val("");
+					alert("Đã export thành công !");
+				}
+			});
+		}); 
 	});
 	
 </script>
@@ -591,7 +646,10 @@
 		<input type="hidden" class="category_id" id="category_id">
 	</div>
 	<div class="admin_action">
-		<input type="button" id="import_product" value="Import" class="config_field">
+		<input type="button" id="import_category" value="Import danhmuc" class="config_field">
+		<input type="button" id="import_product" value="Import sản phẩm" class="config_field">
+		<input type="button" id="export_category" value="Export danh mục" class="config_field">
+		<input type="button" id="export_product" value="Export sản phẩm" class="config_field">
 		<input type="button" id="add_product" value="Thêm sản phẩm" class="config_field">
 		<input type="button" id="config_field" value="Cài đặt thuộc tính" class="config_field">
 	</div>
@@ -606,6 +664,7 @@
 		</tr>
 		
 	</table>
+	<div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;"><img src='image/load.gif' width="64" height="64" /><br>Loading..</div>
 </div>
 <div class="paging">
 </div>
@@ -781,6 +840,25 @@
 			</div>
 			<div class="groupFormButton">
 				<input class="formButton save_import" type="button" value="Lưu"/>
+				<input class="formButton cancel_import" type="button" value="Thoát"/>
+			</div>
+	</div>
+	<a class="close-reveal-modal close-reveal-all"></a>
+</div>
+<div id="importCategory" class="reveal-recordmodalwindow medium">
+	<h4>Import danh mục</h4>
+	<div class="in-progress"></div>
+	<div class="modalImportCategoryCentreContent">
+		<div class="modalMess"></div>
+			<div class="in-progress"></div>
+			<div class="modalContent">							
+				<form id="importCategoryForm">
+				     <input type="file" name="myFile" id="category_file_import" accept=".csv" /></br>
+				     <input type="hidden" name="category_id" id="import_category_file_id">			     
+				</form>
+			</div>
+			<div class="groupFormButton">
+				<input class="formButton save_category_import" type="button" value="Lưu"/>
 				<input class="formButton cancel_import" type="button" value="Thoát"/>
 			</div>
 	</div>

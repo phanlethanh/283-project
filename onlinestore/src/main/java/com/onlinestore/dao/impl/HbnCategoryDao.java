@@ -13,6 +13,7 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -86,6 +87,16 @@ public class HbnCategoryDao extends AbstractHbnDao<Category> implements
 			return category.getFieldsProduct();
 		}
 		return null;
+	}
+
+	@Override
+	public List<Product> getProductOfCategory(Integer idCategory) {
+		// TODO Auto-generated method stub
+		String sql = "select p from Product p, CategoryProduct cp where cp.category.id =:Id and cp.product.id = p.id";
+		Query query = getSession().createQuery(sql);
+		query.setParameter("Id", idCategory);
+		//query.setParameter("pageSize",pageSize);
+		return query.list();
 	}
 	
 }

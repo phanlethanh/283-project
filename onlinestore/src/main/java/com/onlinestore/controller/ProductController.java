@@ -2,11 +2,16 @@ package com.onlinestore.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -531,18 +536,24 @@ public class ProductController {
 		fieldsMap = (HashMap<String, Object>) SerializationUtils
 				.deserialize(data_fields1);
 		int i = 0;
+		System.out.print(fieldsMap);
 		for (Entry<String, Object> entry : fieldsMap.entrySet()) {
-			fieldsData.put(entry.getKey(), "");
-			String key = entry.getKey();
-			fieldsName.put("" + i, key);
-			i++;
+			
+			if(((HashMap)entry.getValue()).get("field_name").toString().compareTo("")!=0)
+			{
+				fieldsData.put(entry.getKey(), "");
+				String key = entry.getKey();
+				fieldsName.put("" + i, key);
+				i++;
+				System.out.print(i+""+((HashMap)entry.getValue()).get("field_name"));
+			}
+			
 		}
 		fieldsName.put("count", i);
 
 		if (datasFields != null) {
 			byte[] data_fields = Base64.decode(datasFields.getSerialData());
-			fieldsData = (HashMap<String, Object>) SerializationUtils
-					.deserialize(data_fields);
+			fieldsData = (HashMap<String, Object>) SerializationUtils.deserialize(data_fields);
 			int size = fieldsData.size();
 			fieldsData.put("count", size);
 		} else {
@@ -931,4 +942,49 @@ public class ProductController {
 		}
 	}
 	
+	@RequestMapping(value="/exportProduct")
+	public void exportProduct(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		
+		int category_id = Integer.parseInt(request.getParameter("category_id"));
+		
+		List<Product> list_product = new ArrayList<Product>();
+		if(category_id != 0)
+			list_product = getCategoryService().getProductOfCategory(category_id);
+		else
+			list_product = getProductService().getProducts();
+		BufferedWriter br = new BufferedWriter(new OutputStreamWriter (new FileOutputStream("danh_sach_san_pham.csv"),Charset.forName("UTF-8")));
+		byte[] b1, b2,b3;
+		String temp1, temp2,temp3;
+		String sComma = ",";
+		b3 = sComma.getBytes("UTF-8");
+		temp3 = new String( b3);
+		br.write("ID"+temp3);
+		br.write("Name"+temp3);
+		br.write("Price"+"\r\n");
+		for(int i = 0;i<list_product.size() ; i++)
+		{
+			b1=b2=null;
+			temp1=temp2 = null;
+			b1 = list_product.get(i).getName().getBytes("UTF-8");
+			temp1 = new String(b1);
+			br.write(list_product.get(i).getId()+temp3);
+			br.write(temp1+temp3);
+			
+			br.write(""+String.format(Variable.CURRENCY_FORMAT, list_product.get(i).getPrice().getPrice()).replace(",", "")+temp3);
+			br.write("\r\n");
+			br.flush();
+		}
+		br.close();
+		HashMap<String, Object> meta = new HashMap<String, Object>();
+		String json = new Gson().toJson(meta);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
 }
